@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="上个周，项目中有需要接入一个 H5 页面，H5 中有上传图片的功能，接入测试的时候，发现 iOS 端正常，但是所有的 Android 手机在点击上传图片的按钮时，都毫无反应 。当时我的表情是这样的 (˶‾᷄ ⁻̫ ‾᷅˵) 。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-解决Webview对 `&lt;input type=&quot;file&quot;&gt; ` 点击无响应">
+<meta property="og:url" content="http://yoursite.com/2017/08/31/Android-解决Webview对inputType=file点击无响应/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="上个周，项目中有需要接入一个 H5 页面，H5 中有上传图片的功能，接入测试的时候，发现 iOS 端正常，但是所有的 Android 手机在点击上传图片的按钮时，都毫无反应 。当时我的表情是这样的 (˶‾᷄ ⁻̫ ‾᷅˵) 。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4373698-06589b73d2df6c80.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/836a36d6a91d859428783f8ea2ce85d7.png">
+<meta property="og:updated_time" content="2019-01-28T16:51:19.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-解决Webview对 `&lt;input type=&quot;file&quot;&gt; ` 点击无响应">
+<meta name="twitter:description" content="上个周，项目中有需要接入一个 H5 页面，H5 中有上传图片的功能，接入测试的时候，发现 iOS 端正常，但是所有的 Android 手机在点击上传图片的按钮时，都毫无反应 。当时我的表情是这样的 (˶‾᷄ ⁻̫ ‾᷅˵) 。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4373698-06589b73d2df6c80.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/31/Android-解决Webview对inputType=file点击无响应/">
+
+
+
+
+
+  <title>Android-解决Webview对 `<input type="file"> ` 点击无响应 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/31/Android-解决Webview对inputType=file点击无响应/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-解决Webview对 `<input type="file"> ` 点击无响应</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-31T18:03:44+08:00">
+                2017-08-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上个周，项目中有需要接入一个 H5 页面，H5 中有上传图片的功能，接入测试的时候，发现 iOS 端正常，但是所有的 Android 手机在点击上传图片的按钮时，都毫无反应 。当时我的表情是这样的 (˶‾᷄ ⁻̫ ‾᷅˵) 。  </p>
+<a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/4373698-06589b73d2df6c80.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="封面"></p>
+<h1 id="发现一个-WebView-的坑："><a href="#发现一个-WebView-的坑：" class="headerlink" title="发现一个 WebView 的坑："></a><font color="#008000">发现一个 WebView 的坑：</font></h1><p>上个周，项目中有需要接入一个 H5 页面，H5 中有上传图片的功能，接入测试的时候，发现 iOS 端正常，但是所有的 Android 手机在点击上传图片的按钮时，都毫无反应 。当时我的表情是这样的 (˶‾᷄ ⁻̫ ‾᷅˵) 。</p>
+<p>问题原因：</p>
+<p>原因是 H5 访问本地文件的时候，使用的<code>&lt;input type=&quot;file&quot;&gt;</code> ,WebView 出于安全性的考虑，限制了以上操作。</p>
+<p>解决方法：</p>
+<p>重写 WebviewChromeClient 中的 openFileChooser() 和 onShowFileChooser()方法响应<code>&lt;input type=&quot;file&quot;&gt;</code>，然后使用原生代码来实现调用本地相册和拍照的功能，最后在 onActiivtyResult 把选择的图片 URI 回传给 WebviewChromeClient。</p>
+<h1 id="逻辑分析"><a href="#逻辑分析" class="headerlink" title="逻辑分析"></a><font color="#008000">逻辑分析</font></h1><p>首先明确下，我需要做的工作有：</p>
+<p>1.弹出对话框选择相机或相册<br>2.调用系统相册的实现代码<br>3.调用系统相机拍照的实现代码<br>4.需要兼容 6.0 的动态权限问题和 7.0 的文件管理问题。<br>5.相机拍照后的图片上传后要进行删除，以免占用手机存储空间</p>
+<p>列下来觉得还是蛮多的。</p>
+<h1 id="博主实现完-Demo，并扔给你一段核心代码"><a href="#博主实现完-Demo，并扔给你一段核心代码" class="headerlink" title="博主实现完 Demo，并扔给你一段核心代码"></a><font color="#008000">博主实现完 Demo，并扔给你一段核心代码</font></h1><p> WebviewChromeClient 中重写方法响应 <code>&lt;input type=&quot;file&quot;&gt;</code> 。</p>
+<p> 4.1以上系统，使用 openFileChooser() ，该方法5.0已经被废弃</p>
+<p> 5.0以上系统，使用 onShowFileChooser()</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mWebView.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;</span><br><span class="line"></span><br><span class="line">           <span class="comment">//For Android  &gt;= 5.0</span></span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onShowFileChooser</span><span class="params">(WebView webView, ValueCallback&lt;Uri[]&gt; filePathCallback, FileChooserParams fileChooserParams)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">               uploadMessageAboveL = filePathCallback;</span><br><span class="line">               <span class="comment">//调用系统相机或者相册</span></span><br><span class="line">               uploadPicture();</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">           <span class="comment">//For Android  &gt;= 4.1</span></span><br><span class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openFileChooser</span><span class="params">(ValueCallback&lt;Uri&gt; valueCallback, String acceptType, String capture)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">               uploadMessage </span>= valueCallback;</span><br><span class="line">               <span class="comment">//调用系统相机或者相册</span></span><br><span class="line">               uploadPicture();</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+<p> 调用相机和相册选择图片后，在 onActivityResult() 中将图片的 Uri 通过 uploadMessage，5.0以上用 uploadMessageAboveL，使用 onReceiveValue 回传过去。</p>
+<p> 这里需要注意的是，当取消拍照或者未选择照片的时候，uploadMessage 或者 uploadMessageAboveL 要返回 null.因为 valueCallback 持有的是 WebView，在 onReceiveValue 没有回传值的情况下，WebView 无法进行下一步操作，会导致取消选择文件后，点击 <code>&lt;input type = &#39;file&#39;&gt;</code>,不会再响应。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Override</span><br><span class="line">   protected <span class="keyword">void</span> onActivityResult(int requestCode, int resultCode, Intent data) &#123;</span><br><span class="line">       <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, data);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (requestCode == REQUEST_CODE_ALBUM || requestCode == REQUEST_CODE_CAMERA) &#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (uploadMessage == <span class="literal">null</span> &amp;&amp; uploadMessageAboveL == <span class="literal">null</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="comment">//取消拍照或者图片选择时,返回null,否则&lt;input file&gt; 就是没有反应</span></span><br><span class="line">           <span class="keyword">if</span> (resultCode != RESULT_OK) &#123;</span><br><span class="line">               <span class="keyword">if</span> (uploadMessage != <span class="literal">null</span>) &#123;</span><br><span class="line">                   uploadMessage.onReceiveValue(<span class="literal">null</span>);</span><br><span class="line">                   uploadMessage = <span class="literal">null</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (uploadMessageAboveL != <span class="literal">null</span>) &#123;</span><br><span class="line">                   uploadMessageAboveL.onReceiveValue(<span class="literal">null</span>);</span><br><span class="line">                   uploadMessageAboveL = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="comment">//拍照成功和选取照片时</span></span><br><span class="line">           <span class="keyword">if</span> (resultCode == RESULT_OK) &#123;</span><br><span class="line">               Uri imageUri = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">               <span class="keyword">switch</span> (requestCode) &#123;</span><br><span class="line">                   <span class="keyword">case</span> REQUEST_CODE_ALBUM:</span><br><span class="line"></span><br><span class="line">                       <span class="keyword">if</span> (data != <span class="literal">null</span>) &#123;</span><br><span class="line">                           imageUri = data.getData();</span><br><span class="line">                       &#125;</span><br><span class="line"></span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   <span class="keyword">case</span> REQUEST_CODE_CAMERA:</span><br><span class="line"></span><br><span class="line">                       <span class="keyword">if</span> (!TextUtils.isEmpty(mCurrentPhotoPath)) &#123;</span><br><span class="line">                           File file = <span class="keyword">new</span> File(mCurrentPhotoPath);</span><br><span class="line">                           Uri localUri = Uri.fromFile(file);</span><br><span class="line">                           Intent localIntent = <span class="keyword">new</span> Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri);</span><br><span class="line">                           sendBroadcast(localIntent);</span><br><span class="line">                           imageUri = Uri.fromFile(file);</span><br><span class="line">                           mLastPhothPath = mCurrentPhotoPath;</span><br><span class="line">                       &#125;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">               <span class="comment">//上传文件</span></span><br><span class="line">               <span class="keyword">if</span> (uploadMessage != <span class="literal">null</span>) &#123;</span><br><span class="line">                   uploadMessage.onReceiveValue(imageUri);</span><br><span class="line">                   uploadMessage = <span class="literal">null</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (uploadMessageAboveL != <span class="literal">null</span>) &#123;</span><br><span class="line">                   uploadMessageAboveL.onReceiveValue(<span class="keyword">new</span> Uri[]&#123;imageUri&#125;);</span><br><span class="line">                   uploadMessageAboveL = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>最后不要忘记，在项目的混淆文件中加入以下规则，保护 openFileChooser() 不被混淆，否则混淆后的包在 Android 4.X 不能正常使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#确保openFileChooser方法不被混淆</span><br><span class="line">-keepclassmembers <span class="class"><span class="keyword">class</span> * <span class="keyword">extends</span> <span class="title">android</span>.<span class="title">webkit</span>.<span class="title">WebChromeClient</span></span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openFileChooser</span><span class="params">(...)</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>调用系统相机和相册的代码，因为动态权限申请和文件删除的功能，搞的太长了，就不贴了。下面是完整代码的 github 项目地址：</p>
+<p><a href="https://github.com/DRPrincess/DR_WebviewDemo" target="_blank" rel="noopener">https://github.com/DRPrincess/DR_WebviewDemo</a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title=" 参考资料 "></a><font color="#008000"> 参考资料 </font></h1><p><a href="http://www.jianshu.com/p/3ad7c39858ec" target="_blank" rel="noopener">Android爬坑之旅之WebView</a></p>
+<p><a href="http://www.jianshu.com/p/48e688ce801f" target="_blank" rel="noopener">Android WebView那些坑之上传文件</a></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title=" 最后 "></a><font color="#008000"> 最后 </font></h1><p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注 (<em>^o^</em>)。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/836a36d6a91d859428783f8ea2ce85d7.png" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/23/Android-项目中采用的混淆加固多渠道打包方案/" rel="next" title="Android-项目中采用的混淆加固多渠道打包方案">
+                <i class="fa fa-chevron-left"></i> Android-项目中采用的混淆加固多渠道打包方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/11/一个由List-removeAll-失效引发的思考/" rel="prev" title="一个由List.removeAll()失效引发的思考">
+                一个由List.removeAll()失效引发的思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#发现一个-WebView-的坑："><span class="nav-number">1.</span> <span class="nav-text">发现一个 WebView 的坑：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑分析"><span class="nav-number">2.</span> <span class="nav-text">逻辑分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#博主实现完-Demo，并扔给你一段核心代码"><span class="nav-number">3.</span> <span class="nav-text">博主实现完 Demo，并扔给你一段核心代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text"> 参考资料 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text"> 最后 </span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="由 Tools 里面都是啥？ Build Tools &amp;amp; Platform Tools &amp;amp; Tools 三个货区别是啥？一个小疑问促成一篇博客的到来。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build Tools &amp; Platform Tools &amp; Tools &amp; platform &amp; Gradle 貌似复杂的依赖关系。">
+<meta property="og:url" content="http://yoursite.com/2018/01/11/Build-Tools&Platform-Tools&Tools&platform&Gradle貌似复杂的依赖关系/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="由 Tools 里面都是啥？ Build Tools &amp;amp; Platform Tools &amp;amp; Tools 三个货区别是啥？一个小疑问促成一篇博客的到来。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/6f3b9cc628e905e453bbfc9c2a4cd756.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/026ad2cc7bddb749806e0353b6dd9994.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/48d618645de75387457ed5b44d1d28d4.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c87d861724e11a954a582754d75b394e.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8161680a135e9082a9626a89093dd366.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/14d1b8cba7288104fac9be7f36a52596.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/deb63b9b1a6ba160d82927ccd16e9952.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/542bff136f69eb2fc349699f5b48f849.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9f2bb4942e0326d97a4f306907cb27f4.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/14034b086a3edf8837900e18554e4dcc.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8f64b7484cdd07d02aa5905132e43e7a.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/dd2642f03b10eb86cb0ff28d0435940f.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:53:35.317Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Build Tools &amp; Platform Tools &amp; Tools &amp; platform &amp; Gradle 貌似复杂的依赖关系。">
+<meta name="twitter:description" content="由 Tools 里面都是啥？ Build Tools &amp;amp; Platform Tools &amp;amp; Tools 三个货区别是啥？一个小疑问促成一篇博客的到来。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/6f3b9cc628e905e453bbfc9c2a4cd756.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/11/Build-Tools&Platform-Tools&Tools&platform&Gradle貌似复杂的依赖关系/">
+
+
+
+
+
+  <title>Build Tools & Platform Tools & Tools & platform & Gradle 貌似复杂的依赖关系。 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/Build-Tools&Platform-Tools&Tools&platform&Gradle貌似复杂的依赖关系/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Build Tools & Platform Tools & Tools & platform & Gradle 貌似复杂的依赖关系。</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-11T17:58:00+08:00">
+                2018-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由 Tools 里面都是啥？ Build Tools &amp; Platform Tools &amp; Tools 三个货区别是啥？一个小疑问促成一篇博客的到来。<br><a id="more"></a></p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>这篇博客的主题不是很明显，但是等你看完，可以明白两个问题：</p>
+<ul>
+<li>Build Tools &amp; Platform Tools &amp; Tools 的区别。</li>
+<li>Build Tools &amp; Platform Tools &amp; Tools &amp; Platform &amp; Gradle 这几个货版本到底是怎么相互依赖对应的。</li>
+</ul>
+<h1 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h1><p>在安装和配置 Android Studio 的时候，有一个很重要的步骤，就是配置 SDK 路径，那么 SDK 是什么呢？</p>
+<p>SDK（Soft Develop Kit），按照我硬翻的风格是是软件开发工具箱，其实，正确的理解是一整套开发工具。例如 Android SDK，就是 Google 提供的和 Android 开发相关的一整套开发工具，不仅包括编译，运行，打包这些必须的，还有很多其他小工具。了解和学习它们，对开发工作很有帮助。</p>
+<p>然后就说到这三个文件夹，tools,build-tools,platform tools,首先它们仨都是 Android SDK 提供的文件夹，名字都像，常常傻傻分不清楚。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/6f3b9cc628e905e453bbfc9c2a4cd756.png" alt=""></p>
+<p>其实我也不知道弄懂它们有什么意义，但是我不想每次都一脸懵逼，于是就有了这篇博客。</p>
+<h1 id="Build-Tools"><a href="#Build-Tools" class="headerlink" title="Build Tools"></a>Build Tools</h1><p>Build-Tools 的内部结构如图。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/026ad2cc7bddb749806e0353b6dd9994.png" alt=""></p>
+<p>没想到的是，我目前使用的 SDK 中有这么多版本的 Build-Tools。那么问题就来了，</p>
+<ul>
+<li>Build-Tools 是干嘛的？为什么要专门放一个文件夹？</li>
+<li>Build-Tools 为什么需要这么多版本的？只有一个行不行？</li>
+</ul>
+<p>这个时候，就要去看谷爹的官方介绍说明了，我认为那里是最准确的描述。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/48d618645de75387457ed5b44d1d28d4.png" alt=""></p>
+<p>上面说，Build-Tools 是 Android 应用编译和创建过程中所必须的一套工具集合。</p>
+<p>开发的时候，我们应该时刻保证我们的 Build-Tools 是最新版的。而且从 Android Studio 3.0.0 开始，创建项目的时候，会根据 Gradle 插件的版本，默认使用版本支持范围中最低版本的 Build-Tools。当然，如果需要更改的话，通过 build.gradle 中修改 buildToolsVersion 参数可以修改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    buildToolsVersion &quot;26.0.2&quot;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是官方说明。从中，我们可以找到之前问题的答案：</p>
+<ul>
+<li><p><em>build Tools 是干嘛的？为什么要专门放一个文件夹？</em><br>build tools 是 Android 应用编译和创建过程中所必须的一套工具集合，放一个文件夹的意义，就是我猜是为了好分类吧。</p>
+</li>
+<li><p><em>build Tools 为什么会有这么多版本的？只有一个行不行？</em><br>官方建议是最好及时更新，保持最新版本。从这句话可以看出，build tools 只需要保持一个最新版本就好。从 Android 系统整体都是向后兼容的特性考虑，一个最新版本也是足够的。</p>
+<p>至于问什么会有这么多版本，是因为我使用的时候，不是最新版，然后用了不同的版本的 SDK，每个 SDK 有对应的 Build-Tools 版本范围，所以下了很多。</p>
+</li>
+</ul>
+<h4 id="Gradle-plugin-amp-Build-Tools"><a href="#Gradle-plugin-amp-Build-Tools" class="headerlink" title="Gradle plugin &amp; Build Tools"></a>Gradle plugin &amp; Build Tools</h4><p>而且 从我们谷爹说的话中，可以知道 Gradle plugin 和 Build-Tools 版本之间有着不同寻常的关系。</p>
+<p>Gradle 是目前比较流行的构建工具之一，Android Studio 中集成的就是 Gradle,并针对 Android 应用开发了插件 Gradle plugin 。在我看来，编译和构建环节本就密不可分，由此猜测二者之间会不会有版本兼容的考虑，查看文档果然如此。</p>
+<p>Gradle Plugin 的版本说明中，对 Gradle 和 Build Tools 的版本都要最低要求。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c87d861724e11a954a582754d75b394e.png" alt=""></p>
+<p>把最新的几个版本总结了如下表格：<br>|Android Gradle Plugin    |Gradle|Build Tools<br>|:—-|:—-|:—-|<br>|3.0.0    |    4.1+|26.0.2+|<br>|2.3.0+    |    3.3+|25.0.0+|<br>|2.2.0+|2.14.1+|    23.0.2+|</p>
+<p><a href="https://developer.android.com/studio/releases/gradle-plugin.html" target="_blank" rel="noopener">Android Plugin for Gradle Release Notes
+</a></p>
+<h1 id="Platform-Tools"><a href="#Platform-Tools" class="headerlink" title="Platform Tools"></a>Platform Tools</h1><p>Platform Tools 的内部结构如图。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8161680a135e9082a9626a89093dd366.png" alt=""></p>
+<p>本来我以为会像 Build-Tools 一样有很多版本，然而并不是，只有一个。</p>
+<p>看一下谷爹的说明：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/14d1b8cba7288104fac9be7f36a52596.png" alt=""></p>
+<p>Platform-Tools 是 Android SDK 的一个组件 。内容主要包含与 Android 移动平台交互的工具，例如 adb(android 调试桥，用来和应用通信的),fastboot（线刷，一种刷机模式） 和 systrace(通过这个，可以查看分析系统运行中的所有数据)等。 这些工具堪称 Android 应用开发之必备工具。如果想解锁手机开机程序或者刷机的话，也需要它们。</p>
+<p>尽管这些工具中的一些新功能仅适用于最新版本的 Android，但是因为这些工具也是向后兼容的，然后只需要一个版本 Platform-Tools 的就好了。</p>
+<p>我们应该尽量保证是最新版本，前几天我的 adb 总是连接出错，升级了版本就好了，应该是新版本已经发现问题并修复了。</p>
+<h3 id="Platform-Tools-amp-Platform"><a href="#Platform-Tools-amp-Platform" class="headerlink" title="Platform-Tools &amp; Platform"></a>Platform-Tools &amp; Platform</h3><p>博客最上面的图片中，可以看到 sdk 文件夹内部组成中，有这样两个文件夹，platform tools 和 platform 。从名字上看，就感觉俩货之间肯定是有事。<br>Platform  内部结构如图。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/deb63b9b1a6ba160d82927ccd16e9952.png" alt=""></p>
+<p>很明显，这就是不同版本 Android 系统们，以 API 为序号。用户下载了几个版本，里面就有几个版本。build.gradle 中 <code>compileSdkVersion</code> 参数对应的就是这其中的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 26</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>查看 Platform 的官方介绍，发现 Platform 的每个版本都对 Platform tools 有最低版本要求。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/542bff136f69eb2fc349699f5b48f849.png" alt=""></p>
+<p>从版本号看，基本保持一致，还是比较好记。例如 platform 25 就要求 platform tools 25.0.1+。</p>
+<p>同时，我们也可以看到对 Build-Tools 的版本也要求，列出表格如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Android Version</th>
+<th style="text-align:left">API Level</th>
+<th style="text-align:left">Platform-tools</th>
+<th style="text-align:left">Build tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android 6.0</td>
+<td style="text-align:left">23</td>
+<td style="text-align:left">23+</td>
+<td style="text-align:left">24.3.4+</td>
+</tr>
+<tr>
+<td style="text-align:left">Android 5.1</td>
+<td style="text-align:left">22</td>
+<td style="text-align:left">22+</td>
+<td style="text-align:left">23.0.5+</td>
+</tr>
+<tr>
+<td style="text-align:left">Android 5.0</td>
+<td style="text-align:left">21</td>
+<td style="text-align:left">21+</td>
+<td style="text-align:left">23.0.5+</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://developer.android.com/studio/releases/platforms.html" target="_blank" rel="noopener">SDK Platform Release Notes
+</a></p>
+<h1 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h1><p>Tools 的内部结构如图。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9f2bb4942e0326d97a4f306907cb27f4.png" alt=""></p>
+<p>Tools 在我的环境中只有一个版本，所以按照这种规律，很明显，开发环境中应该也只需要一个版本的就足够的。</p>
+<p>以下是我们的谷爹对它的一句话介绍：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/14034b086a3edf8837900e18554e4dcc.png" alt=""></p>
+<p>Tools 也是 Android SDK 的一个组件，包括一套完整的 Android 开发和调试工具，Tools 也包含在 Android Studio 中。</p>
+<h3 id="Tools-amp-Platform-Tools"><a href="#Tools-amp-Platform-Tools" class="headerlink" title="Tools &amp; Platform-Tools"></a>Tools &amp; Platform-Tools</h3><p>翻翻 Tools 的版本记录，发现 Tools 和 Platform 之间也有对应关系。例如下图，26.0.0 的 Tools 就依赖 Platform-Tools 24+ 。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8f64b7484cdd07d02aa5905132e43e7a.png" alt=""></p>
+<p>总结如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Build Tools</th>
+<th style="text-align:left">Platform-tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">24.4.0</td>
+<td style="text-align:left">24+</td>
+</tr>
+<tr>
+<td style="text-align:left">24.3.4</td>
+<td style="text-align:left">23+</td>
+</tr>
+<tr>
+<td style="text-align:left">24.3.3</td>
+<td style="text-align:left">19+</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://developer.android.com/studio/releases/sdk-tools.html" target="_blank" rel="noopener">SDK Tools Release Notes
+</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>写到这里，上面已经出现 Tools,Build-Tools,Platform -Tools,Platform,Gradle,Gradle Plugin，名字大多相似，关系也有点交错，很容易晕，总结如下：</p>
+<p>1.Gradle Plugin 基于 Gradle,Build-Tools 生成的。<br>2.Platform 基于 Platform-Tools,Build-Tools 生成的。<br>3.Tools 基于 Platform-Tools 生成的。</p>
+<p>看图更清晰一点：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/dd2642f03b10eb86cb0ff28d0435940f.png" alt=""></p>
+<h1 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a>写在最后：</h1><p>这篇博客的初衷是上篇博客中受启发，想特意学习一下 Tools 文件夹想法的开始的，然而没想到牵扯出来这么多，想来还是因为会的太少了。</p>
+<p>写完后，我突然明白了，之前遇到导入一个 Github 上拉取的新项目，然后就各种报错各种需要下载的情况，版本不兼容报错，解决方法是下载对应版本或者改成兼容的版本。</p>
+<p>为了避免出现这种情况，要定期更新 Build-Tools ,Platform-Tools 和 Tools,保持较新的版本。</p>
+<p>然后，下篇博客见。</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/09/ADB偶尔的抽风异常-ADB server didn't ACK/" rel="next" title="ADB偶尔的抽风异常-ADB server didn't ACK">
+                <i class="fa fa-chevron-left"></i> ADB偶尔的抽风异常-ADB server didn't ACK
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/31/Android-少不了的AAR文件/" rel="prev" title="Android-少不了的 AAR 文件常识，最好知道的注意事项">
+                Android-少不了的 AAR 文件常识，最好知道的注意事项 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开篇"><span class="nav-number">2.</span> <span class="nav-text">开篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Build-Tools"><span class="nav-number">3.</span> <span class="nav-text">Build Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle-plugin-amp-Build-Tools"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">Gradle plugin &amp; Build Tools</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Platform-Tools"><span class="nav-number">4.</span> <span class="nav-text">Platform Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Platform-Tools-amp-Platform"><span class="nav-number">4.0.1.</span> <span class="nav-text">Platform-Tools &amp; Platform</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tools"><span class="nav-number">5.</span> <span class="nav-text">Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tools-amp-Platform-Tools"><span class="nav-number">5.0.1.</span> <span class="nav-text">Tools &amp; Platform-Tools</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在最后："><span class="nav-number">7.</span> <span class="nav-text">写在最后：</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="有人说，暂存区是 Git 最精彩的设计，同时也是最难理解的部分～">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git三大特色之Stage(暂存区)">
+<meta property="og:url" content="http://yoursite.com/2017/11/01/Git三大特色之暂存区/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="有人说，暂存区是 Git 最精彩的设计，同时也是最难理解的部分～">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3b3d9cc8226b1b18cdf6c5914d9ed4b8.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4d3f34127fce833b801ace49de19421c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2429e4d2661e60027537aea0077f6e40.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4b5f4d1382948420956683d65d323271.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/47125eec79eea756b08c57f1673d0275.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daca76543e05a93a4539544b6cfa037c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/80084f3335343b6f2e3400582df2147c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daca76543e05a93a4539544b6cfa037c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daca76543e05a93a4539544b6cfa037c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/018cb4ce2a6582ae743f9262aca73f5f.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:53:35.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git三大特色之Stage(暂存区)">
+<meta name="twitter:description" content="有人说，暂存区是 Git 最精彩的设计，同时也是最难理解的部分～">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3b3d9cc8226b1b18cdf6c5914d9ed4b8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/01/Git三大特色之暂存区/">
+
+
+
+
+
+  <title>Git三大特色之Stage(暂存区) | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/Git三大特色之暂存区/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git三大特色之Stage(暂存区)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-01T14:14:09+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>有人说，暂存区是 Git 最精彩的设计，同时也是最难理解的部分～<br><a id="more"></a></p>
+<h1 id="这是开篇"><a href="#这是开篇" class="headerlink" title="这是开篇"></a>这是开篇</h1><p>有人说，暂存区是 Git 最精彩的设计，同时也是最难理解的部分，两者我都感觉不太明显，但当我想写关于暂存区的理解后，发现的确不怎么好讲，这个玩意，有点只可意会的感觉，用 Git 用熟练了，自然体会到暂存区设计的精彩之处。</p>
+<p>在我看来，学习其他命令之前，对暂存区有一个概念和大概理解是非常重要的，因为，很多命令都涉及到了它。</p>
+<h1 id="为什么-commit-之前要先-add-一下呢？"><a href="#为什么-commit-之前要先-add-一下呢？" class="headerlink" title="为什么 commit 之前要先 add 一下呢？"></a>为什么 commit 之前要先 add 一下呢？</h1><p>我在刚接触 Git 命令的时候，对 Git 没什么概念，就是赶鸭子上线式的学习，用到什么，就去 Google 什么，例如第一天我搜索的就是“git first commit”,然后搜到很多 Git 的初级教程，几乎都有说先执行 git add ，然后 git commit。在我照着教程一步步 add &amp; commit 的时候，我就在想，commit 就 commit唄，为什么 commit 之前必须要 add 一下呢？</p>
+<p>当时才疏学浅，不敢胡乱尝试，担心试错了整不回来原来的样子。现在胆子大了些，决定尝试一下没有 add 的 commit。</p>
+<p>通过 echo 命令给 master.txt 文件加了一行内容，然后执行提交：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3b3d9cc8226b1b18cdf6c5914d9ed4b8.png" alt="不 add 就 commit 的测试"></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4d3f34127fce833b801ace49de19421c.png" alt=""></p>
+<p>测试结果很明显，commit 失败，失败原因是没有可以提交的修改,然而奇怪的是，查看 master.txt 文件，内容却已经添加成功。<br>好在 Git 非常贴心的给了我们详细的错误说明，下面仔细看一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">	modified:   master.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit</span><br></pre></td></tr></table></figure>
+<p>英语渣的我最近热衷于翻译：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在 master 分支</span><br><span class="line">修改没有被暂存起来以备提交</span><br><span class="line">	修改:   master.txt</span><br><span class="line"></span><br><span class="line">没有可以提交的修改</span><br></pre></td></tr></table></figure></p>
+<p>从这个提示信息中，我似乎嗅到了一丝丝的真（jian）相(qing)，commit 时检测是否有修改的 master.txt，好像不是我看到的 master.txt。那我看到 master.txt 是什么？我没看到的又是什么？而且它在哪里？</p>
+<p>答案就比较明显了，肯定在 Git 的暂存区（不然我为啥要举这个例子，哈哈）。</p>
+<p>git commit 执行时，会提交暂存区的内容。git add 命令会将我们看到的修改添加到暂存区中，这就是为什么 git commit 之前要先执行 git add 的原因。</p>
+<p>接着上面的问题，思维稍微发散一下，还可以问出很多问题，例如，add 将修改放入暂存区，那么 add 之前数据存放在哪里？commit 又将存储区的数据提交到什么地方了呢？以及为什么要这么分为几个存储部分？等看完这篇博客，希望你这些问题，都能找到答案。</p>
+<h1 id="Git-可以大概分为三个区"><a href="#Git-可以大概分为三个区" class="headerlink" title="Git 可以大概分为三个区"></a>Git 可以大概分为三个区</h1><p>Git 本地数据管理，大概可以分为三个区，工作区,暂存区和版本库。</p>
+<ul>
+<li><strong>工作区（Working Directory）</strong><br>是我们直接编辑的地方，例如 Android Studio 打开的项目，记事本打开的文本等，肉眼可见，直接操作。</li>
+<li><strong>暂存区（Stage 或 Index）</strong><br>数据暂时存放的区域，可在工作区和版本库之间进行数据的友好交流。</li>
+<li><strong>版本库（commit History）</strong><br>存放已经提交的数据，push 的时候，就是把这个区的数据 push 到远程仓库了。</li>
+</ul>
+<p>下面是，当开发者通过 git 修改数据时，各区之间的数据传递流程示意图。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2429e4d2661e60027537aea0077f6e40.png" alt="git 数据流程图示意图"></p>
+<p>为了验证以上流程的正确性，我们可以自己动手实验一下，为了对比三个区之间的数据差别，过程中，可以借助神奇的 diff 命令。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git diff</td>
+<td>工作区 vs 暂存区</td>
+</tr>
+<tr>
+<td>git diff head</td>
+<td>工作区 vs 版本库</td>
+</tr>
+<tr>
+<td>git diff –cached</td>
+<td>暂存区 vs 版本库</td>
+</tr>
+</tbody>
+</table>
+<p>现在三个区的数据是一致的，执行 git diff 命令都为空<br>|命令|接果|<br>|—|—|<br>|（工作区 vs 暂存区）git diff |<img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt="">|<br>|（工作区 vs 版本库）git diff head|<img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt="">|<br>|（暂存区 vs 版本库）git diff –cached|<img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt="">|</p>
+<p>然后给 master.txt 添加一行内容后，现在工作区内容发生变化，暂存区和版本库内容不变。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4b5f4d1382948420956683d65d323271.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>接果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>（工作区 vs 暂存区）git diff</td>
+<td><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/47125eec79eea756b08c57f1673d0275.png" alt=""></td>
+</tr>
+<tr>
+<td>（工作区 vs 版本库）git diff head</td>
+<td><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daca76543e05a93a4539544b6cfa037c.png" alt=""></td>
+</tr>
+<tr>
+<td>（暂存区 vs 版本库）git diff –cached</td>
+<td><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<p>执行git add 操作后，修改同步到暂存区，现在工作区和暂存区数据一致。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/80084f3335343b6f2e3400582df2147c.png" alt=""><br>|命令|接果|<br>|—|—|<br>|（工作区 vs 暂存区）git diff |<img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt="">|<br>|（工作区 vs 版本库）git diff head|<img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daca76543e05a93a4539544b6cfa037c.png" alt="">|<br>|（暂存区 vs 版本库）git diff –cached|<img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daca76543e05a93a4539544b6cfa037c.png" alt="">|</p>
+<p>执行 git commit 操作后，修改已经同步到版本库，三区数据再次保持一致。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/018cb4ce2a6582ae743f9262aca73f5f.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>接果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>（工作区 vs 暂存区）git diff</td>
+<td><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt=""></td>
+</tr>
+<tr>
+<td>（工作区 vs 版本库）git diff head</td>
+<td><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt=""></td>
+</tr>
+<tr>
+<td>（暂存区 vs 版本库）git diff –cached</td>
+<td><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/805899178327987c785580f569efc8a1.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<h1 id="Stage-赋予-Git-更多灵活性"><a href="#Stage-赋予-Git-更多灵活性" class="headerlink" title="Stage 赋予 Git 更多灵活性"></a>Stage 赋予 Git 更多灵活性</h1><p>不知道时，你对它可能毫无所感。知道后，你一定会感动地想哭，并十分之膜拜 Git 的开发者- Linus Torvalds ，stage 就是这么精彩的玩意。以下看起来比较束手无策的场景，只要理解 stage,用好相应命令，都能轻易解决：</p>
+<ul>
+<li>修改了4个文件，在不放弃任何修改的情况下，其中一个文件不想提交，如何操作？（没add : git add  已经add: git reset –soft ）</li>
+<li>修改到一半的文件，突然间不需要或者放弃修改了，怎么恢复未修改前文件？ (git checkout)</li>
+<li>代码写一半，被打断去做其他功能开发，未完成代码保存？(git stash)</li>
+<li>代码写一半，发现忘记切换分支了？(git stash &amp; git checkout)</li>
+<li>代码需要回滚了？（git reset）</li>
+<li>等等</li>
+</ul>
+<p>上面提到的 checkout &amp; stash &amp; reset 等命令，通过不同的参数搭配使用，可以在工作区，暂存区和版本库之间，轻松进行数据的来回切换。</p>
+<p>例如前篇 Branch 博客用到的 git reset 回滚命令，带上不同参数就有不同的作用，如下：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git reset –soft</td>
+<td>暂存区-&gt;工作区</td>
+</tr>
+<tr>
+<td>git reset –mixed</td>
+<td>版本库-&gt;暂存区</td>
+</tr>
+<tr>
+<td>git reset –hard</td>
+<td>版本库-&gt;暂存区-&gt;工作区</td>
+</tr>
+</tbody>
+</table>
+<p>完事大家可以自己新建一个测试 Demo，多尝试一下，相信你会因为暂存区的存在更加地喜欢 Git。</p>
+<h1 id="这是结尾"><a href="#这是结尾" class="headerlink" title="这是结尾"></a>这是结尾</h1><p>暂存区是介于工作区和版本库之间的一个中间存储状态，很多命令都会涉及暂存区的状态，因此理解暂存区这一个存在是至关重要的。</p>
+<p>希望这篇文章能给你的 Git 学习带来帮助，同时，如有错误之处还望指出，下篇博客见，see you next blog！</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/30/Git-解释“Swap-file.MERGE_MSG.swp-already-exists”的问题/" rel="next" title="Git-解释“Swap file .MERGE_MSG.swp already exists”的问题">
+                <i class="fa fa-chevron-left"></i> Git-解释“Swap file .MERGE_MSG.swp already exists”的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/07/Android-使用adb和aapt查看应用信息/" rel="prev" title="Android-使用adb和aapt查看应用信息">
+                Android-使用adb和aapt查看应用信息 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#这是开篇"><span class="nav-number">1.</span> <span class="nav-text">这是开篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么-commit-之前要先-add-一下呢？"><span class="nav-number">2.</span> <span class="nav-text">为什么 commit 之前要先 add 一下呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-可以大概分为三个区"><span class="nav-number">3.</span> <span class="nav-text">Git 可以大概分为三个区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stage-赋予-Git-更多灵活性"><span class="nav-number">4.</span> <span class="nav-text">Stage 赋予 Git 更多灵活性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这是结尾"><span class="nav-number">5.</span> <span class="nav-text">这是结尾</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

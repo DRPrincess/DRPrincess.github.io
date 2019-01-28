@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Git 是什么?你看完知道了">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="请回答：Git是什么？">
+<meta property="og:url" content="http://yoursite.com/2017/10/16/请回答：Git是什么？/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="Git 是什么?你看完知道了">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0746bfbf47dd418ae9e8488867773719.png">
+<meta property="og:updated_time" content="2019-01-28T17:02:14.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="请回答：Git是什么？">
+<meta name="twitter:description" content="Git 是什么?你看完知道了">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0746bfbf47dd418ae9e8488867773719.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/16/请回答：Git是什么？/">
+
+
+
+
+
+  <title>请回答：Git是什么？ | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/请回答：Git是什么？/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">请回答：Git是什么？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-16T14:14:09+08:00">
+                2017-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Git 是什么?你看完知道了<br><a id="more"></a></p>
+<h1 id="Git-是什么？"><a href="#Git-是什么？" class="headerlink" title="Git 是什么？"></a>Git 是什么？</h1><p>不卖关子，直接说重点，以下是 Git 官网上的描述：</p>
+<blockquote>
+<p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.<br>Git is easy to learn and has a tiny footprint with lightning fast performance. It outclasses SCM tools like Subversion, CVS, Perforce, and ClearCase with features like cheap local branching, convenient staging areas, and multiple workflows.</p>
+</blockquote>
+<p>Git 是一个免费并且开源的分布式版本控制系统，旨在快速高效地处理从小到大所有项目的版本管理。</p>
+<p>Git 非常容易学习，低植入，高性能。因为拥有轻量的本地分支，易用的暂存区，和多工作流的特点，它超越了类似Subversion， CVS，Perforce和ClearCase的其他的 SCM 工具。</p>
+<p>简洁来说，Git是一个分布式版本控制系统。</p>
+<h1 id="为什么要学习-Git？"><a href="#为什么要学习-Git？" class="headerlink" title="为什么要学习 Git？"></a>为什么要学习 Git？</h1><p>没有无缘无故的学习，因为要用到，所以要了解要学习。  </p>
+<p>Git 是目前最流行的版本管理工具，而且没有之一，就算你的公司使用的不是 Git ,如果你使用 Github 的话，必定要用到Git。如果这里你说你没使用 GitHub，那么就快去用起来，哥们你错过了很多优秀的开源项目啊不能再这样下去了。目前最火的开源社区 Github ,就是基于 Git 版本控制系统，所以掌握 Git 技能很重要。</p>
+<p>因为 Git 很火，现在很多 IDE 都集成了 Git,并且提供一些相关的图形化操作。也有很多z很优秀,专门用来简化 Git ca操作的 Git GUI 工具，例如 SourceTree,Tortoise 等。</p>
+<p>但是我想说的是，命令行才是Git的王者操作！</p>
+<p>原因是，Git Gui的工具底层也是对常用的 Git 命令进行封装实现的，所以，直接Git命令，才是最灵活的操作，学会之后，你，几乎，无所不能。（此处请想象玛丽苏的说话语气）。另外也不建议从 GUI 开始，不是很利于理解 Git 的内部原理。说实话，我刚接触 Git 的时候，就是从 GUI 入手的，Android Studio 集成的 Git 使用图形页面，傻瓜式使用挺方便，但是我用完什么都不懂，从今年开始命令行之后，才敢在简历-专业技能上加上 Git 一项。</p>
+<p>命令行很好学，而且使用起来非常非常地帅。</p>
+<h1 id="Git-安装以及环境配置"><a href="#Git-安装以及环境配置" class="headerlink" title="Git 安装以及环境配置"></a>Git 安装以及环境配置</h1><p>第一步 首先随便一个 git 命令看你的电脑上是否安装了 Git</p>
+<p>Mac ：Terminal 或者 iTerm2<br>Windows :(Windows+R) cmd</p>
+<p>例如：<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0746bfbf47dd418ae9e8488867773719.png" alt="git"></p>
+<p>Mac 系统默认下载了git，Windows系统不会，所以 Windows 用户要自己去 <a href="https://git-scm.com/" target="_blank" rel="noopener">Git 官网</a>下载</p>
+<p>第二步 配置环境</p>
+<p>Windows 用户：</p>
+<p>1.安装官网下载来的 git.exe,一路 next 即可。<br>2.右键“此电脑”-&gt;“属性”-&gt;“高级系统设置”-&gt;“环境变量”-&gt;在下方的“用户变量”中找到“path”-&gt;选中“path”并选择“编辑”，将刚才安装git目录中的 bin 文件完整路径添加进去-&gt;保存<br>3.重复第一步，验证是否配置成功</p>
+<p>Mac 用户：</p>
+<p>这个时候你可以去接杯水，因为系统为了做好了一切。</p>
+<h1 id="学习-Git-前的准备"><a href="#学习-Git-前的准备" class="headerlink" title="学习 Git 前的准备"></a>学习 Git 前的准备</h1><p>首先，你要有一个 GitHub 的账号～，真的，没开玩笑。<a href="https://github.com/" target="_blank" rel="noopener">GitHub注册点这里 </a></p>
+<p>很多人（包括我）刚开始的时候，脑海中都会用这个疑惑，Git 和 GitHub 是什么关系以及这俩货有什么区别？<br>关于Git，上面我们说过了，是一个版本控制系统，那接下来很有必要来介绍一下 Github 了。</p>
+<p>准确的来说，GitHub 是一家公司，位于旧金山，于2008年4月创办，然后这家公司在2008年4月10日，正式成立了GitHub，地址：<a href="https://github.com/" target="_blank" rel="noopener">How people build software · GitHub</a> ，主要提供基于git的版本托管服务。一经上线，它的发展速度惊为天人，截止目前，GitHub 已经发展成全球最大的开（同）源（性）社区。</p>
+<p>GitHub 上的代码仓库，只支持 Git 做版本管理，只有通过 Git 才能把代码上传到 GitHub 。</p>
+<p>以上就是 Git 和 GitHub 的关系。</p>
+<p>而且接下来的博客都是以 GitHub 作为我们的代码仓库。</p>
+<h1 id="专有名词解释"><a href="#专有名词解释" class="headerlink" title="专有名词解释"></a>专有名词解释</h1><ul>
+<li>SCM （Software configuration management）软件配置管理</li>
+</ul>
+<p>软件配置管理(SCM)是指通过执行版本控制、变更控制的规程，以及使用合适的配置管理软件，来保证所有配置项的完整性和可跟踪性。配置管理是对工作成果的一种有效保护。</p>
+<ul>
+<li>IDE （Integrated Development Environment）集成开发环境</li>
+</ul>
+<p>IDE是用于提供程序开发环境的应用程序，一般包括代码编辑器、编译器、调试器和图形用户界面等工具。集成了代码编写功能、分析功能、编译功能、调试功能等一体化的开发软件服务套。所有具备这一特性的软件或者软件套（组）都可以叫集成开发环境。</p>
+<ul>
+<li>GUI （Graphical User Interface）图形用户界面</li>
+</ul>
+<p>图形用户界面（Graphical User Interface，简称 GUI，又称图形用户接口）是指采用图形方式显示的计算机操作用户界面。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/09/Android-EditText限制输入两位小数/" rel="next" title="Android-EditText两种方法限制输入两位小数">
+                <i class="fa fa-chevron-left"></i> Android-EditText两种方法限制输入两位小数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/16/一套流程认知Git常用命令/" rel="prev" title="一套流程认知Git常用命令">
+                一套流程认知Git常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-是什么？"><span class="nav-number">1.</span> <span class="nav-text">Git 是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要学习-Git？"><span class="nav-number">2.</span> <span class="nav-text">为什么要学习 Git？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-安装以及环境配置"><span class="nav-number">3.</span> <span class="nav-text">Git 安装以及环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习-Git-前的准备"><span class="nav-number">4.</span> <span class="nav-text">学习 Git 前的准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#专有名词解释"><span class="nav-number">5.</span> <span class="nav-text">专有名词解释</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

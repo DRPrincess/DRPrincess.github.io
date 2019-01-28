@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="实战项目开发，才是最考验细节的，今天就拿 EditText 说吧。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-EditText 样式&amp;软键盘&amp;输入限制开发细节汇总">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/Android-EditText样式&软键盘&输入限制开发细节汇总/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="实战项目开发，才是最考验细节的，今天就拿 EditText 说吧。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2a0ba794301e3a0f9508f150ebe39a68.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/27ae9ec6648ac0d7fedafc9873abbaae.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c4b90cf405894f77569cdd4cfd15ad35.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8249bebe4b0714390cca8ced2d04b7cf.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:53:35.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-EditText 样式&amp;软键盘&amp;输入限制开发细节汇总">
+<meta name="twitter:description" content="实战项目开发，才是最考验细节的，今天就拿 EditText 说吧。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2a0ba794301e3a0f9508f150ebe39a68.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/Android-EditText样式&软键盘&输入限制开发细节汇总/">
+
+
+
+
+
+  <title>Android-EditText 样式&软键盘&输入限制开发细节汇总 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/Android-EditText样式&软键盘&输入限制开发细节汇总/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-EditText 样式&软键盘&输入限制开发细节汇总</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-17T18:35:00+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>实战项目开发，才是最考验细节的，今天就拿 EditText 说吧。<br><a id="more"></a></p>
+<h1 id="开发小日常"><a href="#开发小日常" class="headerlink" title="开发小日常"></a>开发小日常</h1><p><strong>测试：能不能别一打开页面，就弹出输入键盘？</strong><br>博主：好的,我看下，这点疏忽了。</p>
+<p><strong>测试：能不能别一打开页面，就显示光标?这个可以不用替用户决定顺序</strong>。<br>博主：好的</p>
+<p><strong>测试：你看这个光标是不是有点粗？能调色吗？</strong><br>博主：嗯，可以。</p>
+<p><strong>测试：为啥退出这个页面后，这个软键盘还在的？</strong><br>博主：真的吗？来我看看。</p>
+<p><strong>测试：这个可以让它只输入数字吗？</strong><br><strong>测试：这个可以让它只能输入字母吗？</strong><br><strong>测试：这个可以让它只能输入字母和数字吗？</strong><br><strong>测试：可以让用户只能输入两位小数吗？</strong><br><strong>测试：这个是手机号，可以限制最多 11 位吗？</strong><br>博主：…..</p>
+<p>以上是一个真实的故事，感受最深刻的就是，就一个编辑框 ，细节真的不少，撇去导致这个问题的其他因素，今天的博客是一篇以 EditText 为主题 ，记录修改能满足以上各种需求的干货文章。</p>
+<h1 id="EditText-相关知识点梳理"><a href="#EditText-相关知识点梳理" class="headerlink" title="EditText 相关知识点梳理"></a>EditText 相关知识点梳理</h1><p>首先做个大概的了解，EditText 作为一个编辑框，UI考虑上可分为以下几点：</p>
+<ul>
+<li>编辑框本身的样式。例如背景和光标，字体颜色大小等。</li>
+<li>软键盘。例如弹出或关闭，显示搜索或确定。</li>
+<li>输入限制。例如限制输入字母或者数字。</li>
+</ul>
+<h1 id="EditText-的样式"><a href="#EditText-的样式" class="headerlink" title="EditText 的样式"></a>EditText 的样式</h1><p>这个在写 xml 布局文件的阶段会涉及到，Android 系统原生的编辑框，丑到开发者自己都看不下去，虽然在 Material Design 风格出来之后好了很多，但是实际的项目开发中，Android 要和 iOS 保持统一，所以还是要自定义。</p>
+<p>一般情况下是这种</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2a0ba794301e3a0f9508f150ebe39a68.png" alt=""></p>
+<p>和这种</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/27ae9ec6648ac0d7fedafc9873abbaae.png" alt=""></p>
+<p>以及等等。</p>
+<p>设置字体颜色大小基本使用，我就不拿出来侮辱大家智商了，来点实际的：</p>
+<p><strong>EditText 背景</strong><br>通过设置 <code>android:background</code> 完成。</p>
+<p>不需要背景，设置<code>android:background=“@null”</code><br>需要特殊的背景话，就可以通过这个设置啦。</p>
+<p><strong>EditText 内置的小图标</strong><br>例如上图左边的放大镜小图标那种，可以通过 <code>android:drawableLeft</code> 设置小图标, <code>android:drawablePadding</code>设置小图标和输入字体的间距。</p>
+<p>需要注意的是通过这种方式添加的小图标，大小是没法明确设置的，如果有额外要求，还是专门使用一个控件吧。   </p>
+<p><strong>EditText 的光标</strong></p>
+<p>EditText 的光标颜色默认是 <code>colorAccent</code> 的颜色， colorAccent不仅仅代表到光标的颜色，还有项目中很多原生控件激活选择时的颜色，所以 UI 上如果对编辑框光标颜色有需求，无法直接修改  <code>colorAccent</code> ，或者认为光标太粗了，想改细一点，这类情况都需要设置光标的样式。</p>
+<p>例如设置光标为蓝色，宽度为 1 dp,需要先写一个光标样式文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:shape=&quot;rectangle&quot;&gt;</span><br><span class="line">    &lt;size android:width=&quot;1dp&quot; /&gt;</span><br><span class="line">    &lt;solid android:color=&quot;#217aff&quot; /&gt;</span><br><span class="line">&lt;/shape&gt;</span><br></pre></td></tr></table></figure>
+<p>然后通过 <code>android:textCursorDrawable</code> 引入这个光标样式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:textCursorDrawable=&quot;@drawable/edit_cursor_color&quot;</span><br></pre></td></tr></table></figure></p>
+<p>另外：</p>
+<p><code>android:cursorVisible</code> 改变光标的可见性<br><code>setSelection()</code>可以改变光标的位置。   </p>
+<h1 id="关于软键盘"><a href="#关于软键盘" class="headerlink" title="关于软键盘"></a>关于软键盘</h1><p>编辑框和软键盘的密不可分，如果不做任何设置，页面上EditText 会默认抢占焦点，弹出软键盘。有的页面是这个需求，有的则不是，按需选择。</p>
+<p><strong>EditText 不显示光标，只有在点击时才弹出软键盘</strong></p>
+<p>这个在 xml 布局中给 EditText 的父布局设置触摸获取焦点可以解决,设置属性是 <code>android:focusableInTouchMode=&quot;true&quot;</code>。</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearLayout</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:focusableInTouchMode=&quot;true&quot; &gt;</span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:id=&quot;@+id/editText&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p>经验证，这个属性，并非只有在设置直接父级布局上有效，在间接父级布局上也可以。但是设置在 ScrollView 父级布局上无效。</p>
+<h2 id="软键盘在页面退出时，不自动关闭"><a href="#软键盘在页面退出时，不自动关闭" class="headerlink" title="软键盘在页面退出时，不自动关闭"></a>软键盘在页面退出时，不自动关闭</h2><p>这个情况是，最近发现的一个很搞笑的现象。页面跳转路径是 A-&gt;B ，B中有 EditText，在弹出软键盘后，不通过手机自带的返回键，而是按 B 页面中的返回按钮回到 A 时，发现软键盘并未随着B页面自动关闭。</p>
+<p>原因是 A 页面设置了 <code>android:windowSoftInputMode</code> 设置了 <code>stateHidden</code>属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">            android:name=&quot;xxxxxxx&quot;</span><br><span class="line">            android:windowSoftInputMode=&quot;adjustPan|stateHidden&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>解决方法是修改A页面的 <code>windowSoftInputMode</code> 设置,一下是一个良心网友<a href="https://blog.csdn.net/zhangziki/article/details/50969743" target="_blank" rel="noopener">@zhangziki</a>自测出来的表格，大家自己设置。</p>
+<table>
+<thead>
+<tr>
+<th>windowSoftInputMode</th>
+<th>键盘是否自动收回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>默认不指定</td>
+<td>√</td>
+</tr>
+<tr>
+<td>stateUnspecified</td>
+<td>√</td>
+</tr>
+<tr>
+<td>stateAlwaysVisible</td>
+<td>√</td>
+</tr>
+<tr>
+<td>stateUnchanged</td>
+<td>×</td>
+</tr>
+<tr>
+<td>stateHidden</td>
+<td>×</td>
+</tr>
+<tr>
+<td>stateAlwaysHidden</td>
+<td>×</td>
+</tr>
+<tr>
+<td>stateVisible</td>
+<td>×</td>
+</tr>
+<tr>
+<td>stateHidden</td>
+<td>×</td>
+</tr>
+<tr>
+<td>stateHidden</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
+<p><strong>设置软键盘的 enter 键</strong></p>
+<p>默认的键盘的 enter 是换行键，如下：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c4b90cf405894f77569cdd4cfd15ad35.png" alt=""></p>
+<p>但是有的时候，产品需求会要求，键盘的 enter 键改为其他文字，最常见的是搜索，点击搜索后出发代码中设置的搜索逻辑。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8249bebe4b0714390cca8ced2d04b7cf.png" alt=""></p>
+<p>通过在设置 EditText 的 <code>imeOptions</code> 可以改变 enter 键的文案,要着重说明的是，因为将默认的换行键换为了搜索键，所以等于放弃了换行功能，所以需要通知设置 <code>android:singleLine=&quot;true&quot;</code> 才能使    <code>android:imeOptions=&quot;actionSearch&quot;</code> 生效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;EditText</span><br><span class="line">          android:id=&quot;@+id/editText&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          android:singleLine=&quot;true&quot;</span><br><span class="line">          android:imeOptions=&quot;actionSearch&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>代码中可以通过这个方法设置监听：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) &#123;</span><br><span class="line">                switch (actionId) &#123;</span><br><span class="line">                    case EditorInfo.IME_ACTION_SEARCH://按下搜索键</span><br><span class="line">                        break;</span><br><span class="line">                    default:</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>除了设置搜索按钮之外，还有很多选项 <code>actionGo</code>,<code>actionSend</code>,<code>actionNext</code>等，具体的效果，可以自己试试看，道理都是一样的。</p>
+<h1 id="EditText-输入限制"><a href="#EditText-输入限制" class="headerlink" title="EditText 输入限制"></a>EditText 输入限制</h1><p><strong>inputType 设置输入类型，例如只能输入数字,或者输入密码</strong></p>
+<p>inputType 可以通过 xml 设置<code>android:inputType</code>属性和代码中 <code>setInputType()</code><br>方法设置。<br>API提供了很多种现成的格式供我们选择， 而且这些格式可以自由组合。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:inputType=&quot;numberPassword|number&quot;</span><br></pre></td></tr></table></figure></p>
+<p>以上设置支持密文输入，并且限制只允许输入数字</p>
+<p><strong>digits 设置具体的支持字符</strong></p>
+<p>这个属性也支持通过代码和布局属性设置，和 inputType 的不同之处在于，可以说这个属性可以自定义具体的支持字符。</p>
+<p>例如设置 EditText 只能输入字符和数字：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:digits=&quot;0123456789abcdefghijklmnopqrstuvwxyz&quot;</span><br></pre></td></tr></table></figure></p>
+<p><strong>设置 TextWather 监测输入内容</strong></p>
+<p> TextWather 监听EditText的字符变化， 拿到用户的输入内容，做我们想要的处理。这个处理可以分为两类：</p>
+<ol>
+<li>作为一个输入限制使用。实现 inputType 和 digits 两个属性无法实现的特殊的输入限制需求，例如限制只输入小数点后两位 。</li>
+<li>作为一个事件监听使用。满足某种情况，触发相应的逻辑，例如当输入 16 位身份证号码时自动调用接口验证是否真实有效。</li>
+</ol>
+<p>这里给出一个限制只输入小数点后两位的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//限制的位数</span><br><span class="line">int digits = 2;</span><br><span class="line"></span><br><span class="line">mEditText.addTextChangedListener(new TextWatcher() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void beforeTextChanged(CharSequence s, int start, int count, int after) &#123;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           @Override</span><br><span class="line">           public void onTextChanged(CharSequence s, int start, int before, int count) &#123;</span><br><span class="line">             //删除“.”后面超过2位后的数据</span><br><span class="line">                    if (s.toString().contains(&quot;.&quot;)) &#123;</span><br><span class="line">                        if (s.length() - 1 - s.toString().indexOf(&quot;.&quot;) &gt; digits) &#123;</span><br><span class="line">                            s = s.toString().subSequence(0,</span><br><span class="line">                                    s.toString().indexOf(&quot;.&quot;) + digits+1);</span><br><span class="line">                            editText.setText(s);</span><br><span class="line">                            editText.setSelection(s.length()); //光标移到最后</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    //如果&quot;.&quot;在起始位置,则起始位置自动补0</span><br><span class="line">                    if (s.toString().trim().substring(0).equals(&quot;.&quot;)) &#123;</span><br><span class="line">                        s = &quot;0&quot; + s;</span><br><span class="line">                        editText.setText(s);</span><br><span class="line">                        editText.setSelection(2);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    //如果起始位置为0,且第二位跟的不是&quot;.&quot;,则无法后续输入</span><br><span class="line">                    if (s.toString().startsWith(&quot;0&quot;)</span><br><span class="line">                            &amp;&amp; s.toString().trim().length() &gt; 1) &#123;</span><br><span class="line">                        if (!s.toString().substring(1, 2).equals(&quot;.&quot;)) &#123;</span><br><span class="line">                            editText.setText(s.subSequence(0, 1));</span><br><span class="line">                            editText.setSelection(1);</span><br><span class="line">                            return;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           @Override</span><br><span class="line">           public void afterTextChanged(Editable s) &#123;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>设置 InputFilter 过滤器</strong></p>
+<p>除了 TextWather，自定义 InputFilter 过滤器也能达到我们特殊的过滤需求。例如上面的限制两位小数点后两位。</p>
+<p>设置 InputFilter 过滤器需要两步：</p>
+<ol>
+<li>自定义 InputFilter, 继承一个合适的 KeyListener， 重写filter()方法，这里面编写你想要的过滤限制。</li>
+<li>EditText 通过  <code>setFilters</code> 设置过滤器。</li>
+</ol>
+<p>在我看来，如果实现输入限制这类功能，InputFilter 的实现方式比 TextWather 显的更加优雅一点，而且从方法名称上看也是理所当然的。TextWather 更适合去做监听类使用。</p>
+<p>下面给出限制两位小数点后两位的 InputFilter 实现版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">public class MoneyValueFilter extends DigitsKeyListener &#123;</span><br><span class="line"></span><br><span class="line">    private static final String TAG = &quot;MoneyValueFilter&quot;;</span><br><span class="line">    public MoneyValueFilter() &#123;</span><br><span class="line">        super(false, true);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private int digits = 2;</span><br><span class="line"></span><br><span class="line">    public MoneyValueFilter setDigits(int d) &#123;</span><br><span class="line">        digits = d;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public CharSequence filter(CharSequence source, int start, int end,</span><br><span class="line">                               Spanned dest, int dstart, int dend) &#123;</span><br><span class="line">        CharSequence out = super.filter(source, start, end, dest, dstart, dend);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        // if changed, replace the source</span><br><span class="line">        if (out != null) &#123;</span><br><span class="line">            source = out;</span><br><span class="line">            start = 0;</span><br><span class="line">            end = out.length();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int len = end - start;</span><br><span class="line"></span><br><span class="line">        // if deleting, source is empty</span><br><span class="line">        // and deleting can&apos;t break anything</span><br><span class="line">        if (len == 0) &#123;</span><br><span class="line">            return source;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //以点开始的时候，自动在前面添加0</span><br><span class="line">        if(source.toString().equals(&quot;.&quot;) &amp;&amp; dstart == 0)&#123;</span><br><span class="line">            return &quot;0.&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        //如果起始位置为0,且第二位跟的不是&quot;.&quot;,则无法后续输入</span><br><span class="line">        if(!source.toString().equals(&quot;.&quot;) &amp;&amp; dest.toString().equals(&quot;0&quot;))&#123;</span><br><span class="line">            return &quot;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int dlen = dest.length();</span><br><span class="line"></span><br><span class="line">        // Find the position of the decimal .</span><br><span class="line">        for (int i = 0; i &lt; dstart; i++) &#123;</span><br><span class="line">            if (dest.charAt(i) == &apos;.&apos;) &#123;</span><br><span class="line">                // being here means, that a number has</span><br><span class="line">                // been inserted after the dot</span><br><span class="line">                // check if the amount of digits is right</span><br><span class="line">                return (dlen-(i+1) + len &gt; digits) ?</span><br><span class="line">                    &quot;&quot; :</span><br><span class="line">                    new SpannableStringBuilder(source, start, end);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for (int i = start; i &lt; end; ++i) &#123;</span><br><span class="line">            if (source.charAt(i) == &apos;.&apos;) &#123;</span><br><span class="line">                // being here means, dot has been inserted</span><br><span class="line">                // check if the amount of digits is right</span><br><span class="line">                if ((dlen-dend) + (end-(i + 1)) &gt; digits)</span><br><span class="line">                    return &quot;&quot;;</span><br><span class="line">                else</span><br><span class="line">                    break;  // return new SpannableStringBuilder(source, start, end);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        // if the dot is after the inserted part,</span><br><span class="line">        // nothing can break</span><br><span class="line">        return new SpannableStringBuilder(source, start, end);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mEditText.setFilters(new InputFilter[]&#123;new MoneyValueFilter().setDigits(3)&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>虽然都是一些小细节，也要重视起来，因为细节决定成败呐，希望自己以后要多注意，努力降低 bug 率，Fighting!</p>
+<p>另外，关于限制两位小树输入的需求的代码已上传我的 github，项目地址为 <a href="https://github.com/DRPrincess/DR_MoneyEditTextDemo" target="_blank" rel="noopener">DR_MoneyEditTextDemo</a>,欢迎 Star,热烈欢迎 Follow 。</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/10/Android-使用SetColorFilter神奇地改变图片的颜色/" rel="next" title="Android-使用 SetColorFilter 神奇地改变图片的颜色">
+                <i class="fa fa-chevron-left"></i> Android-使用 SetColorFilter 神奇地改变图片的颜色
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/20/Android-怎么让一个TextView显示两种样式的字体/" rel="prev" title="Android-如何让优雅地让一个TextView显示两种样式的字体">
+                Android-如何让优雅地让一个TextView显示两种样式的字体 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开发小日常"><span class="nav-number">1.</span> <span class="nav-text">开发小日常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EditText-相关知识点梳理"><span class="nav-number">2.</span> <span class="nav-text">EditText 相关知识点梳理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EditText-的样式"><span class="nav-number">3.</span> <span class="nav-text">EditText 的样式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于软键盘"><span class="nav-number">4.</span> <span class="nav-text">关于软键盘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#软键盘在页面退出时，不自动关闭"><span class="nav-number">4.1.</span> <span class="nav-text">软键盘在页面退出时，不自动关闭</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EditText-输入限制"><span class="nav-number">5.</span> <span class="nav-text">EditText 输入限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

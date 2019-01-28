@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="挑啊，挑啊，挑樱桃～">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git-用 cherry-pick 挑好看的小樱桃">
+<meta property="og:url" content="http://yoursite.com/2018/03/05/Git-用cherry-pick挑好看的小樱桃/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="挑啊，挑啊，挑樱桃～">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9aa1f519d3cd1582fe2df23e1daec86d.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2b21a3fbbfb2075a6bff00005864c0dd.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/84636ade7b19f14305ced1b0f2a2b6b7.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1c0d9f7a0c51d14323f276aff30cee6e.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a21997ec056754d93f5f4f19945931dd.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1711676addc7ab27b171966dcf5c5b83.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/227958ecf8d386c9a061939823a15b4d.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:46:37.297Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git-用 cherry-pick 挑好看的小樱桃">
+<meta name="twitter:description" content="挑啊，挑啊，挑樱桃～">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9aa1f519d3cd1582fe2df23e1daec86d.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/05/Git-用cherry-pick挑好看的小樱桃/">
+
+
+
+
+
+  <title>Git-用 cherry-pick 挑好看的小樱桃 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/05/Git-用cherry-pick挑好看的小樱桃/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git-用 cherry-pick 挑好看的小樱桃</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-05T18:34:01+08:00">
+                2018-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>挑啊，挑啊，挑樱桃～<br><a id="more"></a></p>
+<h1 id="前篇"><a href="#前篇" class="headerlink" title="前篇"></a>前篇</h1><blockquote>
+<p>在此之前，我想问一个问题，你是在接触 Git 多久之后，知道有这个命令的？</p>
+</blockquote>
+<p>我的答案是很久很久之后，这真是一个悲伤的故事。懒，是万恶之源，此话果然不假。</p>
+<h1 id="cherry-pick-能干啥？"><a href="#cherry-pick-能干啥？" class="headerlink" title="cherry-pick 能干啥？"></a>cherry-pick 能干啥？</h1><p>cherry，中文翻译是樱桃，pick， 中文翻译是采集，挑选。所以，cherry-pick 就是挑选樱桃,<code>git cherry-pick</code> 就是从你的项目文件中找出”樱桃”二字，找到就可以找博主来兑换樱桃了。</p>
+<p>以上是开玩笑，写博客呢，干什么，正经点！</p>
+<p>cherry-pick 的翻译是择优挑选，使用<code>git cherry-pick</code>命令，可以选择将现有的一个或者多个提交的修改引入当前内容。</p>
+<p>那么，什么情况下会有到这么不常见的命令呢？</p>
+<p>假设你现在正在开发一个项目，有一个功能分支 feature，开发分支 develop。 feature 有3个提交，分别是 A ，B ，C 。develop 分支只想加入 C 功能， 此时合并操作无法满足，因为直接合并 feature，会将3个提交都合并上，我想合并就只有 C，不要 A，B。此时就需要挑樱桃大法–cherry pick！</p>
+<p>具体的做法：</p>
+<ol>
+<li>切换到 develop 分支。</li>
+<li>通过 <code>git log feature</code>,找到 C 的 SHA1 值。</li>
+<li>通过 <code>git cherry-pick &lt;C的SHA1&gt;</code> ，将 C 的修改内容合并到当前内容分支 develop 中。</li>
+<li>若无冲突，过程就已经完成了。如果有冲突，按正常冲突解决流程即可。</li>
+</ol>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9aa1f519d3cd1582fe2df23e1daec86d.png" alt="cherry-pick 示意图"></p>
+<h1 id="cherry-pick-VS-merge-Ready-GO"><a href="#cherry-pick-VS-merge-Ready-GO" class="headerlink" title="cherry-pick VS merge, Ready? GO!"></a>cherry-pick VS merge, Ready? GO!</h1><p>从上面简单的小例子上看，我想，小伙伴们，都应该已经对 merge 和 cherry-pick 有了大概的区分，这里做下对比，让大家有个清晰明确的掌握，防止似是而非，以后误操作。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2b21a3fbbfb2075a6bff00005864c0dd.png" alt=""><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/84636ade7b19f14305ced1b0f2a2b6b7.png" alt=""></p>
+<p><code>git merge</code> ：将两个提交历史合并。<br><code>git cherry-pick</code>：将提交对应的内容合并。</p>
+<p>这里，非常需要明确的一点，<strong>commit 代表的是修改！</strong></p>
+<p>例中，提交 C 的内容，就是对比 B 上面做的修改，可能是创建了一个文件，或者修改了一个词语。那么 C 内容就是一个文件的添加，和一个词语的修改。</p>
+<p>以提交 C 为结束点的提交历史，实际内容是提交 C 和 C 之前所有的修改。</p>
+<p>cherry-pick 操作的对象就是 commit。<br>merge 操作的对象就是 commit history。</p>
+<p>所以，使用的时候，你要知道，你想要的什么。</p>
+<h1 id="博主邀请你参加挑樱桃游戏"><a href="#博主邀请你参加挑樱桃游戏" class="headerlink" title="博主邀请你参加挑樱桃游戏"></a>博主邀请你参加挑樱桃游戏</h1><p>光说不练假把式，现在写个小 demo 测试一下。</p>
+<ol>
+<li>创建一个空文件夹 GitDemo,<code>git init</code>初始化。  </li>
+<li>随便创建一个文件，完成初次提交，创建 master 分支。</li>
+<li>创建并切换 develop 分支，创建个提交，每一个提交中创建一个文件，方便测试。</li>
+</ol>
+<p>具体命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 切换到GitDemo目录下,并初始化Git</span><br><span class="line">cd .../GitDemo  </span><br><span class="line">git init  </span><br><span class="line"></span><br><span class="line">//创建初次提交，创建 master 分支</span><br><span class="line">touch cherry-pick.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;创建cherry-pick文件，初次提交&apos;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//创建并切换到 develop 分支，创建提交“樱桃1号”</span><br><span class="line">git checkout -b develop</span><br><span class="line">touch 樱桃1号.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;创建樱桃1号文件&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//创建提交“樱桃2号”</span><br><span class="line">touch 樱桃2号.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;创建樱桃2号文件&quot;</span><br><span class="line"></span><br><span class="line">//创建提交“樱桃3号”</span><br><span class="line">touch 樱桃3号.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;创建樱桃3号文件&quot;</span><br></pre></td></tr></table></figure>
+<p>以上，测试场景构建完毕。现在用 <code>git log develop</code> 查看 develop 的提交历史如下：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1c0d9f7a0c51d14323f276aff30cee6e.png" alt=""></p>
+<p>现在，仔细瞅瞅，你最喜欢几号樱桃，喜欢哪个，就挑哪个。我喜欢3号，从上图看到3号的 SHA1 值是<code>9e2d49b7c6d868c4cac4c5198d6661837eca813b</code>,使用前几位就足够了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//切换到 master 分支</span><br><span class="line">git checkout master</span><br><span class="line">//挑选3号樱桃</span><br><span class="line">git cherry-pick 9e2d49b</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a21997ec056754d93f5f4f19945931dd.png" alt=""></p>
+<p>挑选成功，通过 <code>ls</code> 命令，看到成功加入<code>樱桃3号.txt</code>。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1711676addc7ab27b171966dcf5c5b83.png" alt=""></p>
+<p>挑樱桃游戏成功！</p>
+<p>另外，需要说明的是，cherry-pick 到 master 的樱桃3号，事实上不是真的 3 号，是 3 号的复制品， 两者的 SHA1 值是不同的，由此可确认这是两个提交。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/227958ecf8d386c9a061939823a15b4d.png" alt=""></p>
+<h1 id="了解更多的-cherry-pick"><a href="#了解更多的-cherry-pick" class="headerlink" title="了解更多的 cherry-pick"></a>了解更多的 cherry-pick</h1><p>理解 cherry-pick 操作的本质，之后，再看其他的命令，就毫无压力了。全部命令详看<a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="noopener">官方文档</a>，这里我给出几个比较常用的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;commits&gt;</span><br></pre></td></tr></table></figure>
+<p>挑选多个提交合并,提交之间用空格相隔。例如，想挑选1号和3号的，就可以用<code>git cherry-pick 4d2951 e4cdff9</code>命令一步到位了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;start-commit&gt;..&lt;end-commit&gt;</span><br></pre></td></tr></table></figure>
+<p>挑选一个范围的多个提交合并,但是这个语法对应操作区别是左开右闭，不包含start-commit。另外要注意两个commit 之间要求有连续关系的，并且前者要在后者之前，顺序不能颠倒。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;start-commit&gt;^..&lt;end-commit&gt;</span><br></pre></td></tr></table></figure>
+<p>这个和上面一样，区别就是加了一个<code>^</code>符号，就变成闭区间了，包含 start-commit。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;branch name&gt;</span><br></pre></td></tr></table></figure>
+<p>挑选 branch 最顶端的提交。例如挑选 3 号樱桃可以用<code>git cherry-pick develop</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick --continue  //继续下个操作</span><br><span class="line">git cherry-pick --quit //退出</span><br><span class="line">git cherry-pick --abort //停止本次操作</span><br></pre></td></tr></table></figure>
+<p>以上是关于 cherry-pick 操作控制命令，当  cherry-pick 多个提交时，假设遇到冲突，<code>--continue</code>继续进行下个，<code>--quit</code>结束 cherry-pick 操作，但是不会影响冲突之前多个提交中已经成功的,<code>--abort</code>直接打回原形，回到 cherry-pick 前的状态，包括多个提交中已经成功的。</p>
+<h1 id="尾篇"><a href="#尾篇" class="headerlink" title="尾篇"></a>尾篇</h1><p>对于这个命令来说，理解 commit 的本质是修改很关键。好了，下篇博客见～，这个3月要将当初计划的 Git 系列博客补完，Fighting！</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/27/Git-rebase打造喜欢的commit颗粒感/" rel="next" title="Git-rebase 黑魔法之打磨 commit 颗粒度">
+                <i class="fa fa-chevron-left"></i> Git-rebase 黑魔法之打磨 commit 颗粒度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/06/Git-rebase黑魔法之打造完美的线性历史/" rel="prev" title="Git-rebase 黑魔法之打造完美的线性历史">
+                Git-rebase 黑魔法之打造完美的线性历史 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前篇"><span class="nav-number">1.</span> <span class="nav-text">前篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cherry-pick-能干啥？"><span class="nav-number">2.</span> <span class="nav-text">cherry-pick 能干啥？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cherry-pick-VS-merge-Ready-GO"><span class="nav-number">3.</span> <span class="nav-text">cherry-pick VS merge, Ready? GO!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#博主邀请你参加挑樱桃游戏"><span class="nav-number">4.</span> <span class="nav-text">博主邀请你参加挑樱桃游戏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解更多的-cherry-pick"><span class="nav-number">5.</span> <span class="nav-text">了解更多的 cherry-pick</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尾篇"><span class="nav-number">6.</span> <span class="nav-text">尾篇</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

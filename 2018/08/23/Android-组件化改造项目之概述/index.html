@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="很多事情的发生都来源于一个念头">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-组件化改造项目之概述">
+<meta property="og:url" content="http://yoursite.com/2018/08/23/Android-组件化改造项目之概述/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="很多事情的发生都来源于一个念头">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/module.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/component_1.jpeg">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_130.png">
+<meta property="og:updated_time" content="2019-01-28T17:02:25.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-组件化改造项目之概述">
+<meta name="twitter:description" content="很多事情的发生都来源于一个念头">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/module.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/23/Android-组件化改造项目之概述/">
+
+
+
+
+
+  <title>Android-组件化改造项目之概述 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/23/Android-组件化改造项目之概述/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-组件化改造项目之概述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-23T01:45:18+08:00">
+                2018-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>很多事情的发生都来源于一个念头<br><a id="more"></a></p>
+<h1 id="一个关于组件化的念头"><a href="#一个关于组件化的念头" class="headerlink" title="一个关于组件化的念头"></a>一个关于组件化的念头</h1><p>项目经历了岁月的洗礼，经过公司业务上的变化，开发人员的来来往往，代码越来越臃肿和复杂难懂，这时候就必须进行拆分，否则就是一场灾难。就像我们公司的老项目一样，耦合度极高，已经停掉的业务，现在还在项目里面留存着，完全不敢删。新功能上线，因为要回归测试，测试时间有时候比开发时间还长。</p>
+<p>组件化这个词，我们应该在各个地方，通过各种渠道，看到过无数次，而且一般会给配上下面这张图，小机器人，绿油油的色彩，非常的鲜艳夺目有调性。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/module.png" alt=""></p>
+<p>组件化和插件化同属于模块化编程，只是两种不同的展现模式。两者的区别，只有一个：插件化支持动态增加和修改线上的模块，组件化只能对现有模块进行增加和删除。</p>
+<p>项目线上功能动态很频繁的电商类APP，适合使用插件化。变动需求不强烈的工具类APP，适合采用组件化。我们公司对灵活性要求不高，因此采用组件化方案。</p>
+<h1 id="组件化的几个要点"><a href="#组件化的几个要点" class="headerlink" title="组件化的几个要点"></a>组件化的几个要点</h1><p>组件化的要点不算少，下面准备就我认为主要的部分，用提问和解答的方式，梳理大概的思路。</p>
+<p><strong>01.如何将一个庞大的工程拆分成有机的整体？</strong></p>
+<p>我认为应该分三个部分，主项目，基础公共库和业务组件。先抽出基础公共库，供其他组件调用，剩余部分按照业务逻辑去分组件，利于后期业务的迭代开发，主项目负责装载组件。</p>
+<p><strong>02.组件可以单独运行吗？如何做到？</strong></p>
+<p>分离开的每个组件，都应支持独立运行，这样我们才能单独在某个模块开发和测试。可以通过 apply plugin: ‘com.android.application’ 和 apply plugin: ‘com.android.library’ 去实现两个身份的转换。</p>
+<p>这里不要被图给误解到，组件化中的胳膊腿离开了身体，其实还是能独立存活的个体。</p>
+<p><strong>03.如何做到组件与组件之间的独立？</strong></p>
+<p>组件与组件之间相互独立，才是降低耦合，主要表现在资源隔离和代码隔离。代码隔离可通过gradle3.0 之后 runtimeOnly 依赖语法实现编译期隔离 。资源隔离，目前官方没有现成的隔离方案，暂时可以先使用 resourcePrefix 属性，人为维护。</p>
+<p><strong>04.组件之间互相独立，数据如何传递？</strong></p>
+<p>考虑路由方案，目前已经有很成熟的路由库 ARouter。</p>
+<p>除以上问题，还有组件的集成调试，组件生命周期等问题，我认为前期可以先不考虑，留待后期优化。</p>
+<h1 id="组件化前-VS-组件化后"><a href="#组件化前-VS-组件化后" class="headerlink" title="组件化前 VS 组件化后"></a>组件化前 VS 组件化后</h1><p>组件化改造的过程是非常痛苦的，但是完成后的开发体验真的超超超超幸福！因为业务模块逻辑分离，代码耦合度降低，所以会带来以下好处：</p>
+<ul>
+<li>编译时间短</li>
+<li>开发周期降低</li>
+<li>减少测试回归</li>
+<li>快速定位问题</li>
+<li>业务模块迁移很方便</li>
+</ul>
+<p>下面是我司项目组件化过程中的解耦的业务模块：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/component_1.jpeg" alt=""></p>
+<p>Android 绿色小机器人坐成两排，十分乖巧可爱。</p>
+<h1 id="如何快速开始组件化"><a href="#如何快速开始组件化" class="headerlink" title="如何快速开始组件化"></a>如何快速开始组件化</h1><p>第一步，少年，你需要自行去搜索获取关于组件化的知识，在脑海中有它有个清楚的认识。</p>
+<p>第二步，针对你的目标项目，梳理整体的业务逻辑和代码架构，做出可行的组件化方案。这一步非常重要，必须提前探好底，让更多的问题暴露在执行前。不然，想象下，你一个模块感觉都要挪过来80%了，发现业务逻辑上分离不开，或者技术上实现有障碍，这就很浪费时间和精力了，还影响心情。</p>
+<p>第三步，方案递交给技术 leader ,同意之后，申请排期开发。</p>
+<p>第四步，沐浴焚香，拜好代码大神，就开始吧。</p>
+<p>友情提示，最好单独拉一个新分支，因为这非常可能持久战，不要因此影响了项目的正常迭代。</p>
+<h1 id="我的组建化步骤"><a href="#我的组建化步骤" class="headerlink" title="我的组建化步骤"></a>我的组建化步骤</h1><ul>
+<li><p>抽出基础工具类 BaseLib，网络封装库 NetWorkLib。</p>
+</li>
+<li><p>抽出基础资源库 BasicRes，管理公共资源，例如 BaseActivity／BaseApplication 等基类们，对话框，res资源。</p>
+</li>
+<li><p>分离业务逻辑，独立为 Module。</p>
+</li>
+<li><p>选定 Arouter 作为路由方案，连接各组件 Module。</p>
+</li>
+</ul>
+<h1 id="相关推荐"><a href="#相关推荐" class="headerlink" title="相关推荐"></a>相关推荐</h1><p>组件化的概念，已经提出相当长时间，因为有很多优秀的文章可供参考，以下是我的推荐：</p>
+<p><a href="https://www.jianshu.com/p/59822a7b2fad" target="_blank" rel="noopener">张明庆-JIMU组件化方案</a></p>
+<p>得到APP的前技术负责人张明庆大神的系列文章，我的组件化思路也来源于此。</p>
+<p><a href="https://juejin.im/post/5a7ab8846fb9a0634514a2f5" target="_blank" rel="noopener">总结一波安卓组件化开源方案</a></p>
+<p>这篇文章，从多个维度对目前网上一些有代表性的开源组件化开发方案进行对比，适合大家能快速对android组件化有个整体的认识。</p>
+<hr>
+<center><br><font color="gray">欢迎关注博主的微信公众号，快快加入哦，期待与你一起成长！</font><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_130.png" width="130" height="130"><br></center>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/17/AndroidStudio-Sources-for'Android-API-27-Platform'-not-found/" rel="next" title="AndroidStudio-Sources for 'Android API 27 Platform' not found">
+                <i class="fa fa-chevron-left"></i> AndroidStudio-Sources for 'Android API 27 Platform' not found
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/27/Android-组件化如何处理多个ModuleApplication共存问题？/" rel="prev" title="Android-组件化如何处理多个ModuleApplication共存问题？">
+                Android-组件化如何处理多个ModuleApplication共存问题？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一个关于组件化的念头"><span class="nav-number">1.</span> <span class="nav-text">一个关于组件化的念头</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化的几个要点"><span class="nav-number">2.</span> <span class="nav-text">组件化的几个要点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化前-VS-组件化后"><span class="nav-number">3.</span> <span class="nav-text">组件化前 VS 组件化后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何快速开始组件化"><span class="nav-number">4.</span> <span class="nav-text">如何快速开始组件化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的组建化步骤"><span class="nav-number">5.</span> <span class="nav-text">我的组建化步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关推荐"><span class="nav-number">6.</span> <span class="nav-text">相关推荐</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

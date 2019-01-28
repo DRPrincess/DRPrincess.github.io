@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="搭建 Nexus 私服，并从一个 Android 开发者的角度去上传依赖到 Nexus 私服。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-Nexus 搭建自己的 Maven 仓库 &amp; Gradle 上传依赖包">
+<meta property="og:url" content="http://yoursite.com/2018/02/27/Android-Nexus搭建Maven仓库/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="搭建 Nexus 私服，并从一个 Android 开发者的角度去上传依赖到 Nexus 私服。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/02e031b659e40c3fa8876f5b89b0d180.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/11d41dde1d7948fa8a2ff8f35b38bec0.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8d21c50aa3dedf4ef4c5352cf76b2461.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/09685a7edb962afb1921cb9b45e86079.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/140fe04a1972c2825c6b4a723357fd96.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:52:31.340Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-Nexus 搭建自己的 Maven 仓库 &amp; Gradle 上传依赖包">
+<meta name="twitter:description" content="搭建 Nexus 私服，并从一个 Android 开发者的角度去上传依赖到 Nexus 私服。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/02e031b659e40c3fa8876f5b89b0d180.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/27/Android-Nexus搭建Maven仓库/">
+
+
+
+
+
+  <title>Android-Nexus 搭建自己的 Maven 仓库 & Gradle 上传依赖包 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/27/Android-Nexus搭建Maven仓库/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-Nexus 搭建自己的 Maven 仓库 & Gradle 上传依赖包</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-27T10:38:00+08:00">
+                2018-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>搭建 Nexus 私服，并从一个 Android 开发者的角度去上传依赖到 Nexus 私服。</p>
+<a id="more"></a>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是一篇旨到弄清以下问题的博客：</p>
+<ul>
+<li>Maven 仓库分类？</li>
+<li>Nexus 仓库是什么？</li>
+<li>Nexus 和 Maven 的关系？</li>
+<li>为什么要创建 Nexus 仓库？</li>
+<li>如何搭建 Nexus 仓库？</li>
+<li>为什么仓库 release 和 snapshot 之分？</li>
+<li>snapshot 仓库要怎么使用？</li>
+</ul>
+<p>我不知道也未曾料想过，我会从一个 gradle 依赖引用的 <code>@</code> 符号开始，思路分散的如此的地步，我的脑子是个神奇的东西。</p>
+<h1 id="Maven-的仓库分类"><a href="#Maven-的仓库分类" class="headerlink" title="Maven 的仓库分类"></a>Maven 的仓库分类</h1><p>从 Maven 的依赖下载管理角度来看，Maven 仓库的可分为两类，远程仓库和本地仓库。</p>
+<p>本地仓库是电脑硬盘上的一个目录，远程仓库是在指放在远程服务器上电脑硬盘上的 Maven 仓库目录，使用需添加远程仓库的地址，才能正常连接下载依赖。</p>
+<p>Maven 的远程仓库分为中央仓库和私服仓库。中央仓库存放了世界各地用户上传的依赖包，比较出名的是 JCenter 和 Maven Central，开源的第三方依赖一般都会上传到这两个中央仓库，这样我们只用添加这两个中央仓库的链接地址，就可以下载各种我们需要的依赖了。</p>
+<p>由于每次构建都需要从中央仓库下载依赖，对于中央仓库的服务器来说，压力很大，间接导致下载速度很慢。并且，上传到中央仓库的依赖都是开源的，只要知道名字，用户就都能下载，虽然开源精神是值得倡导的，但是一些公司内部的核心依赖包，出于一些考虑，无法直接开源。于是，私服仓库就诞生了。在公司的局域网，搭建一个 Nexus 仓库，把公司内部不想开源的依赖包上传到私服仓库中，这样下载依赖的需满足两个条件，私服仓库的地址和在公司局域网内，一定程度上有个保密和安全性。</p>
+<h1 id="私服是一种特殊的远程仓库"><a href="#私服是一种特殊的远程仓库" class="headerlink" title="私服是一种特殊的远程仓库"></a>私服是一种特殊的远程仓库</h1><p>私服是一种特殊的远程仓库, 它设在局域网内, 通过代理广域网上的远程仓库, 供局域网内的 Maven 用户使用。私服的存在，特殊于，它改变了 Maven 下载依赖的机制。</p>
+<p>只有本地仓库和远程中央仓库时，当 Maven 根据坐标寻找依赖包时, 首先会检索本地仓库, 如果本地存在则直接使用, 否则去远程仓库下载.   </p>
+<p>但是，当有了一个私服后：   </p>
+<p>当检索本地仓库发现不存在的时候， Maven 客户端先向私服请求, 如果私服不存在该依赖包, 则从外部的远程仓库下载, 并缓存在私服上, 再为客户提供下载服务。简单的理解是私服相当于本地仓库和远程中央仓库的中间缓存，因此，私服的存在，可以节省公网带宽，利用内网下载依赖项速度快。</p>
+<p>下面是一张本地仓库，私服仓库和远程中央仓库的依赖下载示意图（构件可理解为三方的依赖包，是比较专业的说法）：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/02e031b659e40c3fa8876f5b89b0d180.png" alt=""></p>
+<h1 id="Nexus-搭建私服"><a href="#Nexus-搭建私服" class="headerlink" title="Nexus 搭建私服"></a>Nexus 搭建私服</h1><p>有三种比较流行的 Maven 仓库管理软件可以创建私服，Apache基金会的 Archiva，JFrog 的 Artifactory ，Sonatypec的 Nexus,本博客的内容是使用 Nexus 搭建私服。</p>
+<p>Nexus 的话说的很霸气,自称为 <strong>“世界上第一个也是唯一可以免费使用的通用储存库解决方案”</strong>。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/11d41dde1d7948fa8a2ff8f35b38bec0.png" alt=""></p>
+<p>Nexus 的 2.x 和 3.x 版本改动很多，我写下这篇博客的时候，Nexus 最新版本是 3.8.0，因此按照 3.8.0 记录。</p>
+<h2 id="Java-环境准备"><a href="#Java-环境准备" class="headerlink" title="Java 环境准备"></a>Java 环境准备</h2><p>当前 Sonatype Nexus 基于 Java,要求 Java 8 Runtime Environment（JRE），java 版本不能低于 1.8.0，所以请先自行下载 JDK 最新版本，并配好 Java 环境。</p>
+<p>想确认已安装的 Java 版本，可以运行 <code>java -version</code> 命令查看。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8d21c50aa3dedf4ef4c5352cf76b2461.png" alt=""></p>
+<h2 id="下载-Nexus"><a href="#下载-Nexus" class="headerlink" title="下载 Nexus"></a>下载 Nexus</h2><p>去<a href="https://www.sonatype.com/download-oss-sonatype" target="_blank" rel="noopener"> 官方网站</a> 下载自己对应平台的 Nexus 安装包。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/09685a7edb962afb1921cb9b45e86079.png" alt=""></p>
+<h2 id="运行-Nexus"><a href="#运行-Nexus" class="headerlink" title="运行 Nexus"></a>运行 Nexus</h2><p>将下载的压缩包，解压，会看到如下目录：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/140fe04a1972c2825c6b4a723357fd96.png" alt=""></p>
+<p>进入 bin 目录，启动 Nexus 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">// Windows小伙伴们用这个  </span><br><span class="line">nexus.exe /run</span><br><span class="line"></span><br><span class="line">// Unix 和 OS X 小伙伴们用这个</span><br><span class="line">./nexus run</span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">我使用的是 Mac，执行 `./nexus run`，运行结果如下：</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8d69e9e92fb4cc9484c6fc2187cec0d2.png)</span><br><span class="line"></span><br><span class="line">看到如上信息，Nexus 已经启动，</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 访问 Nexus 用户页面</span><br><span class="line"></span><br><span class="line">Nexus 启动成功之后，就会监听配置的IP地址和接口范围，默认的接口是 8081,在浏览器访问 [http://localhost:8081/](http://localhost:8081/),可以看到启动的本地 Nexus 仓库页面。如果别人想访问这个仓库的话，需要额外配置。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/bdd53e2b682d94314dc759737adc6282.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">界面上展示了未登录用户可以使用的功能。Nexus 提供了一个完全访问权限的管理用户。 用户名是 `admin`，密码是 `admin123`。 点击界面右上角的按钮登录。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">以上，一个本地的 Nexus 服务器就搭建好了。</span><br><span class="line"></span><br><span class="line">## 访问 Nexus 仓库分类</span><br><span class="line"></span><br><span class="line">打开 Nexus 的 Repository 页面，可以看到 Nexus 默认为我们创建的仓库。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/10de81c706f82e13671a61af59b99773.png)</span><br><span class="line"></span><br><span class="line">注意 Type 列，展示了 Nexus 的仓库分类：  </span><br><span class="line"></span><br><span class="line">- proxy（远程代理仓库）  </span><br><span class="line">这种类型的仓库，可以设置一个远程仓库的链接。当用户向 proxy 类型仓库请求下载一个依赖构件时，就会先在自己的库里查找，如果找不到的话，就会从设置的远程仓库下载到自己的库里，然后返回给用户，相当于起到一个中转的作用。   </span><br><span class="line"></span><br><span class="line">  例如 maven-central 用来存储从 Maven 中央仓库下载过的构件。</span><br><span class="line">- group （聚合仓库）  </span><br><span class="line">在 Maven 里没有这个概念，是 Nexus 特有的。目的是将多个仓库聚合，对用户暴露统一的地址，这样用户就不需要配置多个地址，只要统一配置 group 的地址就可以了。group 仓库的聚合成员可以在仓库设置中添加和移除。</span><br><span class="line"></span><br><span class="line">  例如 maven-public 是一个 group 类型的仓库，通过引用这个地址，可以访问组内成员仓库的所有构件。</span><br><span class="line"></span><br><span class="line">  ![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0b6374cee58f2a3d7896d90c3a3b1bb0.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- hosted（宿主仓库）   </span><br><span class="line">我们自己的构件，上传的就是这样的仓库。目前 maven-releases 和 maven-snapshots 是 hosted 类型的仓库。我们可以上传到这两个仓库，也可以自己创建 hosted 仓库。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 上传依赖包到 Nexus 私库</span><br><span class="line"></span><br><span class="line">一个本地的 Nexus 私库搭建完毕，接下来的问题是，如何将构件(依赖包)上传上去。</span><br><span class="line"></span><br><span class="line">上传上去的方式有两种：</span><br><span class="line"></span><br><span class="line">- 使用 Gradle 的集成的 Maven 插件上传</span><br><span class="line">- 命令行上传([有兴趣点这里了解](https://www.xncoding.com/2017/09/02/tool/nexus.html))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 使用 Gradle 部署依赖包到 Maven 服务器</span><br><span class="line"></span><br><span class="line">Gradle 集成了 Maven plugin,通过简单的配置，就能将构件上传到 Maven 服务器上。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1. 第一步，创建一个 Android Library 项目</span><br><span class="line">2. 第二步，Library Moudle 的 build.gradle 配置上传参数</span><br><span class="line">3. 第三步，上传到 nexus 私服。</span><br><span class="line"></span><br><span class="line">步骤和上一篇部署到 JCenter 仓库一样，区别在于上传的服务器地址不同，使用的上传插件也不同。</span><br><span class="line"></span><br><span class="line">### 创建一个 Android Library 项目</span><br><span class="line"></span><br><span class="line">我创建了一个 Library Module, 命名为 nexuslibrary, 在其中创建几个类，暴露公共方法，方便测试最后的依赖的下载和应用。为了省事，我从从上一篇文章创建过的 jcenterlibrary 中拷贝过来的，然后改改的。</span><br><span class="line"></span><br><span class="line">### Library Moudle 的 build.gradle 配置上传参数</span><br><span class="line"></span><br><span class="line">在 Library Moudle 中创建一个 `gradle.properties` 文件,记录 Nexus 的私服的用户名称和密码，要上传的目标仓库地址，以及上传构件的信息。</span><br></pre></td></tr></table></figure>
+<p>//上传构件的信息<br>GROUP=com.dr<br>VERSION_NAME=1.0.3<br>POM_ARTIFACT_ID=nexuslibrary</p>
+<p>//上传的目标仓库地址<br>SNAPSHOT_REPOSITORY_URL=<a href="http://localhost:8081/repository/maven-snapshots/" target="_blank" rel="noopener">http://localhost:8081/repository/maven-snapshots/</a><br>RELEASE_REPOSITORY_URL=<a href="http://localhost:8081/repository/maven-releases/" target="_blank" rel="noopener">http://localhost:8081/repository/maven-releases/</a></p>
+<p>//Nexus 的私服的用户名称和密码<br>NEXUS_USERNAME=admin<br>NEXUS_PASSWORD=admin123</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">在 Library Moudle de  `build.gradle` 中添加以下配置，用来生成 `sources.jar`源码包和 `javadoc.jar`方法文档和创建上传的 Gradle Task。</span><br></pre></td></tr></table></figure>
+<p>apply plugin: ‘maven’</p>
+<p>def isReleaseBuild() {<br>    return VERSION_NAME.toUpperCase().contains(“SNAPSHOT”) == false<br>}<br>def getRepositoryUsername() {<br>    return hasProperty(‘NEXUS_USERNAME’) ? NEXUS_USERNAME : “”<br>}<br>def getRepositoryPassword() {<br>    return hasProperty(‘NEXUS_PASSWORD’) ? NEXUS_PASSWORD : “”<br>}<br>def getRepositoryUrl() {<br>    return isReleaseBuild() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL<br>}<br>afterEvaluate { project -&gt;<br>    uploadArchives {<br>        repositories {<br>            mavenDeployer {<br>                pom.groupId = GROUP<br>                pom.artifactId = POM_ARTIFACT_ID<br>                pom.version = VERSION_NAME<br>                repository(url: getRepositoryUrl()) {<br>                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())<br>                }<br>            }<br>        }<br>    }<br>    task androidJavadocs(type: Javadoc) {<br>        source = android.sourceSets.main.java.srcDirs<br>        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))<br>    }<br>    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {<br>        classifier = ‘javadoc’<br>        from androidJavadocs.destinationDir<br>    }<br>    task androidSourcesJar(type: Jar) {<br>        classifier = ‘sources’<br>        from android.sourceSets.main.java.sourceFiles<br>    }</p>
+<p>   //解决 JavaDoc 中文注释生成失败的问题<br>    tasks.withType(Javadoc) {<br>        options.addStringOption(‘Xdoclint:none’, ‘-quiet’)<br>        options.addStringOption(‘encoding’, ‘UTF-8’)<br>        options.addStringOption(‘charSet’, ‘UTF-8’)<br>    }<br>    artifacts {<br>        archives androidSourcesJar<br>        archives androidJavadocsJar<br>    }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">以上就完毕了。</span><br><span class="line"></span><br><span class="line">其实，可以把以上 `build.gradle `中的配置，专门创建一个 gradle 文件，例如 `upload_nexus.gradle`中，然后在 `build.gradle `中引用`upload_nexus.gradle`，和上面的效果是一样的，区别在于 `build.gradle ` 会更加的简洁。</span><br></pre></td></tr></table></figure>
+<p>apply from: ‘upload_nexus.gradle’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 上传到 nexus 私服</span><br><span class="line"></span><br><span class="line">Android Studio 中打开右侧的 Gradle 侧边栏，打开 nexuslibrary,可以看到 `uploadArchives`,这就是刚才创建的上传 Task,点击即可完成上传。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/aee1bf2799be2a5aa58fdb7d5513968a.png)</span><br><span class="line"></span><br><span class="line">如果 uploadArchives Task 执行成功，在 Nexus 仓库中可以看到上传的构件包们。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1276aff67738bd0563e27e9ca6ce5cdf.png)</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ece0a6437d223a4d1ba01d5c347d7504.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 使用 Nexus 私服中三方包</span><br><span class="line"></span><br><span class="line">刚才已经上传成功，现在可以开始尝试下载了，so excited !</span><br><span class="line"></span><br><span class="line">首先在 rootProject 的 build.gradle 中引用私库地址，我引用的是 maven-public 聚合仓库的地址：</span><br></pre></td></tr></table></figure>
+<p>allprojects {<br>    repositories {<br>        //…<br>        //添加本地仓库地址<br>        maven { url ‘<a href="http://localhost:8081/repository/maven-public/" target="_blank" rel="noopener">http://localhost:8081/repository/maven-public/</a>‘ }</p>
+<pre><code>}
+</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">引用该三方库的目标 Module 的 build.gradle 中添加此库的依赖：</span><br></pre></td></tr></table></figure>
+<p>dependencies {<br>  //…<br>compile ‘com.dr:nexuslibrary:1.0.0’<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行 sync gradle 之后，已经成功下载该三方库，可以正常应用该库中的公共类和方法。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/469f1320c5277a19b12af9bec96fbeac.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># release 和 snapshot 仓库的区别与正确使用</span><br><span class="line"></span><br><span class="line">上个步骤，我们已经将将依赖构件上传到 release 仓库中，如果没有修改版本号，再次上传，就会上传失败，并提示如下错误：</span><br><span class="line"></span><br><span class="line">&gt; Error:Execution failed for task &apos;:nexuslibrary:uploadArchives&apos;.</span><br><span class="line">&gt; Could not publish configuration &apos;archives&apos;</span><br><span class="line">   &gt; Failed to deploy artifacts: Could not transfer artifact com.dr:nexuslibrary:aar:1.0.0 from/to remote (http://localhost:8081/repository/maven-releases/): Failed to transfer file: http://localhost:8081/repository/maven-releases/com/dr/nexuslibrary/1.0.0/nexuslibrary-1.0.0.aar. Return code is: 400, ReasonPhrase: Repository does not allow updating assets: maven-releases.</span><br><span class="line"></span><br><span class="line">原因在于，release 仓库不能重复上传同一版本号，版本不能覆盖，只能迭代。</span><br><span class="line"></span><br><span class="line">snapshot 仓库允许版本覆盖。当我上传多次上传同一个版本到 snapshot 仓库，会自动在版本号上添加时间戳来区分。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/e9fb5ab00bdeb12b75dc4eedc6f2dc07.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">那么问题来了，为什么存在这两个仓库？这个区别的存在意义是什么呢？</span><br><span class="line"></span><br><span class="line">试想你是一个三方库的开发者，三方库是对外暴露的，1.0.0 已经在为其他程序服务，同时它本身存在问题也在继续开发迭代。此刻正在开发新版本 1.0.1，公司的小伙伴在同步从 Nexus 私库下载 1.0.1 最新改动版本测试。这种情况需要保证：</span><br><span class="line"> 1. 对外版本 1.0.0 不受影响</span><br><span class="line"> 2. 内测小伙伴始终能拉取到 1.0.1 的最新版本。</span><br><span class="line"> 3. 从版本号上，可以区分测试版和对外开放的稳定版</span><br><span class="line"></span><br><span class="line">使用 release 和 snapshot 仓库可以很容易达到以上要求。</span><br><span class="line"></span><br><span class="line">稳定对外开放的版本，放到 release 仓库。版本不能覆盖，保证外部使用不受版本更新的影响。  </span><br><span class="line"></span><br><span class="line">迭代开发的不稳定版本，放到 snapshot 仓库。版本可覆盖，小伙伴测试的时候，不需要修改依赖的版本号，最多需要清除下 Maven 的依赖缓存，就可以下载到最新的版本。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">上面提到的 目前 maven-releases 和 maven-snapshots 是 hosted 类型的仓库是 Nexus 默认创建的两个仓库，实际工作中，我们可以自定义创建仓库，自己规定为 release 库和 snapshot 库。下面给出两者的正确使用姿势，方便以后使用：</span><br><span class="line"></span><br><span class="line">## release库（发布库）使用规则及场景</span><br><span class="line"></span><br><span class="line">场景：</span><br><span class="line"></span><br><span class="line">release库是存放稳定版本包的仓库，线上发布的程序都应从release库中引用正确版本进行使用。</span><br><span class="line"></span><br><span class="line">使用规则：</span><br><span class="line"></span><br><span class="line">- release库仓库名中带有“releases”标识，</span><br><span class="line"></span><br><span class="line">- release 库不允许删除版本；</span><br><span class="line"></span><br><span class="line">- release 库不允许同版本覆盖；</span><br><span class="line"></span><br><span class="line">- release库上传的jar包版本号（version）不能以“-SNAPSHOT”结束（版本号中的SNAPSHOT是release版和snapshot版区别的唯一标识）；</span><br><span class="line"></span><br><span class="line">- 第三方包（非公司内部开发）仅可引用 release 版</span><br><span class="line"></span><br><span class="line">- 最好提供源码包 sources.jar 和方法文档 javadoc.jar，方便引用方使用。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## snapshot库（快照库）使用规则及场景</span><br><span class="line"></span><br><span class="line">场景：</span><br><span class="line"></span><br><span class="line">snapshot库是存放中间版本包的仓库，代表该库中依赖包的程序处于不稳定状态。当代码在开发过程中有其他程序需要引用时，可以提供snapshot版用于调试和测试。由于snapshot库的包依然处于测试状态，所以随时可以上传同版本最新包来替换旧包，基于这种不稳定状态，maven允许snapshot库中的包被编译时随时更新最新版，这就可能会导致每次打包编译时同一个版本jar会包含不同的内容，所以snapshot库中的包是不能用来发布的；</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">使用规则：</span><br><span class="line"></span><br><span class="line">- snapshot 库仓库名中带有“snapshots”标识，</span><br><span class="line"></span><br><span class="line">- snapshot 库可以删除版本；</span><br><span class="line"></span><br><span class="line">- snapshot 库可以实现版本覆盖；</span><br><span class="line"></span><br><span class="line">- 第三方包（非公司内部开发）不允许引用 snapshot 版</span><br><span class="line"></span><br><span class="line">-  快照库上传的版本号（version）必须以“-SNAPSHOT”结束，并上传至私服后系统将自动将“-SNAPSHOT”替换为时间戳串（本地代码引用时依然用“-SNAPSHOT”结束的版本号，无需替换时间戳），一个快照包线上将存在至少两个版本。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## PS：</span><br><span class="line"></span><br><span class="line">### 是否允许版本覆盖</span><br><span class="line"></span><br><span class="line">其中是否允许版本覆盖，是否可以删除版本，可以通过 Nexus Repository 设置：</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/cfec316f6cf3a46c3974f08079c58869.png)</span><br><span class="line"></span><br><span class="line">### 拉取不到最新版本呢？</span><br><span class="line"></span><br><span class="line">在 Gradle 引用 snapshot 库版本时,若遇到已经上传最新版本，但是好像没有作用时，不要惊慌，不要失措。请先到项目目录下，使用以下命令清理一下 gradle的缓存，再且试试：</span><br></pre></td></tr></table></figure></p>
+<p>//Windows小伙伴们用这个<br>gradlew build –refresh-dependencies</p>
+<p>//Mac小伙伴们用这个<br>./gradlew build –refresh-dependencies  </p>
+<p>```</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>以上是本博客的全部内容，博客测试用的 Demo 我放在了 GitHub 上，地址在此：<a href="https://github.com/DRPrincess/DR_MavenDemo" target="_blank" rel="noopener">DR_MavenDemo</a>,有问题欢迎提 issue。</p>
+<p>目前来看，我脑洞突如其来的 Maven 系列，到此算是告一段落了，一系列下来，触到的几乎都是我的知识盲点，每当我开始不知所谓的想飘飘然时，时刻提醒自己，我还只是一井蛙。</p>
+<p>最后，年后的第一篇博客，祝大家，狗年快乐呢～</p>
+<h1 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h1><p><a href="http://blog.csdn.net/buptzhengchaojie/article/details/51683672" target="_blank" rel="noopener">《Nexus私服搭建、配置、上传snapshot》</a></p>
+<p><a href="http://www.bijishequ.com/detail/535006?p=" target="_blank" rel="noopener">《私服release库和snapshot库的正确使用方式》</a></p>
+<p><a href="http://blog.csdn.net/qq3516744991/article/details/70836292" target="_blank" rel="noopener">《导入第三方Jar包到Nexus私服》</a></p>
+<p><a href="http://blog.csdn.net/ziwang_/article/details/76383203" target="_blank" rel="noopener">《强制清除 gradle 依赖缓存》</a></p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/01/Android-发布项目到到JCenter仓库/" rel="next" title="Android-发布项目到到 JCenter 仓库">
+                <i class="fa fa-chevron-left"></i> Android-发布项目到到 JCenter 仓库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/27/Git-你好HEAD同学/" rel="prev" title="Git-你好, HEAD 同学">
+                Git-你好, HEAD 同学 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven-的仓库分类"><span class="nav-number">2.</span> <span class="nav-text">Maven 的仓库分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#私服是一种特殊的远程仓库"><span class="nav-number">3.</span> <span class="nav-text">私服是一种特殊的远程仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nexus-搭建私服"><span class="nav-number">4.</span> <span class="nav-text">Nexus 搭建私服</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-环境准备"><span class="nav-number">4.1.</span> <span class="nav-text">Java 环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载-Nexus"><span class="nav-number">4.2.</span> <span class="nav-text">下载 Nexus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行-Nexus"><span class="nav-number">4.3.</span> <span class="nav-text">运行 Nexus</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考博客"><span class="nav-number">6.</span> <span class="nav-text">参考博客</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

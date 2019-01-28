@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="哎呀呀，夏天，哪里凉快滚哪里，冬天，哪里暖和滚哪里">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git-少年，你想学回滚吗？想撤销文件修改吗？">
+<meta property="og:url" content="http://yoursite.com/2018/03/11/Git-少年，你想学回滚吗？想撤销文件修改吗？/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="哎呀呀，夏天，哪里凉快滚哪里，冬天，哪里暖和滚哪里">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2429e4d2661e60027537aea0077f6e40.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4ba9d150f15cad53e1e7c03f85b29ba1.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a2f4dacda721f1076b50ec57f9c53eeb.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/eef7ad56aeb25780f56ca174817e9754.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/630aded19c1e67485a03058b1a550712.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/d55b818b1c8b91db730067767416ce06.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/da57beece1716966443daaedd14b8544.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/493ba44224a5e1b32703cf063a7f5979.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7d4913f29fc3f0d1c08a37f60ef28264.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9fe25ca56846ed14eb28ff9aab67ae78.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/d5ca3d2e97cebf297f0b07463522c226.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/6d6245216ee25a6f6872679d63a82b5a.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ac2e827db1cb494f943043c2c1b948b2.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7210fbe7a8d398710dab5d59977d3298.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/bff8db5752af1613d5e2953870c60c56.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:50:38.793Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git-少年，你想学回滚吗？想撤销文件修改吗？">
+<meta name="twitter:description" content="哎呀呀，夏天，哪里凉快滚哪里，冬天，哪里暖和滚哪里">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2429e4d2661e60027537aea0077f6e40.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/11/Git-少年，你想学回滚吗？想撤销文件修改吗？/">
+
+
+
+
+
+  <title>Git-少年，你想学回滚吗？想撤销文件修改吗？ | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/11/Git-少年，你想学回滚吗？想撤销文件修改吗？/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git-少年，你想学回滚吗？想撤销文件修改吗？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-11T22:40:01+08:00">
+                2018-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>哎呀呀，夏天，哪里凉快滚哪里，冬天，哪里暖和滚哪里</p>
+<a id="more"></a>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>林俊杰有首歌《可惜没如果》,道尽后悔的遗憾，但是万幸，在 Git 中你可以拥有如果,用 <code>reset</code>、<code>checkout</code> 和 <code>revert</code> 可以用来撤销当年那些错误的决定。</p>
+<h1 id="带着-Git-三大区的概念去阅读"><a href="#带着-Git-三大区的概念去阅读" class="headerlink" title="带着 Git 三大区的概念去阅读"></a>带着 Git 三大区的概念去阅读</h1><p>来，看下面这张图复习复习 Git 三大区的概念，这个概念即将贯穿今天这篇文章，理解很重要，不太理解的小伙伴可以先去我的另一篇博客 <a href="http://blog.csdn.net/qq_32452623/article/details/78417609" target="_blank" rel="noopener">《 Git三大特色之Stage(暂存区)》</a>学习下先，等你哦。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2429e4d2661e60027537aea0077f6e40.png" alt="git 数据流程图示意图"></p>
+<h1 id="吃第一颗栗子，理解一下什么叫做回滚"><a href="#吃第一颗栗子，理解一下什么叫做回滚" class="headerlink" title="吃第一颗栗子，理解一下什么叫做回滚"></a>吃第一颗栗子，理解一下什么叫做回滚</h1><p>有一个Android 开发工程师，他叫小明，他正在 feature 分支上开发，他的 feature 分支历史如下图所示，一切都很正常，按照计划进行，这时他接到一个需求变更通知，说“用户积分模块，这个版本不要了”，这真是一个悲伤的消息，小明要赶紧改回来。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4ba9d150f15cad53e1e7c03f85b29ba1.png" alt=""></p>
+<p>如果小明不会回滚历史，需要人肉操作去找有关 “用户积分模块” 的代码，然后一个个注或删除释掉，这个更悲伤了，我猜小明可能会哭。</p>
+<p><img src="" alt=""><br> <img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a2f4dacda721f1076b50ec57f9c53eeb.png" width="30%" style="text-align:center;" alt="还在路上，稍等..."></p>
+<p>如果小明用的是 Git,也知道怎么回滚，他只需要找到回滚的终点提交，然后一个命令就可以开始回滚操作。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/eef7ad56aeb25780f56ca174817e9754.png" alt=""></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/630aded19c1e67485a03058b1a550712.png" alt=""></p>
+<p>如果小明是个老手，他会先新建个分支做备份，然后再回滚，那也只需要两条命令：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/d55b818b1c8b91db730067767416ce06.png" alt=""></p>
+<p>以上完美解决此时的需求变更，小明很开心。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/da57beece1716966443daaedd14b8544.png" alt=""></p>
+<h1 id="拿起你的栗子，来认识-reset-的三种模式"><a href="#拿起你的栗子，来认识-reset-的三种模式" class="headerlink" title="拿起你的栗子，来认识 reset 的三种模式"></a>拿起你的栗子，来认识 reset 的三种模式</h1><p>上面的例子中，我们使用的命令是 <code>git reset --hard  &lt;commit-id&gt;</code>，其实 reset 有三种模式：</p>
+<ul>
+<li>–hard</li>
+<li>–mixed（默认模式）</li>
+<li>–soft</li>
+</ul>
+<p>三个参数对应的是不同的作用范围，这个范围和开篇说的 Git 三大区息息相关，因为这个三个模式就是因为有三个分区才存在的。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/493ba44224a5e1b32703cf063a7f5979.png" alt=""></p>
+<p>实际使用中，你可能会遇到各种千奇百怪需求的的撤销操作，理解好这三种模式的区别，使用起来倍爽。下面列两三个你肯定会遇到的场景，然后用 reset 的不同模式。可以轻松解决问题。</p>
+<blockquote>
+<p>小明写代码ing;<br>  同事说“小明，你快拉取一下仓库的最新代码，blabla…”    ;<br>  小明开始“git pull” ;<br>  git pull failed ,原因是暂存区有未提交的修改，这些修改可能会被覆盖;<br>  小明确定不会被覆盖，不想创建一个新提交，还想保存修改内容 ;<br>  请问：该怎么办?</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//将暂存区的内容与提交历史同步</span><br><span class="line">git reset</span><br><span class="line"></span><br><span class="line">//然后再拉取                               </span><br><span class="line">git pull xxx</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>小明刚创建了一个 commit；<br>  然后发现那个 commit 中有个小错误；<br>  但是为了维护美好的分支历史，不想因为这个小修改再创建一个提交；<br>  请问：该怎么办?</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//将此提交撤销，但是不修改暂存区和工作区的内容</span><br><span class="line"> git reset --soft HEAD^  </span><br><span class="line"></span><br><span class="line">//修改好小问题</span><br><span class="line"></span><br><span class="line">//重新提交                      </span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;xxx&apos;</span><br></pre></td></tr></table></figure>
+<p>其实，这是使用 <code>--soft</code>的解决方案，还有一种更方便的方法，不用撤销也能完成，<code>git commit --amend</code>追加提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//修改好小问题</span><br><span class="line"></span><br><span class="line">//重新提交                      </span><br><span class="line">git add .</span><br><span class="line">git commit --amend`</span><br></pre></td></tr></table></figure>
+<p>上面的例子，希望给帮你更加清楚的理解 reset 三种的模式的区别，在使用 <code>reset --hard</code>的时候，要小心一点，因为这个操作会彻底地重置工作区，放弃修改，使用之前，要十分确定未保存的修改要放弃，不然重置后有可能找不回来了哈。</p>
+<p>下面给小伙伴们介绍另外一种撤销方式 <code>revert</code>,是一个神奇的命令。</p>
+<h1 id="revert-是一种抵消式撤销"><a href="#revert-是一种抵消式撤销" class="headerlink" title="revert 是一种抵消式撤销"></a>revert 是一种抵消式撤销</h1><p>revert,翻译是“反转”，一个比较难理解的词，快来解开非凡想象力的封印。</p>
+<p>想象一下，提交中添加了一个A.txt, revert 创建了一个删除 A.txt 的新提交，两个提交同时存在，于是，A.txt 等于从来没有存在过，等于撤销了原来提交。</p>
+<p>这像一个互为正负的关系 <code>1+（-1）= 0</code>。</p>
+<p>第一个例子，小明如果用 <code>revert</code> “撤销积分模块”，就要这样用了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将 head^^^到head 范围内的提交反转</span><br><span class="line">git revert head^^^..head</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7d4913f29fc3f0d1c08a37f60ef28264.png" alt=""></p>
+<p><code>git log</code> 看一下操作后的分支历史，不仅没少，反而多了，增加几个反转提交。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9fe25ca56846ed14eb28ff9aab67ae78.png" alt=""></p>
+<p>这是 revert 第一个例子中场景的使用表现，也许你会疑问：</p>
+<blockquote>
+<p>有了 reset,为什么还要有 revert ？</p>
+</blockquote>
+<p>这是因为，在下图情况下，分支顶端还有要保存的提交，reset 无法使用，只能用 revert 将中间的提交反转。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/d5ca3d2e97cebf297f0b07463522c226.png" alt=""></p>
+<p>如果不想要新增的反转提交污染分支历史，你也可以选择发射你的黑魔法 <code>rebase -i</code> 将中间的提交施加 <code>drop</code> 操作,Git 真的无所不能，只要你会。</p>
+<h1 id="reset-VS-revert-Ready-GO"><a href="#reset-VS-revert-Ready-GO" class="headerlink" title="reset VS revert ,Ready? GO!"></a>reset VS revert ,Ready? GO!</h1><p>由于 <code>reset</code> 和  <code>revert</code> 的作用都是撤销提交，所以很多人很自然而然地将两者对比。我就是那很多人之一，而且我还特别无聊的，画了对比图，如下：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/6d6245216ee25a6f6872679d63a82b5a.png" alt=""></p>
+<p>可以很明显的看出两者对分支历史改变区别：</p>
+<ul>
+<li><code>reset</code> 回退了历史</li>
+<li><code>revert</code> 创建反转提交，增加了历史</li>
+</ul>
+<p>从数据安全上角度，<code>revert</code>比<code>reset</code>安全，因为它的操作可以回溯，反转了还可以倒回来。<code>reset</code>比较彻底，是直接丢弃了,不过可以考虑想第一个例子中创建一个备份分支来保证安全。</p>
+<p>从分支历史的长期维护角度，<code>reset</code>的历史比较干净，<code>revert</code>的反转提交没多大意义，毕竟很少有需求让你滚来滚去的。</p>
+<p>在被撤销提交，不再分支顶端的场景上，<code>reset</code> 无法使用，<code>revert</code>可以做到,。</p>
+<p>以上对两者的区别讨论结束，没有总结，看你个人喜好和需求场景使用。</p>
+<h1 id="撤销的不是提交，而是文件"><a href="#撤销的不是提交，而是文件" class="headerlink" title="撤销的不是提交，而是文件"></a>撤销的不是提交，而是文件</h1><p>上面给大家介绍的都是关于 commit history 提交历史的撤销，但是有时候会出现撤销单个文件修改的场景，例如，我就经常写了很多代码之后发现某个想法不可行，那个时候已经写了很多代码了，<code>Command+Z</code>都撤不完了，手动改太麻烦还容易出错，怎么办？</p>
+<p>这个时候就需要撤销文件的修改了，下面就给大家介绍一下，如何进行文件撤销。</p>
+<h2 id="checkout-的第二命令格"><a href="#checkout-的第二命令格" class="headerlink" title="checkout 的第二命令格"></a>checkout 的第二命令格</h2><p><code>checkout</code> 这个命令，我们对它太熟悉了,切换分支，检出提交，检出 Tag 标签等等各种对 HEAD 指针花式操作，但是看下，<a href="https://git-scm.com/docs/git-checkout" target="_blank" rel="noopener">git-checkout</a> 官网文档的定义：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ac2e827db1cb494f943043c2c1b948b2.png" alt=""></p>
+<p>是不是很惊讶，还可以被用来还原工作区的文件！  </p>
+<p>其实这个命令就近在我们眼前,运行 <code>git status</code>,会看到工作区和暂存区的修改，如果工作区有修改存在，Git 就会提示,可以通过 <code>git add &lt;file&gt;</code> 来加入暂存区以备下次提交，如果放弃修改，就执行 <code>git checkout -- &lt;file&gt;</code>。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7210fbe7a8d398710dab5d59977d3298.png" alt="git status中的 checkout"></p>
+<p>所以，要是哪次想撤回修改，恢复到上次 add 时内容 ，除了手动 <code>Command+Z</code> 或  <code>Ctrl+Z</code> ，还可以是使用 <code>git checkout -- &lt;file&gt;</code>，改动较多时，简直一步到位！</p>
+<h2 id="reset-的新操作"><a href="#reset-的新操作" class="headerlink" title="reset 的新操作"></a>reset 的新操作</h2><p>接着上面，工作区<code>1.txt</code>的修改我想下次提交，于是执行了 <code>git add .</code> 加入了暂存区,这个时候运行 <code>git status</code>，又发现 reset 命令的新操作 <code>git reset HEAD &lt;file&gt;</code>。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/bff8db5752af1613d5e2953870c60c56.png" alt="git status 中的 reset"></p>
+<p>看注释，这个操作可以将某个文件的修改从暂存区拿出去。在错误 add 不想提交的文件时，这个命令还是很有用的。</p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>好了，以上是本博客的全部内容，希望能帮助大家理解和学会提交历史的撤销和文件文修改的撤销。</p>
+<p>下篇博客会讲一个特别治愈的命令 reflog，和 reset 配合可以被用来恢复数据，包括已经撤销的，敬请期待，并欢迎关注我的专栏 <a href="http://blog.csdn.net/column/details/17721.html" target="_blank" rel="noopener">《帅气的 Git 操作》</a>，里面有开始学习 Git 到现在的全部文章。</p>
+<p>see you next blog！</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/06/Git-rebase黑魔法之打造完美的线性历史/" rel="next" title="Git-rebase 黑魔法之打造完美的线性历史">
+                <i class="fa fa-chevron-left"></i> Git-rebase 黑魔法之打造完美的线性历史
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/12/Git-移动记录仪&贴心小棉袄reflog/" rel="prev" title="Git-移动记录仪 & 贴心小棉袄 reflog">
+                Git-移动记录仪 & 贴心小棉袄 reflog <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#带着-Git-三大区的概念去阅读"><span class="nav-number">2.</span> <span class="nav-text">带着 Git 三大区的概念去阅读</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#吃第一颗栗子，理解一下什么叫做回滚"><span class="nav-number">3.</span> <span class="nav-text">吃第一颗栗子，理解一下什么叫做回滚</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拿起你的栗子，来认识-reset-的三种模式"><span class="nav-number">4.</span> <span class="nav-text">拿起你的栗子，来认识 reset 的三种模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#revert-是一种抵消式撤销"><span class="nav-number">5.</span> <span class="nav-text">revert 是一种抵消式撤销</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reset-VS-revert-Ready-GO"><span class="nav-number">6.</span> <span class="nav-text">reset VS revert ,Ready? GO!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#撤销的不是提交，而是文件"><span class="nav-number">7.</span> <span class="nav-text">撤销的不是提交，而是文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#checkout-的第二命令格"><span class="nav-number">7.1.</span> <span class="nav-text">checkout 的第二命令格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reset-的新操作"><span class="nav-number">7.2.</span> <span class="nav-text">reset 的新操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">8.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

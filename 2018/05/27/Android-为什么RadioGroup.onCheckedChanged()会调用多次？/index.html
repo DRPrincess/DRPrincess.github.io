@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="可能你自己都不知道你踩过这个坑。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-为什么 RadioGroup.onCheckedChanged() 会调用多次？">
+<meta property="og:url" content="http://yoursite.com/2018/05/27/Android-为什么RadioGroup.onCheckedChanged()会调用多次？/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="可能你自己都不知道你踩过这个坑。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1995f827c402788af7566e7b0c7b9514.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/dd1641408ffa2ace4d98f8cc84e52473.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:52:31.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-为什么 RadioGroup.onCheckedChanged() 会调用多次？">
+<meta name="twitter:description" content="可能你自己都不知道你踩过这个坑。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1995f827c402788af7566e7b0c7b9514.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/27/Android-为什么RadioGroup.onCheckedChanged()会调用多次？/">
+
+
+
+
+
+  <title>Android-为什么 RadioGroup.onCheckedChanged() 会调用多次？ | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/27/Android-为什么RadioGroup.onCheckedChanged()会调用多次？/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-为什么 RadioGroup.onCheckedChanged() 会调用多次？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-27T11:52:00+08:00">
+                2018-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>可能你自己都不知道你踩过这个坑。<br><a id="more"></a></p>
+<h1 id="有这么一个坑"><a href="#有这么一个坑" class="headerlink" title="有这么一个坑"></a>有这么一个坑</h1><p>同学，你有没有遇到 <code>RadioGroup.onCheckedChanged()</code> 莫名其妙调用多次的情况？</p>
+<p>你是怎么解决的？</p>
+<p>使用<code>setChecked()</code> 替代 <code>setChecked()</code> 是不是？</p>
+<p>是的，这是一个有效的解决方法，那你知道为什么吗？</p>
+<h1 id="先自己挖坑做个实验"><a href="#先自己挖坑做个实验" class="headerlink" title="先自己挖坑做个实验"></a>先自己挖坑做个实验</h1><p>事实上，这个坑的隐藏属性还是不低的，因为不出问题掉下去摔一下，你可能真的不知道路不平，哈哈哈。</p>
+<p>作为一个摔出经验的人，我决定写个Demo，带你们去看下这个坑长啥样。</p>
+<p>首先构建一个如下的布局：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1995f827c402788af7566e7b0c7b9514.png" alt=""></p>
+<p>代码中，给 RadioGroup 设置监听事件，事件中打印日志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onCheckedChanged(RadioGroup group, int checkedId) &#123;</span><br><span class="line"></span><br><span class="line">                Log.w(TAG, &quot;RadioGroup onCheckedChanged: &quot;+checkedId );</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+<p>另外添加的两个按钮，分别演示 <code>RadioGroup.check()</code> 和 <code>RadioButton.setCheck()</code> 这两种切换方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">         @Override</span><br><span class="line">         public void onClick(View v) &#123;</span><br><span class="line"></span><br><span class="line">             Log.d(TAG, &quot;onClick: check()&quot;);</span><br><span class="line">             rgSex.check(R.id.rbtnFemale);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">   @Override</span><br><span class="line">   public void onClick(View v) &#123;</span><br><span class="line">       Log.d(TAG, &quot;onClick: setChecked()&quot;);</span><br><span class="line">       rbtnFemale.setChecked(true);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>先默认选中“男”，然后使用两个按钮，从“男”切换到“女”选中。</p>
+<p>下面是打印的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//check()切换状态</span><br><span class="line">onClick: check()</span><br><span class="line">RadioGroup onCheckedChanged: 2131165276  </span><br><span class="line">RadioGroup onCheckedChanged: 2131165275</span><br><span class="line">RadioGroup onCheckedChanged: 2131165275  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//setChecked 切换状态</span><br><span class="line">onClick: setChecked()</span><br><span class="line">RadioGroup onCheckedChanged: 2131165275  </span><br><span class="line"></span><br><span class="line">//手动点击 radioButton 切换状态</span><br><span class="line">RadioGroup onCheckedChanged: 2131165275</span><br></pre></td></tr></table></figure>
+<p>现在，如果遇到这个坑的猿们，有没有一股熟悉的气息铺面而来？</p>
+<p>日志说明三个事实：</p>
+<ol>
+<li><code>RadioGroup.check()</code>的确会导致<code>RadioGroup.onCheckedChanged()</code>调用多次。</li>
+</ol>
+<ol>
+<li><p>代码中，使用 <code>RadioButton.setChecked()</code> 方法替代 <code>RadioGroup.check()</code>是个解决方法。</p>
+</li>
+<li><p>这个坑的隐藏属性的确很高，注意到虽然调用了多次，最后的一次调用传递参数是正确的。</p>
+</li>
+</ol>
+<p>那存在一个问题：</p>
+<blockquote>
+<p>既然最后一次是对的，调用多次的问题是否可以忽略？</p>
+</blockquote>
+<p>如果你的回答是”可以忽略”，那我肯定你还没在上面摔过，至少是没摔疼。</p>
+<p>举个小例子：</p>
+<p>假设在 <code>RadioGroup.onCheckedChanged()</code> 中启动了页面 A 。那么多次调用会导致页面 A 会重复创建。</p>
+<p>假设监听事件中，有网络请求逻辑，多次调用，会给服务端发多次同样请求。</p>
+<p>此处省略很多假设….</p>
+<p>所以，以防万一，做好细节处理，能改就改。</p>
+<h1 id="为啥会有这个坑？看源码呐。"><a href="#为啥会有这个坑？看源码呐。" class="headerlink" title="为啥会有这个坑？看源码呐。"></a>为啥会有这个坑？看源码呐。</h1><p>坑是填平了，但是脑海中仍有几个疑问：</p>
+<blockquote>
+<p>这个问题为什么会出现？是 Android 系统设计的 bug 吗？</p>
+<p>这么明显的问题，Google的程序员会不知道吗？</p>
+<p>如果不是，那为什么这么设计呢？</p>
+</blockquote>
+<p>这样的问题，答案就隐藏在源码之中。</p>
+<p>于是，从上面的测试结果看，应该从 <code>RadioGroup.check()</code> 这个方法切入，寻找事情的真相。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public void check(@IdRes int id) &#123;</span><br><span class="line">      // don&apos;t even bother</span><br><span class="line">      if (id != -1 &amp;&amp; (id == mCheckedId)) &#123;</span><br><span class="line">          return;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      //如果上一个有选中的，先把上一个选中的给取消选中</span><br><span class="line">      if (mCheckedId != -1) &#123;</span><br><span class="line">          setCheckedStateForView(mCheckedId, false);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      //再将现在当前点击给选中</span><br><span class="line">      if (id != -1) &#123;</span><br><span class="line">          setCheckedStateForView(id, true);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      //调用自己的监听方法</span><br><span class="line">      setCheckedId(id);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>现在集中到  <code>setCheckedStateForView</code>  和 <code>setCheckedId</code>  方法。方法中很明确地看到 <code>onCheckedChanged()</code> 方法的调用,因此，可以认为，只要调用了该方法，就触发了一次监听方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private void setCheckedId(@IdRes int id) &#123;</span><br><span class="line">     mCheckedId = id;</span><br><span class="line">     if (mOnCheckedChangeListener != null) &#123;</span><br><span class="line">         mOnCheckedChangeListener.onCheckedChanged(this, mCheckedId);</span><br><span class="line">     &#125;</span><br><span class="line">     final AutofillManager afm = mContext.getSystemService(AutofillManager.class);</span><br><span class="line">     if (afm != null) &#123;</span><br><span class="line">         afm.notifyValueChanged(this);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p> <code>setCheckedStateForView()</code> 方法是用来切换 RadioButton 的选中状态的，里面没有看到直接的监听方法的调用，但有调用 radioButton 的 <code>setChecked ()</code>方法 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">private void setCheckedStateForView(int viewId, boolean checked) &#123;</span><br><span class="line">      View checkedView = findViewById(viewId);</span><br><span class="line">      if (checkedView != null &amp;&amp; checkedView instanceof RadioButton) &#123;</span><br><span class="line">          ((RadioButton) checkedView).setChecked(checked);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>于是继续跳，会跳到 RadioButton 的父类 CompoundButton 的<br><code>setChecked()</code>的方法中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">  public void setChecked(boolean checked) &#123;</span><br><span class="line">      if (mChecked != checked) &#123;</span><br><span class="line">          mCheckedFromResource = false;</span><br><span class="line">          mChecked = checked;</span><br><span class="line">          refreshDrawableState();</span><br><span class="line">          notifyViewAccessibilityStateChangedIfNeeded(</span><br><span class="line">                  AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);</span><br><span class="line"></span><br><span class="line">          // Avoid infinite recursions if setChecked() is called from a listener</span><br><span class="line">          if (mBroadcasting) &#123;</span><br><span class="line">              return;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          mBroadcasting = true;</span><br><span class="line"></span><br><span class="line">          //这里触发自己的监听</span><br><span class="line">          if (mOnCheckedChangeListener != null) &#123;</span><br><span class="line">              mOnCheckedChangeListener.onCheckedChanged(this, mChecked);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          //这里触发 RadioGroup 的 onCheckedChanged 监听</span><br><span class="line">          if (mOnCheckedChangeWidgetListener != null) &#123;</span><br><span class="line">              mOnCheckedChangeWidgetListener.onCheckedChanged(this, mChecked);</span><br><span class="line">          &#125;</span><br><span class="line">          final AutofillManager afm = mContext.getSystemService(AutofillManager.class);</span><br><span class="line">          if (afm != null) &#123;</span><br><span class="line">              afm.notifyValueChanged(this);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          mBroadcasting = false;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p> 方法有两个监听事件的触发，<code>mOnCheckedChangeListener.onCheckedChanged()</code> 和 <code>mOnCheckedChangeWidgetListener.onCheckedChanged（）</code>,前者是 RadioBuuton 自己的，后者我们猜测是父布局的，但是不确定，所以继续找。</p>
+<p> CompoundButton 中的 <code>mOnCheckedChangeWidgetListener</code> 是通过以下方法设置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void setOnCheckedChangeWidgetListener(OnCheckedChangeListener listener) &#123;</span><br><span class="line">    mOnCheckedChangeWidgetListener = listener;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 RadioGroup 中内部接口类的 <code>onChildViewAdded()</code>找到了该方法的调用，这个内部类接口是 ViewGroup 初始化阶段 <code>addView()</code> 时设置，由此我们可以知道是在向 RadioGroup 中添加 RadioButton 的时候设置的 <code>mOnCheckedChangeWidgetListener</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">private class PassThroughHierarchyChangeListener implements</span><br><span class="line">        ViewGroup.OnHierarchyChangeListener &#123;</span><br><span class="line">    private ViewGroup.OnHierarchyChangeListener mOnHierarchyChangeListener;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * &#123;@inheritDoc&#125;</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void onChildViewAdded(View parent, View child) &#123;</span><br><span class="line">        if (parent == RadioGroup.this &amp;&amp; child instanceof RadioButton) &#123;</span><br><span class="line">            int id = child.getId();</span><br><span class="line">            // generates an id if it&apos;s missing</span><br><span class="line">            if (id == View.NO_ID) &#123;</span><br><span class="line">                id = View.generateViewId();</span><br><span class="line">                child.setId(id);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            //这里给 RadioButton 设置了监听</span><br><span class="line">            ((RadioButton) child).setOnCheckedChangeWidgetListener(</span><br><span class="line">                    mChildOnCheckedChangeListener);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (mOnHierarchyChangeListener != null) &#123;</span><br><span class="line">            mOnHierarchyChangeListener.onChildViewAdded(parent, child);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，找到 <code>mChildOnCheckedChangeListener</code> 是在 RadioGroup 初始化方法中被赋予了值，是 <code>CheckedStateTracker</code>类的实例化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private void init() &#123;</span><br><span class="line"></span><br><span class="line">    //初始化监听</span><br><span class="line">    mChildOnCheckedChangeListener = new CheckedStateTracker();</span><br><span class="line">    mPassThroughListener = new PassThroughHierarchyChangeListener();</span><br><span class="line">    super.setOnHierarchyChangeListener(mPassThroughListener);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CheckedStateTracker 是 <code>CompoundButton.OnCheckedChangeListener</code> 的子类，实现了 <code>onCheckedChanged()</code><br>的抽象方法。这就是我们上面在方法找 <code>mOnCheckedChangeWidgetListener.onCheckedChanged(this, mChecked)</code> 这个方法的内容了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">private class CheckedStateTracker implements CompoundButton.OnCheckedChangeListener &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) &#123;</span><br><span class="line">        // prevents from infinite recursion</span><br><span class="line">        if (mProtectFromCheckedChange) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mProtectFromCheckedChange = true;</span><br><span class="line"></span><br><span class="line">        //这里通知子控件 RadioButton 切换选中状态</span><br><span class="line">        if (mCheckedId != -1) &#123;</span><br><span class="line">            setCheckedStateForView(mCheckedId, false);</span><br><span class="line">        &#125;</span><br><span class="line">        mProtectFromCheckedChange = false;</span><br><span class="line"></span><br><span class="line">        int id = buttonView.getId();</span><br><span class="line"></span><br><span class="line">        //调用了监听方法</span><br><span class="line">        setCheckedId(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法内部，发现调用 <code>setCheckedId(id)</code>, 触发了监听事件，找到这里，一切真相大白啦。</p>
+<p>因为<code>check()</code> 方法中调用了两个方法 <code>setCheckedStateForView</code>  和<code>setCheckedId</code>, 其中<code>setCheckedId</code> 会直接触发 <code>onCheckedChanged()</code>方法，而<code>setCheckedStateForView</code> 中的逻辑会最终调用 <code>setCheckedId</code>，所以 <code>onCheckedChanged()</code> 会被调用多次。</p>
+<h1 id="整体分析"><a href="#整体分析" class="headerlink" title="整体分析"></a>整体分析</h1><p>以上连续跳来跳去的源码探寻结束，让我们简单梳理一下思路。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/dd1641408ffa2ace4d98f8cc84e52473.png" alt=""></p>
+<p>得出一个小结论：<br>check() 方法中调用了两个方法 <code>setCheckedStateForView</code>  和<code>setCheckedId</code>,两者都会触发一次 <code>onCheckedChanged()</code>。</p>
+<p>所以再次看下 check() 方法的逻辑：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public void check(@IdRes int id) &#123;</span><br><span class="line">      // don&apos;t even bother</span><br><span class="line">      if (id != -1 &amp;&amp; (id == mCheckedId)) &#123;</span><br><span class="line">          return;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      //如果上一个有选中的，先把上一个选中的给取消选中</span><br><span class="line">      if (mCheckedId != -1) &#123;</span><br><span class="line">          setCheckedStateForView(mCheckedId, false);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      //再将现在当前点击给选中</span><br><span class="line">      if (id != -1) &#123;</span><br><span class="line">          setCheckedStateForView(id, true);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      //调用自己的监听方法</span><br><span class="line">      setCheckedId(id);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>虽然有三次调用，但是是否调用的逻辑判断由 <code>mCheckedId</code> 和 <code>id</code>来决定，所以不同的情况，<code>onCheckedChanged()</code>调用次数是不一样的。</p>
+<p><strong>触发3次：</strong></p>
+<p>条件：mCheckedId != -1;id != -1; mCheckedId != id;</p>
+<p>对应情况：在选中一个值的的情况下，选中另外一个值。</p>
+<p>例如：“男” 选中时，check(“女”的ID)。</p>
+<p><strong>触发2次：</strong></p>
+<p>条件1：mCheckedId = -1;id != -1 ;mCheckedId != id;</p>
+<p>对应情况：在未选中的情况下，选中其中一个值。</p>
+<p>例如：“男”“女” 未选中时，选中 “男”。</p>
+<p>条件2：mCheckedId != -1 ; id == -1 ; mCheckedId != id;</p>
+<p>对应情况：在选中一个值的情况下，使用 check(-1)。</p>
+<p>例如：“男”选中时，调用 clearCheck()或者 check(-1)。</p>
+<p><strong>触发1次：</strong></p>
+<p>条件：mCheckedId = -1; id == -1; mCheckedId == id;</p>
+<p>对应情况：在未选中的情况下，使用 check(-1)。</p>
+<p>例如：“男”“女” 未选中时，调用 clearCheck()或者 check(-1)。</p>
+<p><strong>触发0次：</strong></p>
+<p>条件 mCheckedId == id; id != -1 ; (防止连续触发)</p>
+<p>对应情况：同一个参数ID 的连续调用。</p>
+<p>例如：“男”选中时，调用check(“男”的ID)。</p>
+<p>其实 <code>check()</code>方法中的逻辑步骤是：</p>
+<ol>
+<li>如果上一个有选中的，先把上一个选中的给取消选中。</li>
+<li>再将当前点击给选中。</li>
+<li>调用自己的监听方法。</li>
+</ol>
+<p>1，2 的步骤是合理的，我原先有一个疑问:</p>
+<blockquote>
+<p>为什么有第 3 个步骤?看起来完全没必要。</p>
+</blockquote>
+<p>后来做完上面的分析时，考虑 <strong>为什么会有触发1次的需求时</strong> 的情况，突然明白了点什么。</p>
+<p><strong>是我们错误理解了 <code>onCheckedChanged()</code> 这个监听事件！</strong></p>
+<blockquote>
+<p>RadioGroup 中 onCheckedChanged 并不是只有选中的 RadioButton 会触发，而是 RadioGroup 内选中状态值变化时都会调用.         </p>
+<p>RadioButton中 并不是只有选中会触发，而是选中状态值变化时都会调用.</p>
+</blockquote>
+<p>所以 <code>onCheckedChanged()</code> 多次调用的核心点，不是调用 <code>check()</code> 和 <code>setChecked()</code> 的选择问题，而是这两个监听的理解问题。</p>
+<p>在 <code>onCheckedChanged()</code> 中处理逻辑时要非常明确这一点，我现在已经开始担心我之前的写的那些代码了，真是掩面而泣。</p>
+<p>另外，我回头看了源码中 <code>onCheckedChanged</code>的注释，其实说的很清楚。那么我是为什么要转个一大圈才长记性呢？真的是值的深思一分钟的问题啊，以后要仔细看注释，不要错误理解了方法的作用以及参数的意义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * &lt;p&gt;Interface definition for a callback to be invoked when the checked</span><br><span class="line"> * radio button changed in this group.&lt;/p&gt;</span><br><span class="line"> */</span><br><span class="line">public interface OnCheckedChangeListener &#123;</span><br><span class="line">    /**</span><br><span class="line">     * &lt;p&gt;Called when the checked radio button has changed. When the</span><br><span class="line">     * selection is cleared, checkedId is -1.&lt;/p&gt;</span><br><span class="line">     *</span><br><span class="line">     * @param group the group in which the checked radio button has changed</span><br><span class="line">     * @param checkedId the unique identifier of the newly checked radio button</span><br><span class="line">     */</span><br><span class="line">    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>类似这样的细节小问题，技术上没啥要求，遇到完全看缘分，走着走着，就踩到了点什么。若你一直在开发这条路上走着，十有八九会遇到的。</p>
+<p>愿我们小问题多踩坑，大事情少出错。</p>
+<p>与君共勉，下篇博客见。</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/20/Android-怎么让一个TextView显示两种样式的字体/" rel="next" title="Android-如何让优雅地让一个TextView显示两种样式的字体">
+                <i class="fa fa-chevron-left"></i> Android-如何让优雅地让一个TextView显示两种样式的字体
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/29/开发小技能-少年，快拔掉你的数据线！/" rel="prev" title="Android-少年，快拔掉你的数据线">
+                Android-少年，快拔掉你的数据线 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#有这么一个坑"><span class="nav-number">1.</span> <span class="nav-text">有这么一个坑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#先自己挖坑做个实验"><span class="nav-number">2.</span> <span class="nav-text">先自己挖坑做个实验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为啥会有这个坑？看源码呐。"><span class="nav-number">3.</span> <span class="nav-text">为啥会有这个坑？看源码呐。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#整体分析"><span class="nav-number">4.</span> <span class="nav-text">整体分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

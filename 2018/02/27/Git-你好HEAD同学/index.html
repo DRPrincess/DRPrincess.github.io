@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="真是一场自我尬聊的好表演">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git-你好, HEAD 同学">
+<meta property="og:url" content="http://yoursite.com/2018/02/27/Git-你好HEAD同学/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="真是一场自我尬聊的好表演">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f299bd7aeadd9d4b6a57dd5134b8b69a.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/169f15d6d29b199d8d6d2e1d10225421.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fc272aee260b1ba46030e1c845594cb0.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fc272aee260b1ba46030e1c845594cb0.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/455d1434db2f707e17ec5e36fc9534c2.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/606427e4e7bfc23675d4430016174570.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9cb66f88f3fa5d0bd293c6be297d33da.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/b3d6dfdd3e970698d2323710e61744d6.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/455d1434db2f707e17ec5e36fc9534c2.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/22b34bf181e1a004264285574bf82264.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3b7c469e240c5fef9fcd905ef8671ce9.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c4405eb93ef8be792450fe7994759142.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/35c87f70da0eb3fa6cfc661075443eb3.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/bb694924624d1c87bccb61f0faec20c3.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/eef40ab691b5ee9d3c1dfd6bfe86ec64.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/6164f9cad87ce0fc708aecc68697cad9.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/224bd5dbb9e2542da45184fed0de9e19.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fa8253f1d6443c48f01b66e6148309ea.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:53:35.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git-你好, HEAD 同学">
+<meta name="twitter:description" content="真是一场自我尬聊的好表演">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f299bd7aeadd9d4b6a57dd5134b8b69a.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/27/Git-你好HEAD同学/">
+
+
+
+
+
+  <title>Git-你好, HEAD 同学 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/27/Git-你好HEAD同学/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git-你好, HEAD 同学</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-27T17:03:01+08:00">
+                2018-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>真是一场自我尬聊的好表演<br><a id="more"></a></p>
+<h1 id="开篇之我为什么开始了和-HEAD-同学的尬聊"><a href="#开篇之我为什么开始了和-HEAD-同学的尬聊" class="headerlink" title="开篇之我为什么开始了和 HEAD 同学的尬聊"></a>开篇之我为什么开始了和 HEAD 同学的尬聊</h1><p>在之前的博客中，多次提到了 HEAD，例如这个从 讲分支那篇博客扒出来的图：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f299bd7aeadd9d4b6a57dd5134b8b69a.png" alt="深层次的分支概念图"></p>
+<p>我一直认为它是一个指向当前分支的指针，但是这两天看扔物线大神的 <a href="https://juejin.im/book/5a124b29f265da431d3c472e" target="_blank" rel="noopener">Git 原理详解及实用指南</a> 的时候，突然之前，我对这个 HEAD 指针有了不一样的看法。</p>
+<p>多次相逢不相识，现在我要研究它。</p>
+<h1 id="HEAD-在哪？HEAD-是谁？"><a href="#HEAD-在哪？HEAD-是谁？" class="headerlink" title="HEAD 在哪？HEAD 是谁？"></a>HEAD 在哪？HEAD 是谁？</h1><p>第一步，我们先要去找到 HEAD。找之前，先考大家一个问题：</p>
+<blockquote>
+<p>Git 是怎么和项目联系起来的呢？</p>
+</blockquote>
+<p>你们思考着，反正我先公布答案了，哈哈哈。</p>
+<p>是因为在执行第一个 git 命令操作 <code>git init</code>的时候，在项目的根目录下，创建了一个<code>.git</code>文件夹, 此文件是隐藏文件，Mac 系统小伙伴按下快捷键 <code>command+option+.</code> ，Windows 小伙伴勾选显示隐藏文件可以显示隐藏文件，就可以看到它了。</p>
+<p>打开<code>.git</code>，可看到如下内容：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/169f15d6d29b199d8d6d2e1d10225421.png" alt=""></p>
+<p><code>.git</code> 文件中存储 Git 对这个项目进行版本控制的所有信息，其他的先不说，小伙伴们，你们有没有发现重点?,有一个大写没加粗的 <code>HEAD</code> 文件！赶紧打开看看：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fc272aee260b1ba46030e1c845594cb0.png" alt=""></p>
+<p>HEAD 文件的内容，是指向了另一个文件的应用，于是找的  <code>refs/heads/master</code> 打开,诡异的是，这个文件根本不存在，因为我刚刚对这个项目进行版本管理，此时，无任何提交，什么分支都不存在，master 分支是 git 的默认分支，所以会指向它。</p>
+<p>不管怎样，我们找到了它，第一步完成。</p>
+<p>另外，想分享给大家的是，我们还可以通过 <code>git show</code> 命令来查看 HEAD 指针目前指向什么。</p>
+<h1 id="HEAD-的本质是什么？"><a href="#HEAD-的本质是什么？" class="headerlink" title="HEAD 的本质是什么？"></a>HEAD 的本质是什么？</h1><p>刚刚创建的项目没有版本管理的历史，现在创建几个提交和分支，然后切换分支看一下 HEAD 的内容。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fc272aee260b1ba46030e1c845594cb0.png" alt=""></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/455d1434db2f707e17ec5e36fc9534c2.png" alt=""></p>
+<p>很熟悉的一大串数字，很像 commit 的 SHA1 值。我们通过 <code>git log</code> 查看，发现是 master 分支最新的提交。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/606427e4e7bfc23675d4430016174570.png" alt=""></p>
+<p>目前 HEAD 文件指向的内容是传递顺序是这样的：</p>
+<blockquote>
+<p>HEAD-&gt;refs/heads/master-&gt;8813419d6b148d03192b6b166e2ed8fd800d0dc3</p>
+</blockquote>
+<p>我得出了一个结论，HEAD 的本质不是提向分支,而是指向 commit 提交。</p>
+<p>问题又来了：</p>
+<ul>
+<li><p>HEAD 为什么要通过 refs/heads/master 中转一下，而不是直接指向 master 分支的提交？</p>
+</li>
+<li><p>HEAD 可以直接指向提交吗？</p>
+</li>
+</ul>
+<p>解释以上问题，需要知道 <code>refs/heads/</code> 文件夹存储的内容是当前项目所有分支的头指针，每个分支的头指针都指向该分支的最新提交。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9cb66f88f3fa5d0bd293c6be297d33da.png" alt=""></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/b3d6dfdd3e970698d2323710e61744d6.png" alt=""></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/455d1434db2f707e17ec5e36fc9534c2.png" alt=""><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/22b34bf181e1a004264285574bf82264.png" alt=""><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3b7c469e240c5fef9fcd905ef8671ce9.png" alt=""></p>
+<p>从上图看，三个分支的头指针指向的提交都不同，HEAD直接指向提交毫无问题。</p>
+<p>但是此时出现一个 dev 分支，刚从 master 检出，头指针和 master 相同，HEAD直接指向提交的话，怎么知道，当前工作分支是 master  还是 dev 呢？</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c4405eb93ef8be792450fe7994759142.png" alt=""></p>
+<p>此时 HEAD 文件的内容就非常有意义了：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/35c87f70da0eb3fa6cfc661075443eb3.png" alt=""></p>
+<p>所以，HEAD 通过先指向分支的头指针，再指向提交的意义就是表明当前所处的分支。</p>
+<p>关于第二个问题，答案是肯定的，但是会进入一种特殊的状态 <code>detached HEAD</code>。</p>
+<h1 id="detached-HEAD-游离的-HEAD-指针。"><a href="#detached-HEAD-游离的-HEAD-指针。" class="headerlink" title="detached HEAD,游离的 HEAD 指针。"></a>detached HEAD,游离的 HEAD 指针。</h1><p>使用 <code>git checkout &lt;commit id&gt;</code> 成功的进入了<br><code>detached HEAD</code> 状态：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/bb694924624d1c87bccb61f0faec20c3.png" alt=""></p>
+<p>此时的 HEAD 文件内容，不再指向分支的头指针，而是直接指向了提交。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/eef40ab691b5ee9d3c1dfd6bfe86ec64.png" alt=""></p>
+<p>得出结论，当 HEAD 指针直接指向提交时，就会导致 <code>detached HEAD</code> 状态。在这个状态下，如果创建了新提交，新提交不属于任何分支。相对应的，现存的所有分支也不会受 <code>detached HEAD</code> 状态提交的影响。</p>
+<p>所以，宝宝们别怕，这个状态并不是坏事，在某些特殊的场景下你可能会需要它。</p>
+<p>例如:<br>排查问题的时候，checkout 到怀疑的 commit 点上去做些测试，<code>detached HEAD</code>会保护你的现有分支不受影响，测试完了不想保存直接 checkout 到其他地方，可以放弃修改。想保存修改，可以创建一个 <code>git checkout  -b &lt;new-branch-name&gt;</code> 新分支保存。</p>
+<p>是不是很 Happy 哒？</p>
+<p><strong>PS：</strong></p>
+<p>除了<code>git checkout &lt;commit id&gt;</code>，还有一个命令可以进入<code>detached HEAD</code> 状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//HEAD 直接脱离分支头指针，指向分支头指针指向的 commit</span><br><span class="line">git checkout --detach</span><br></pre></td></tr></table></figure>
+<h1 id="除了-HEAD-指针，还有各种花式指针。"><a href="#除了-HEAD-指针，还有各种花式指针。" class="headerlink" title="除了 HEAD 指针，还有各种花式指针。"></a>除了 HEAD 指针，还有各种花式指针。</h1><p><code>.git</code> 是一个神奇的东西，除了其中几个固定不变的文件夹，有些文件会随着一些操作，创建和删除，所以，不同的时候打开它，会看到不同的文件，真有意思。</p>
+<p>例如：有一天，灵感突来，我打开了<code>.git</code>,发现多了 <code>FERCH_HEAD</code> 和 <code>ORIG_HEADORIG_HEAD</code>。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/6164f9cad87ce0fc708aecc68697cad9.png" alt=""></p>
+<p>再例如：当合并冲突的时候，打开会发现 <code>MERGE_HEAD</code>。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/224bd5dbb9e2542da45184fed0de9e19.png" alt="MERGE_HEAD存在情况"></p>
+<p>再再例如：执行 cherry-pick 命令合并 commits 时,会出现 <code>CHERRY_PICK_HEAD</code>。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fa8253f1d6443c48f01b66e6148309ea.png" alt="CHERRY_PICK_HEAD存在情况"></p>
+<p>宝宝们，目前为止出现了以下五种 HEAD ，是否能说出来各自都是什么意思？</p>
+<ul>
+<li><p>HEAD<br>指向当前正在操作的 commit。</p>
+</li>
+<li><p>ORIG_HEAD<br>当使用一些在 Git 看来比较危险的操作去移动 HEAD 指针的时候，ORIG_HEAD 就会被创建出来，记录危险操作之前的 HEAD，方便 HEAD 的恢复，有点像修改前的备份。</p>
+</li>
+<li><p>FETCH_HEAD<br>记录从远程仓库拉取的记录。</p>
+</li>
+<li><p>MERGE_HEAD<br>当运行 <code>git merge</code> 时，MERGE_HEAD 记录你正在合并到你的分支中的提交。<code>MERGE_HEAD</code>在合并的时候会出现，合并结束，就删除了这个文件。</p>
+</li>
+<li><p>CHERRY_PICK_HEAD<br>记录您在运行 <code>git cherry-pick</code>时要合并的提交。同上，这个文件只在 cherry-pick 期间存在。</p>
+</li>
+</ul>
+<p>我们要清楚的知道，在这么多xxx_HEAD 中，HEAD 指向的永远都是当前提交。而且 Git 的很多命令,在不给参数的情况下，默认操作都是 HEAD 指针。例如最前面我说的 <code>git show</code> 和另外一个很强大的命令 <code>git reflog</code>。</p>
+<h1 id="尾篇"><a href="#尾篇" class="headerlink" title="尾篇"></a>尾篇</h1><p> 没什么要说的了，但是一定要有个尾篇，让这篇博客的结束优点仪式感～</p>
+<hr>
+<p> 刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+ <div align="center"><br><br> <img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br> </div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/27/Android-Nexus搭建Maven仓库/" rel="next" title="Android-Nexus 搭建自己的 Maven 仓库 & Gradle 上传依赖包">
+                <i class="fa fa-chevron-left"></i> Android-Nexus 搭建自己的 Maven 仓库 & Gradle 上传依赖包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/27/Git-rebase打造喜欢的commit颗粒感/" rel="prev" title="Git-rebase 黑魔法之打磨 commit 颗粒度">
+                Git-rebase 黑魔法之打磨 commit 颗粒度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开篇之我为什么开始了和-HEAD-同学的尬聊"><span class="nav-number">1.</span> <span class="nav-text">开篇之我为什么开始了和 HEAD 同学的尬聊</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HEAD-在哪？HEAD-是谁？"><span class="nav-number">2.</span> <span class="nav-text">HEAD 在哪？HEAD 是谁？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HEAD-的本质是什么？"><span class="nav-number">3.</span> <span class="nav-text">HEAD 的本质是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#detached-HEAD-游离的-HEAD-指针。"><span class="nav-number">4.</span> <span class="nav-text">detached HEAD,游离的 HEAD 指针。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#除了-HEAD-指针，还有各种花式指针。"><span class="nav-number">5.</span> <span class="nav-text">除了 HEAD 指针，还有各种花式指针。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尾篇"><span class="nav-number">6.</span> <span class="nav-text">尾篇</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

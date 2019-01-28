@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="又是一个 rebase 黑魔法篇">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git-rebase 黑魔法之打磨 commit 颗粒度">
+<meta property="og:url" content="http://yoursite.com/2018/02/27/Git-rebase打造喜欢的commit颗粒感/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="又是一个 rebase 黑魔法篇">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/83501cee8c23ee4b71e878eed2fcb2d9.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/23085c5bc1ef65b12f3799eb74e1ae14.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fbdcb9e57e16df5c30b84888ba7076d8.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ce9168ec8f5e99dde4b8c6773c6d908d.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8aaa34dd181cc78e312824a7bc4808c2.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1dc954ff48cc92c871c8baa574c8211c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3d90dfdc1505939e060f788c69d1bef3.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7540658dc8ed1940d6f43c6735020635.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/505fca382c3e617cf411e0045fd53776.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:52:31.349Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git-rebase 黑魔法之打磨 commit 颗粒度">
+<meta name="twitter:description" content="又是一个 rebase 黑魔法篇">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/83501cee8c23ee4b71e878eed2fcb2d9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/27/Git-rebase打造喜欢的commit颗粒感/">
+
+
+
+
+
+  <title>Git-rebase 黑魔法之打磨 commit 颗粒度 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/27/Git-rebase打造喜欢的commit颗粒感/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git-rebase 黑魔法之打磨 commit 颗粒度</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-27T18:25:01+08:00">
+                2018-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 又是一个 rebase 黑魔法篇<br><a id="more"></a></p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>今天的主题是 rebase 的第二个黑魔法-交互式 rebase,与 rebase 用做两个分支见的遍及合并不同，交互式一般用于同一个分支中的提交整理。从命令上看，两者是 <code>rebase</code> 和 <code>rebase -i</code>的区别。</p>
+<p>需要特别说明的是，<code>rebase -i</code>的 GET 也会让你的帅气值+10～</p>
+<h1 id="rebase-i-开启黑暗世界"><a href="#rebase-i-开启黑暗世界" class="headerlink" title="rebase -i 开启黑暗世界"></a>rebase -i 开启黑暗世界</h1><p><code>rebase -i</code>叫交互式 rebase ,那它交互的是什么呢？是提交。</p>
+<p><code>rebase -i</code> 的第一步，就是选定交互的提交，或者说提交们，这是一个范围。</p>
+<p> 例如下面的命令，就是选定[当前提交,当前往前数三个提交)，这是一个左闭右开的集合。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i HEAD^^^</span><br></pre></td></tr></table></figure></p>
+<p>一个 enter 按下去，就开启了黑暗世界,进入了 rebase 交互的页面，如下图：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/83501cee8c23ee4b71e878eed2fcb2d9.png" alt=""></p>
+<p>从这张图中，你可以分两个部分看：  </p>
+<ol>
+<li>主要内容：选定的提交们，以及对它们的处理。  </li>
+<li>带<code>#</code>的注释内容：关于对这些提交你能操作的命令，理解了它们，就可以开心地为所欲为了。</li>
+</ol>
+<p>先看注释内容，理论知识大概掌握先：</p>
+<p><strong>p,pick</strong><br>使用该提交，也是默认操作，这个从上面的编辑区域可以看出。这个命令的含义是拿到这个命令，但是什么都不做。  </p>
+<p><strong>r,reword</strong><br>拿到提交，修改提交的提交信息。</p>
+<p><strong>e,edit</strong><br>拿到提交，修改这个提交的内容。使用这个命令的时候，rebase 操作会停在操作提交处，等待修改完毕，使用<code>git add .</code>和 <code>git commit --amend</code>修改提交，<code>git rebase --continue</code>继续 rebase 进程。</p>
+<p><strong>s,squash</strong><br>这个命令很厉害的，可以将使用这个命令的提交与它的父提交融合为一个提交。</p>
+<p><strong>f,fixup</strong><br>和 squash 命令的作用一样，不同的是，squash 命令会把融合的提交的提交信息都保存融合后的提交信息中，但是 fixup 会放弃被融合的提交。</p>
+<p><strong>d,drop</strong><br>删除提交</p>
+<p><strong>x,exec</strong><br>这个不常用，我不是很懂，你若是有兴趣，可以自行研究。</p>
+<p>知道了命令，现在看怎么用：</p>
+<p>第一步：编辑操作命令  </p>
+<p>确定要操作的 commit,确定操作命令后，将目标提交的 <code>pick</code> 修改成成对应的操作命令。不需要处理的默认 <code>pick</code>就好，不要删除，删除的意思是要移除这个提交，和 <code>drop</code> 是一个意思。</p>
+<p>需要明白的是，编辑区默认的提交顺排列序是按提交历史上的顺序排列的，由前到后，顺序执行，所以顺序不要颠倒。不然你想想，改完最后一个提交之后，再修改第一个提交，历史都散开不能串成一串了。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/23085c5bc1ef65b12f3799eb74e1ae14.png" alt=""></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fbdcb9e57e16df5c30b84888ba7076d8.png" alt=""></p>
+<p>第二步：确定执行  </p>
+<p>保存退出交互页面就开始执行 rebase 了。顺利的话，直接执行成功，发生冲突，解决之后，执行 <code>git rebase --continue</code>继续进行，直至执行成功。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ce9168ec8f5e99dde4b8c6773c6d908d.png" alt=""></p>
+<h1 id="小例子：用-reword-和-fixup-打磨提交颗粒"><a href="#小例子：用-reword-和-fixup-打磨提交颗粒" class="headerlink" title="小例子：用 reword 和 fixup 打磨提交颗粒"></a>小例子：用 reword 和 fixup 打磨提交颗粒</h1><p>关于 commit 的颗粒度，提交频率高，就细一点，例如修改了一个文件就打个提交；提交频率低，就粗一点，例如这整个模块完成了，才有一次最终版本的提交。关于颗粒度的粗细把握，见仁见智，这里不做讨论。我想说的是，如何去形成你的颗粒度。</p>
+<p>因为真实开发中，我看到太多没有一点意义提交了，放张我刚翻出来的截图，这是远程仓库中一个项目的部分提交历史。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8aaa34dd181cc78e312824a7bc4808c2.png" alt=""></p>
+<p>我几乎能想象出当初娃子写推送的烦躁感，虽然很好玩，但是这个提交毫无意义，看的人，根本不知道你提交了些什么，非常不利于后期维护。合理的做法是，推动在远程之前，现在在自己的本地分支上把提交历史理清楚。</p>
+<p>例如下图，就可以用 <code>reword</code>和 <code>fixup</code> 命令完成从前到后的变化。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/1dc954ff48cc92c871c8baa574c8211c.png" alt=""></p>
+<p>下面开始构建测试场景<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 切换到GitDemo目录下,并初始化Git</span><br><span class="line">cd .../GitDemo  </span><br><span class="line">git init  </span><br><span class="line"></span><br><span class="line">//创建初次提交 C1</span><br><span class="line">touch rebase.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;初次提交&apos;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//创建提交 C2</span><br><span class="line">git checkout -b develop</span><br><span class="line">touch A.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;详情页布局完成一半&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//创建提交 C3</span><br><span class="line">touch B.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;详情页布局结束&quot;</span><br><span class="line"></span><br><span class="line">//创建提交 C4</span><br><span class="line">touch B.txt</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;修复了2个bug&quot;</span><br></pre></td></tr></table></figure></p>
+<p>分析：</p>
+<ol>
+<li>改动范围有 C2，C3，C4，确定使用 <code>HEAD^^^</code></li>
+<li>要达到如上场景，要把 C2 和 C3 合并为一个提交 C5，<code>fixup</code> 和 <code>squash</code>满足要求，但 C5 的提交未保存 C3 的信息，那确定 C3 使用  <code>fixup</code> 操作。</li>
+<li>C5 的提交信息 C2 和 C3 都不同，那么 C2 需要先把提交信息改成合并后的提交信息， C2 需要 <code>reword</code> 操作。</li>
+<li>C4 的提交信息修改，C4 需要 <code>reword</code> 操作。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//开始 rebase -i</span><br><span class="line">git rebase -i HEAD^^^</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3d90dfdc1505939e060f788c69d1bef3.png" alt=""><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7540658dc8ed1940d6f43c6735020635.png" alt=""></p>
+<p>执行成功，现在通过 <code>git log</code>查看操作分支的历史，和操作前的对比，确认已经成功整理了 commit 历史，大功告成！同时也注意到 <code>rebase</code> 后的提交 SHA1 值发生变化，证明是一个新的提交。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/505fca382c3e617cf411e0045fd53776.png" alt=""></p>
+<h1 id="施黑魔法的时机是什么？"><a href="#施黑魔法的时机是什么？" class="headerlink" title="施黑魔法的时机是什么？"></a>施黑魔法的时机是什么？</h1><p>上面演示了 <code>reword</code> 和 <code>fixup</code>，其他的你可以自己试试，漫漫开发中生涯中，说不准什么时候就用到了，施黑魔法的时机有很多，例如：</p>
+<ul>
+<li>之前的提交信息有个错字，你的强迫症犯了（reword）</li>
+<li>发现之前有个提交中的修改，有点问题，但是不想打个比较没意义的补丁提交（edit）</li>
+<li>等等</li>
+</ul>
+<p>更多的场景等你发现。</p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>其实 rebase 的用法还有很多，而且个个都是堪称为黑魔法级别的操作，例如还可以将一个 commit 分离为俩的，真是跪服了！建议没有需求就不要骚操作了，特别是在工作项目上，有点危险。汝若有兴趣，可轻移莲步到 <a href="https://git-scm.com/docs/git-rebase" target="_blank" rel="noopener">git-rebase 官方文档</a>。</p>
+<p>合并为线性历史和整合提交历史，是 rebase 比较实用两个功能，可以保持一个清晰的提交历史，并让每个提交都有意义，在代码的长期维护上有好处。</p>
+<p>我的做法是：在私人的功能开发分支使用 <code>rebase -i</code> 保持颗粒粗细合适提交，使用 <code>rebase</code>合并到 develop 分支，保持简洁线性历史，但是 develop 合并到 master,使用 <code>merge</code>，并加上 <code>no-ff</code> 可以看到合并操作的记录。暂时的功能开发分支没必要保持合并记录，长期分支合并操作记录还是非常有必要的。</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/27/Git-你好HEAD同学/" rel="next" title="Git-你好, HEAD 同学">
+                <i class="fa fa-chevron-left"></i> Git-你好, HEAD 同学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/05/Git-用cherry-pick挑好看的小樱桃/" rel="prev" title="Git-用 cherry-pick 挑好看的小樱桃">
+                Git-用 cherry-pick 挑好看的小樱桃 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rebase-i-开启黑暗世界"><span class="nav-number">2.</span> <span class="nav-text">rebase -i 开启黑暗世界</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小例子：用-reword-和-fixup-打磨提交颗粒"><span class="nav-number">3.</span> <span class="nav-text">小例子：用 reword 和 fixup 打磨提交颗粒</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#施黑魔法的时机是什么？"><span class="nav-number">4.</span> <span class="nav-text">施黑魔法的时机是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">5.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

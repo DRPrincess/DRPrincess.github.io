@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本来以为是个错误使用的问题，稍微那么深究一下，发现脑海中，关于这个部分的知识库存已经告急了，可不能啊。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个由List.removeAll()失效引发的思考">
+<meta property="og:url" content="http://yoursite.com/2017/09/11/一个由List-removeAll-失效引发的思考/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="本来以为是个错误使用的问题，稍微那么深究一下，发现脑海中，关于这个部分的知识库存已经告急了，可不能啊。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4373698-9440797c235eb0e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4373698-a113aa1d0cc5a626.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/836a36d6a91d859428783f8ea2ce85d7.png">
+<meta property="og:updated_time" content="2019-01-28T16:52:11.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个由List.removeAll()失效引发的思考">
+<meta name="twitter:description" content="本来以为是个错误使用的问题，稍微那么深究一下，发现脑海中，关于这个部分的知识库存已经告急了，可不能啊。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4373698-9440797c235eb0e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/11/一个由List-removeAll-失效引发的思考/">
+
+
+
+
+
+  <title>一个由List.removeAll()失效引发的思考 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/11/一个由List-removeAll-失效引发的思考/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一个由List.removeAll()失效引发的思考</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-11T16:59:07+08:00">
+                2017-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本来以为是个错误使用的问题，稍微那么深究一下，发现脑海中，关于这个部分的知识库存已经告急了，可不能啊。<br><a id="more"></a></p>
+<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a><font color="#008000">前言：</font></h1><p>本来以为是个错误使用的问题，稍微那么深究一下，发现脑海中，关于这个部分的知识库存已经告急了，可不能啊。  </p>
+<h1 id="removeAll-失效重现"><a href="#removeAll-失效重现" class="headerlink" title=" removeAll() 失效重现"></a><font color="#008000"> removeAll() 失效重现</font></h1><p>今天做一个批量删除的功能，我使用了 List.removeAll()这个方法，但是该代码执行前后，被操作的列表的 size 并没由发生改变。</p>
+<p>排查了一下，是因为两个列表中存储对象不同的原因。</p>
+<p>为了更加清楚的理解，我写了简单的小例子，浮现了错误的场景：</p>
+<p>实体类：   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bean</span><span class="params">(<span class="keyword">int</span> id, String name, String address)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.address = address;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>构建场景：   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ArrayList&lt;Bean&gt;  allStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">ArrayList&lt;Bean&gt;  boyStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++) &#123;</span><br><span class="line">    Bean  bean = <span class="keyword">new</span> Bean(i,<span class="string">"name is "</span>+i,<span class="string">"address is "</span>+i);</span><br><span class="line">    allStudents.add(bean);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span> ; i++) &#123;</span><br><span class="line">    Bean  bean = <span class="keyword">new</span> Bean(i,<span class="string">"name is "</span>+i,<span class="string">"address is "</span>+i);</span><br><span class="line">    boyStudents.add(bean);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> System.out.println(<span class="string">"allStudents.size()------before--------------&gt;"</span>+allStudents.size());</span><br><span class="line"> System.out.println(<span class="string">"remove result : "</span>+allStudents.removeAll(boyStudents));</span><br><span class="line"> System.out.println(<span class="string">"allStudents.size()-------after--------------&gt;"</span>+allStudents.size());</span><br></pre></td></tr></table></figure>
+<p>输出结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">allStudents.size()------before--------------&gt;10</span><br><span class="line">remove result : false</span><br><span class="line">allStudents.size()-------after--------------&gt;10</span><br></pre></td></tr></table></figure>
+<h1 id="但是，换-String-对象执行-removeAll-竟然可以成功！"><a href="#但是，换-String-对象执行-removeAll-竟然可以成功！" class="headerlink" title=" 但是，换 String 对象执行 removeAll() 竟然可以成功！"></a><font color="#008000"> 但是，换 String 对象执行 removeAll() 竟然可以成功！</font></h1><p>因为操作对象不同，这是一个很简单的原因，但是接下来要实验的另一个小例子，绝对让你非常吃惊，我们讲Bean 替换成 String  字符串试一下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ArrayList&lt;Bean&gt;  allStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">ArrayList&lt;Bean&gt;  boyStudents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++) &#123;</span><br><span class="line">    Bean  bean = <span class="keyword">new</span> Bean(i,<span class="string">"name is "</span>+i,<span class="string">"address is "</span>+i);</span><br><span class="line">    allStudents.add(bean);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span> ; i++) &#123;</span><br><span class="line">    Bean  bean = <span class="keyword">new</span> Bean(i,<span class="string">"name is "</span>+i,<span class="string">"address is "</span>+i);</span><br><span class="line">    boyStudents.add(bean);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"allStudents.size()------before--------------&gt;"</span>+allStudents.size());</span><br><span class="line">System.out.println(<span class="string">"remove result : "</span>+allStudents.removeAll(boyStudents));</span><br><span class="line">System.out.println(<span class="string">"allStudents.size()-------after--------------&gt;"</span>+allStudents.size());</span><br></pre></td></tr></table></figure>
+<p>输出结果是 ：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">allStudents.size()------before--------------&gt;10</span><br><span class="line">remove result : true</span><br><span class="line">allStudents.size()-------after--------------&gt;5</span><br></pre></td></tr></table></figure>
+<h1 id="揭开这一切的面纱"><a href="#揭开这一切的面纱" class="headerlink" title="揭开这一切的面纱"></a><font color="#008000">揭开这一切的面纱</font></h1><p>从打印结果很明白的看到，removeAll() 成功执行。String也是对象，为什么会这样？代码不会说谎，我们去源码中去寻找答案。<br>从源码中发现，ArrayList 执行 removeAll() 方法流程如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4373698-9440797c235eb0e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="removeAll流程图"></p>
+<p>通过控制变量法分析，很容易就聚焦到 <code>equals()</code>这个方法，这个方法是 Object 的方法,默认实现是比较对象在内存的地址。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>再看一下 String 中 equals() 方法，重写了 Object 的这个方法，不再是比较地址，而是比较字符串是否相同。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">         String anotherString = (String) anObject;</span><br><span class="line">         <span class="keyword">int</span> n = count;</span><br><span class="line">         <span class="keyword">if</span> (n == anotherString.count) &#123;</span><br><span class="line">             <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">             <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                 <span class="keyword">if</span> (charAt(i) != anotherString.charAt(i))</span><br><span class="line">                         <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                 i++;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>这样的话，引发了一个思考，也就是说，如果自定义对象，重写 equals() 中的实现，也是可以实现非相同对象的情况下，成功 removeAll()的。这里我用 上面例子的 Bean 实体类简单实验一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bean</span><span class="params">(<span class="keyword">int</span> id, String name, String address)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.address = address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == o) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        Bean bean = (Bean) o;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (id != bean.id) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (!name.equals(bean.name)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span> address.equals(bean.address);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = id;</span><br><span class="line">        result = <span class="number">31</span> * result + name.hashCode();</span><br><span class="line">        result = <span class="number">31</span> * result + address.hashCode();</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次执行第一个例子的程序，ArrayList<bean> 成功 removeAll，打印信息如下:</bean></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">allStudents.size()------before--------------&gt;10</span><br><span class="line">remove result : true</span><br><span class="line">allStudents.size()-------after--------------&gt;5</span><br></pre></td></tr></table></figure>
+<h1 id="重写-equals-方法一定要符合规范！"><a href="#重写-equals-方法一定要符合规范！" class="headerlink" title="重写 equals() 方法一定要符合规范！"></a><font color="#008000">重写 equals() 方法一定要符合规范！</font></h1><p>但是这里我们要特别注意的是，当我们重写 equals() 方法的时候，一定要遵守它的规范,否则在程序使用中，使用错误实现 equals() 的类时可能出现无法预料的问题，而且很有可能，找了很久都定位不到问题在哪！，想想都后背发冷。</p>
+<p>以下是 Object 中 equals()的方法说明注释，绝对原汁原味！但是我相信肯定有人看了一遍还是不知道说的啥，非常正常，我看两遍也是，英语渣没办法，只能花更多时间去理解它，因为真的真重要。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Indicates whether some other object is "equal to" this one.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * The &#123;<span class="doctag">@code</span> equals&#125; method implements an equivalence relation</span></span><br><span class="line"><span class="comment"> * on non-null object references:</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;It is &lt;i&gt;reflexive&lt;/i&gt;: for any non-null reference value</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x&#125;, &#123;<span class="doctag">@code</span> x.equals(x)&#125; should return</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> true&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;It is &lt;i&gt;symmetric&lt;/i&gt;: for any non-null reference values</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x&#125; and &#123;<span class="doctag">@code</span> y&#125;, &#123;<span class="doctag">@code</span> x.equals(y)&#125;</span></span><br><span class="line"><span class="comment"> *     should return &#123;<span class="doctag">@code</span> true&#125; if and only if</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> y.equals(x)&#125; returns &#123;<span class="doctag">@code</span> true&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;It is &lt;i&gt;transitive&lt;/i&gt;: for any non-null reference values</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x&#125;, &#123;<span class="doctag">@code</span> y&#125;, and &#123;<span class="doctag">@code</span> z&#125;, if</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x.equals(y)&#125; returns &#123;<span class="doctag">@code</span> true&#125; and</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> y.equals(z)&#125; returns &#123;<span class="doctag">@code</span> true&#125;, then</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x.equals(z)&#125; should return &#123;<span class="doctag">@code</span> true&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;It is &lt;i&gt;consistent&lt;/i&gt;: for any non-null reference values</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x&#125; and &#123;<span class="doctag">@code</span> y&#125;, multiple invocations of</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x.equals(y)&#125; consistently return &#123;<span class="doctag">@code</span> true&#125;</span></span><br><span class="line"><span class="comment"> *     or consistently return &#123;<span class="doctag">@code</span> false&#125;, provided no</span></span><br><span class="line"><span class="comment"> *     information used in &#123;<span class="doctag">@code</span> equals&#125; comparisons on the</span></span><br><span class="line"><span class="comment"> *     objects is modified.</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;For any non-null reference value &#123;<span class="doctag">@code</span> x&#125;,</span></span><br><span class="line"><span class="comment"> *     &#123;<span class="doctag">@code</span> x.equals(null)&#125; should return &#123;<span class="doctag">@code</span> false&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * The &#123;<span class="doctag">@code</span> equals&#125; method for class &#123;<span class="doctag">@code</span> Object&#125; implements</span></span><br><span class="line"><span class="comment"> * the most discriminating possible equivalence relation on objects;</span></span><br><span class="line"><span class="comment"> * that is, for any non-null reference values &#123;<span class="doctag">@code</span> x&#125; and</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> y&#125;, this method returns &#123;<span class="doctag">@code</span> true&#125; if and only</span></span><br><span class="line"><span class="comment"> * if &#123;<span class="doctag">@code</span> x&#125; and &#123;<span class="doctag">@code</span> y&#125; refer to the same object</span></span><br><span class="line"><span class="comment"> * (&#123;<span class="doctag">@code</span> x == y&#125; has the value &#123;<span class="doctag">@code</span> true&#125;).</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Note that it is generally necessary to override the &#123;<span class="doctag">@code</span> hashCode&#125;</span></span><br><span class="line"><span class="comment"> * method whenever this method is overridden, so as to maintain the</span></span><br><span class="line"><span class="comment"> * general contract for the &#123;<span class="doctag">@code</span> hashCode&#125; method, which states</span></span><br><span class="line"><span class="comment"> * that equal objects must have equal hash codes.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   obj   the reference object with which to compare.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if this object is the same as the obj</span></span><br><span class="line"><span class="comment"> *          argument; &#123;<span class="doctag">@code</span> false&#125; otherwise.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>     #hashCode()</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>     java.util.HashMap</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>equals 方法实现的时候必须要满足的特性：</p>
+<p><strong>1.（reflexive）自反性：</strong></p>
+<p>对于任何非 null 的引用值 x,x.equals(x) 必须为 true；</p>
+<p><strong>2.（symmetric）对称性：</strong><br>对于任何非 null 的引用值 x,y,当且仅当 y.equals(x) 返回 true 时，x.equals(y) 也要返回 true 。</p>
+<p><strong>3.（transitive）传递性：</strong><br>对于任何非 null 的引用值 x,y,z, 如果 x.equals(y) 返回 true，y.equals(z) 返回 true，那么 x.equals(z) 一定要返回 true。</p>
+<p><strong>4.（consistent）一致性：</strong><br>对于任何非 null 的引用值 x,y,只要 equals() 方法没有修改的前提下，多次调用 x.equals(y) 的返回结果一定是相同的。   </p>
+<p><strong>5.（non-nullity）非空性</strong><br>对于任何非 null 的引用值 x,x.equals(null) 必须返回 false。</p>
+<p>这些特性约束我们重写 equals()的时候，写条件判断一定要谨慎，下面是提供的一个模版：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == o) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    (MyClass) myclass = (MyClass) o;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.xx != bean.myclass.xx) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">return</span> myclass.equals(myclass.xx);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>重要！覆盖 equals 时，一定要同时覆盖 hashCode</strong>  </p>
+<p>这样做的目的是保证每一个 equals()返回 true 的两个对像，要有两个相同的 hashCode 。</p>
+<p>在上面演示的例子中，不覆盖 hashCode ，equals 方法表现的也很好，调用 List.removeAll 也能成功执行。看似是没有什么问题，但是当我们试图使用 hashMap 做存取操作的时候，就会出现问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HashMap&lt;Bean,String&gt; allStudents = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span> ; i++) &#123;</span><br><span class="line">    Bean  bean = <span class="keyword">new</span> Bean(i,<span class="string">"name is "</span>+i,<span class="string">"address is "</span>+i);</span><br><span class="line">    allStudents.put(bean,<span class="string">"i :"</span>+i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">Bean bean = <span class="keyword">new</span> Bean(<span class="number">1</span>,<span class="string">"name is 1"</span>,<span class="string">"address is 1"</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">" allStudents.get(bean)-----------------------&gt;"</span>+ allStudents.get(bean));</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p>Bean 中不正确覆盖 hashCode()，取不到值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allStudents.get(bean)-----------------------&gt;null</span><br></pre></td></tr></table></figure>
+<p>Bean 中正确覆盖 hashCode()，能取到值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allStudents.get(bean)-----------------------&gt;i :1</span><br></pre></td></tr></table></figure>
+<p>原因在于，HashMap 执行 get() 操作的时候是通过散列码，也就是对象的 HashCode 来搜索数据的。所以，当不重写 hashCode() 方法或者重写的不规范的时候，就会出现这样的问题。<br>使用散列码判断对象的，有 HashMap ，HashSet,HashTable 等，因此，覆盖 equals() 时，一定要同时覆盖 hashCode()。</p>
+<h1 id="快速生成euqals-and-hashCode-！"><a href="#快速生成euqals-and-hashCode-！" class="headerlink" title="快速生成euqals() and hashCode()！"></a><font color="#008000">快速生成euqals() and hashCode()！</font></h1><p>看到上面的解释，估计大家都感觉覆盖这俩方法的时候都有点害怕了，但是告诉大家一个好消息，Android Studio 有这两个方法的快速生成模版，使用方法是 右键-&gt;generate-&gt;euqals() and hashCode(),也可以直接使用快捷键 command+N -&gt;euqals() and hashCode()。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4373698-a113aa1d0cc5a626.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="快速生成equals和hashCode"></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a><font color="#008000">最后</font></h1><p>到这里，我想到，一个在面试的时候，经常被问到的 java 基础题：</p>
+<blockquote>
+<p>java 中 == 和 equals 和 hashCode 的区别?</p>
+</blockquote>
+<p>我想现在，如果再被问到这个问题，我肯定可以比之前回答的要好一点了。  </p>
+<p>java 中有两种类型，值类型和引用类型。其中，<code>==</code> 值类型和引用类型都可以运算，equals 和 hashCode 是引用类型特有的方法。</p>
+<p>对于值类型，<code>==</code> 比较的是它们的值，对于引用类型，<code>==</code> 比较的是两者在内存中的物理地址。</p>
+<p>equals() 是 Object 类中的方法，默认实现是使用 <code>==</code> 比较两个对象的地址，但是在一些子类，例如 String，Float,Integer 等，它们对 equals进行覆盖重写，就不再是比较两个对象的地址了。</p>
+<p>hashCode() 也是 Object 类的一个方法。返回一个离散的 int 型整数。在集合类操作中使用，为了提高查询速度。</p>
+<p>当覆盖 equals() 的时候，一定要同时覆盖 hashCode()，保证 x.equals(y) 返回为 true 的时候，x,y 要有相同的 HashCode 。</p>
+<p>回答完毕。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title=" 参考资料"></a><font color="#008000"> 参考资料</font></h1><p>Effective Java 中文版第二版</p>
+<h1 id="最后-1"><a href="#最后-1" class="headerlink" title=" 最后 "></a><font color="#008000"> 最后 </font></h1><p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注 (<em>^o^</em>)。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/836a36d6a91d859428783f8ea2ce85d7.png" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/31/Android-解决Webview对inputType=file点击无响应/" rel="next" title="Android-解决Webview对 `<input type=" file"=""> ` 点击无响应">
+                <i class="fa fa-chevron-left"></i> Android-解决Webview对 `<input type="file"> ` 点击无响应
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/09/Android-EditText限制输入两位小数/" rel="prev" title="Android-EditText两种方法限制输入两位小数">
+                Android-EditText两种方法限制输入两位小数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#removeAll-失效重现"><span class="nav-number">2.</span> <span class="nav-text"> removeAll() 失效重现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#但是，换-String-对象执行-removeAll-竟然可以成功！"><span class="nav-number">3.</span> <span class="nav-text"> 但是，换 String 对象执行 removeAll() 竟然可以成功！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#揭开这一切的面纱"><span class="nav-number">4.</span> <span class="nav-text">揭开这一切的面纱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重写-equals-方法一定要符合规范！"><span class="nav-number">5.</span> <span class="nav-text">重写 equals() 方法一定要符合规范！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速生成euqals-and-hashCode-！"><span class="nav-number">6.</span> <span class="nav-text">快速生成euqals() and hashCode()！</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text"> 参考资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后-1"><span class="nav-number">9.</span> <span class="nav-text"> 最后 </span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

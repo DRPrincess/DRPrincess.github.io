@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="人生的路总要自己走，也一直都是在自己走。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git-送娃子们一本关于如何自学 Git 的秘籍">
+<meta property="og:url" content="http://yoursite.com/2018/03/19/Git-送娃子们一本关于如何自学Git的秘籍/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="人生的路总要自己走，也一直都是在自己走。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7384b5deeac378d6914ad9b6e6a1dd92.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fe3db15699af08c93608b7bee882b8cb.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c1434824e25e1f7892d219da4cd16177.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5b08123628f25c33f71e0422912d34dd.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/d99ae669c35657fa2cabb268c685e405.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:52:31.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git-送娃子们一本关于如何自学 Git 的秘籍">
+<meta name="twitter:description" content="人生的路总要自己走，也一直都是在自己走。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7384b5deeac378d6914ad9b6e6a1dd92.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/19/Git-送娃子们一本关于如何自学Git的秘籍/">
+
+
+
+
+
+  <title>Git-送娃子们一本关于如何自学 Git 的秘籍 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/19/Git-送娃子们一本关于如何自学Git的秘籍/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git-送娃子们一本关于如何自学 Git 的秘籍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-19T23:57:06+08:00">
+                2018-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>人生的路总要自己走，也一直都是在自己走。</p>
+<a id="more"></a>
+<h1 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h1><p>这个三月份终于把当初计划的 Git 系列博客给补完，边记录，边学习，过程和结果都是比较开心的。</p>
+<p>目前的博客中记录的大多是我自己的理解，和日常的操作，仅仅是 Git 的一小部分，希望能给你带来帮助的同时，大家也能一起走的更远。于是，就有了这篇博客的诞生。</p>
+<p>娃子们，大家一起进阶吧。</p>
+<h1 id="正宗心法-Git-官方网站"><a href="#正宗心法-Git-官方网站" class="headerlink" title="正宗心法-Git 官方网站"></a>正宗心法-Git 官方网站</h1><p>Git 官方君给出的文档非常全面，除文档外，还有很多很多学习的资料。而且在这里，有官方君的 buff 加持，几乎不用担心被错误的理解给误导。</p>
+<p><a href="https://git-scm.com/" target="_blank" rel="noopener">去官网&gt;GO!</a></p>
+<p>官网上可以下载 Git,有 Git 学习的文档资料和视频。视频我没看过就不多说了，主要想给大家安利我的操作。分为两个部分，一是神书 《Pro Git 》，这个有中文版，网站上可以选择语言看，用来学习和理解 Git; 二是全部命令的索引文档,这个不用专门是研究它，哪里不会查哪里就好了。</p>
+<p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">《Pro Git》中文版 &gt;GO!</a> 《Pro Git》，强烈推荐，几乎学 Git 的必备书籍！</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7384b5deeac378d6914ad9b6e6a1dd92.png" alt=""></p>
+<p><a href="https://git-scm.com/docs" target="_blank" rel="noopener">Git 全部命令的索引文档  &gt;GO!</a>，新华字典般的存在，不用专门去看它，不会即查。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/fe3db15699af08c93608b7bee882b8cb.png" alt=""></p>
+<h1 id="大牛们的-Git-系列"><a href="#大牛们的-Git-系列" class="headerlink" title="大牛们的 Git 系列"></a>大牛们的 Git 系列</h1><p>官网上的资料很全，但是大多是英语，就算翻译成中文，也特别书面化，所以很多人刚开始就去官方看的话，会感觉特别枯燥无味，看不下去。对于这种情况的，推荐看国内大牛们写的博客们，十分口语化，所以通俗易懂。</p>
+<p>这里给大家推荐我认为不错的三个。</p>
+<p>扔物线的<a href="https://juejin.im/book/5a124b29f265da431d3c472e" target="_blank" rel="noopener">《Git 原理详解及实用指南》</a></p>
+<p>虽然名字看起来挺枯燥的样子，但是行文还是一如既往的扔物线式诙谐幽默，生动形象好理解。</p>
+<p>此电子书是一本掘金小册，需要付费阅读,我看过，完全物超所值，初级和高级都比较适合阅读，个人十分推荐。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c1434824e25e1f7892d219da4cd16177.png" alt=""></p>
+<hr>
+<p>廖雪峰的<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">《Git教程》</a></p>
+<p>这个教程放在廖雪峰的个人网站上，是众教程之一，质量依然有保证，对比上面而言，嗯，是免费的。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5b08123628f25c33f71e0422912d34dd.png" alt=""></p>
+<hr>
+<p>geeeeeeeeek的<a href="https://github.com/geeeeeeeeek/git-recipes" target="_blank" rel="noopener">《git-recipes》</a></p>
+<p>一位仁兄自己整理的高质量 Git 中文教程，放在了 GitHub 上，star数有6K+。star数直接体现出它的价值，不多说，娃子们可以自己去看。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/d99ae669c35657fa2cabb268c685e405.png" alt=""></p>
+<hr>
+<p>个人建议：</p>
+<p>初学者：首推扔物线的《Git 原理详解及实用指南》,其次是廖雪峰的《Git教程》,都是系统式的循序渐进式，有中知识普及的感觉。</p>
+<p>基本功能已经掌握的半瓶水：geeeeeeeeek 的《git-recipes》比较适合你的进阶。</p>
+<h1 id="最后的表白"><a href="#最后的表白" class="headerlink" title="最后的表白"></a>最后的表白</h1><p>其实，我学 Git 的路子，并不系统，使用前期，我对其一窍不通，还是死记硬背式的用 Android Studio 的 GUI 去操作 Git 的，当时为此还专门写了两篇博客教程，现在还在，访问量还很高，哈哈。</p>
+<p>掌握 Git 基本命令行操作之后，我觉得释放很多，操作也比较灵活自由，摆脱了 GUI 的限制。</p>
+<p>另外，理解 Git 的一些基本概念真的很重要，例如暂存区的存在，历史就是一堆提交串连起来的，HEAD 指针，分支指针等。这些知道了，才算是无拘无束，告别死记硬背式的操作，so free !</p>
+<p>所以，希望大家学习如何使用 Git 的同时，尝试去理解它,不久之后，你可能突然一瞬间就豁然开朗了。</p>
+<p>最后，希望大家都能知其所以然。虽然 Git 系列结束了，仍然盼望 see you next blog !</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/18/Git-叹为观止的log命令&其参数/" rel="next" title="Git-叹为观止的 log 命令 & 其参数">
+                <i class="fa fa-chevron-left"></i> Git-叹为观止的 log 命令 & 其参数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/10/Android-使用SetColorFilter神奇地改变图片的颜色/" rel="prev" title="Android-使用 SetColorFilter 神奇地改变图片的颜色">
+                Android-使用 SetColorFilter 神奇地改变图片的颜色 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开篇"><span class="nav-number">1.</span> <span class="nav-text">开篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正宗心法-Git-官方网站"><span class="nav-number">2.</span> <span class="nav-text">正宗心法-Git 官方网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大牛们的-Git-系列"><span class="nav-number">3.</span> <span class="nav-text">大牛们的 Git 系列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的表白"><span class="nav-number">4.</span> <span class="nav-text">最后的表白</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

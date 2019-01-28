@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="小年夜快乐">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello Flutter! 哎！你环境配了吗？">
+<meta property="og:url" content="http://yoursite.com/2019/01/29/HelloFlutter-环境配置/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="小年夜快乐">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5dc2fee074376aa3174b59e15ff85942.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/dbdc84147afb9bccf7ba7305d8fd1c52.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/747081c96f66bab83b825ba1806dc03b.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f9a8300fb2886a9e8d4c1c26ea3ce125.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/76f6e852c7db140316242eb8811709a6.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a5c83b707214a4b5e1111053b23795e0.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3506624c0f909a9fda66ad704b5486b3.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4031021a1917a3b3f4bd89bbcc801c0c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/b4471b087e25c6669a862cb0db2b03e4.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3481e7b7abd18f488b3cceaee1ded229.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c11ffe56fae1d93e2d19233111acc8b2.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/cabb3f56a488a9fe4cc955da60bb0267.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/55c0f7ec552cce0279fe601e9326102f.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_130.png">
+<meta property="og:updated_time" content="2019-01-28T18:26:22.081Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hello Flutter! 哎！你环境配了吗？">
+<meta name="twitter:description" content="小年夜快乐">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5dc2fee074376aa3174b59e15ff85942.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/29/HelloFlutter-环境配置/">
+
+
+
+
+
+  <title>Hello Flutter! 哎！你环境配了吗？ | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/HelloFlutter-环境配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hello Flutter! 哎！你环境配了吗？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T18:18:18+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>小年夜快乐<br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>技术的更新迭代越来越快，一直都有原生开发被取代的声音，作为一个纯原生开发者来说，跨平台开发，是一种新的尝试。为什么要选择 Flutter ，因为毕竟是谷爹的亲儿子, Android 也是亲儿子，说起来也都是兄弟，加深下兄弟之间纯真的友谊，还是很有很有必要的。</p>
+<h1 id="Flutter-是什么？"><a href="#Flutter-是什么？" class="headerlink" title="Flutter 是什么？"></a>Flutter 是什么？</h1><p>Flutter 是谷歌的移动 UI 框架，可以快速在 iOS 和 Android 上构建高质量的原生用户界面。 Flutter 可以与现有的代码一起工作。在全世界，Flutter 正在被越来越多的开发者和组织使用，并且 Flutter 完全免费、并且开源，对开发者十分友好。</p>
+<p>上面是我从官网上摘抄来的，总结来说，我只记住了三个关键词：</p>
+<ul>
+<li>热重载</li>
+<li>跨平台</li>
+<li>UI框架</li>
+</ul>
+<p>相信接下来学习中会逐渐体验这几点。接下来开始第一步配置 Flutter 开发环境。</p>
+<h1 id="准备-Flutter-开发环境"><a href="#准备-Flutter-开发环境" class="headerlink" title="准备 Flutter 开发环境"></a>准备 Flutter 开发环境</h1><p> Flutter 可以选择纯命令方式开发，也可以选择 IDE ，IDE 可以使用 Android Studio，Xcode，VScode 等等，毕竟使用 IDE 开发比较直观，所以我选择了已经安装的 Android Studio。但是无论是那种方式开发，都需要下载 Flutter SDK，所以配置的步骤为：</p>
+<ol>
+<li>下载 Flutter SDK。</li>
+<li>配置 Flutter 环境变量</li>
+<li>IDE 安装 Flutter 相关插件</li>
+</ol>
+<h2 id="下载-Flutter-SDK"><a href="#下载-Flutter-SDK" class="headerlink" title="下载 Flutter SDK"></a>下载 Flutter SDK</h2><p>由于在国内访问有时可能会受到限制，Flutter 官方为中国开发者搭建了临时镜像，大家可以将如下环境变量加入到电脑用户环境变量中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Flutter镜像 国内用户需要设置</span><br><span class="line">export PUB_HOSTED_URL=https://pub.flutter-io.cn</span><br><span class="line">export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn</span><br></pre></td></tr></table></figure></p>
+<h2 id="配置-Flutter-环境变量"><a href="#配置-Flutter-环境变量" class="headerlink" title="配置 Flutter 环境变量"></a>配置 Flutter 环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Flutter命令行工具</span><br><span class="line">export PATH=&lt;yourpath&gt;/flutter/bin:$PATH</span><br><span class="line"></span><br><span class="line"># 注意要将 &lt;yourpath&gt; 换成自己的地址，例如我的：</span><br><span class="line">export PATH=/Users/duanrui/Documents/youzan/flutter/flutter/bin:$PATH</span><br></pre></td></tr></table></figure>
+<h2 id="Android-Studio-安装插件。"><a href="#Android-Studio-安装插件。" class="headerlink" title="Android Studio 安装插件。"></a>Android Studio 安装插件。</h2><p>需要安装的插件有两个：flutter 和 dart，安装之后需要重启Android Studio 使插件生效。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5dc2fee074376aa3174b59e15ff85942.png" alt=""></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/dbdc84147afb9bccf7ba7305d8fd1c52.png" alt=""></p>
+<p>安装之后需要重启 Android Studio 使插件生效，生效后开始页面出现 New Flutter project 选项,<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/747081c96f66bab83b825ba1806dc03b.png" alt=""></p>
+<h1 id="从-Hello-World-开始"><a href="#从-Hello-World-开始" class="headerlink" title="从 Hello World 开始"></a>从 Hello World 开始</h1><p>环境配置好了，现在可以开始编写我们的第一个 Flutter 项目了。点击 New Flutter project ,起个你喜欢的名字，下一步，直到项目创建成功。</p>
+<p>项目结构如下：<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f9a8300fb2886a9e8d4c1c26ea3ce125.png" alt=""></p>
+<p>暂时不要管它是为啥这样，运行起来先。</p>
+<ul>
+<li>选择一个设备，我选择创建了一个 Android 模拟器</li>
+<li>选择 main.dart</li>
+<li>Just Run！</li>
+</ul>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/76f6e852c7db140316242eb8811709a6.png" alt=""></p>
+<p>运行成功后，会在模拟器上看到这样的画面：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a5c83b707214a4b5e1111053b23795e0.png" alt=""></p>
+<p>如果失败了，没有关系，成功过程中不可避免会遇到种种磨难，下面记录了很多人都遇到的几个问题：</p>
+<p> <strong>1.一直在Initializing gradle… ,仿佛卡住了。</strong></p>
+<p> 原因：伟大的墙阻隔了 gradle 的下载。<br> 解决：将项目依赖的 gradle 版本换成本地已下载的版本。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3506624c0f909a9fda66ad704b5486b3.png" alt=""></p>
+<p>如果不记得本地已下载的 Gradle 版本是什么，可以通过以下的方法查看：</p>
+<p>方法一：打开之前的项目，查看该项目的 gradle 版本配置。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4031021a1917a3b3f4bd89bbcc801c0c.png" alt=""></p>
+<p>方法二：Android Studio 中新建项目成功后会自动下载项目中定义版本的Gradle，存储在制定目录中，去这个目录就可以看到，有的同学可能有很多个版本，选择其中一个就好了，推荐选择其中最新的版本，比较靠谱。<br>Mac平台默认下载目录： <code>/Users/&lt;username&gt;/.gradle/wrapper/dists</code><br>Win平台默认下载目录：<code>C:\Users\&lt;username&gt;.gradle\wrapper\dists</code></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/b4471b087e25c6669a862cb0db2b03e4.png" alt=""></p>
+<p><strong>2.一直在Resolving dependencies…，仿佛又卡住了。</strong><br>原因：是的，还是伟大的墙，这次阻隔的是下载依赖的仓库地址。<br>解决：将仓库地址换成阿里云的镜像地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//        google()</span><br><span class="line">//        jcenter()</span><br><span class="line">        maven &#123; url &apos;https://maven.aliyun.com/repository/google&apos; &#125;</span><br><span class="line">        maven &#123; url &apos;https://maven.aliyun.com/repository/jcenter&apos; &#125;</span><br><span class="line">        maven &#123; url &apos;http://maven.aliyun.com/nexus/content/groups/public&apos; &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="开始体验-Flutter"><a href="#开始体验-Flutter" class="headerlink" title="开始体验 Flutter"></a>开始体验 Flutter</h1><p>经过上个步骤，第一个 Flutter 项目已经成功运行了，现在来体验下 Flutter 的几个特色功能：</p>
+<h2 id="热重载"><a href="#热重载" class="headerlink" title="热重载"></a>热重载</h2><p>1.修改 main.dart 文件中一个字符串<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3481e7b7abd18f488b3cceaee1ded229.png" alt=""><br>2.保存代码或点击热重载按钮 (就是闪电⚡️按钮)，然后发现模拟器上面的页面也自动变化了，而且是保存着我之前操作的状态，数字仍然为 4，不是初始化的 0。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/c11ffe56fae1d93e2d19233111acc8b2.png" alt=""></p>
+<p>从 Console 窗口中的运行日志中，看出以上操作就是热重载过程。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/cabb3f56a488a9fe4cc955da60bb0267.png" alt=""></p>
+<h2 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h2><p>以上是 Android 设备上的展现，在 iOS 设备 iPhone XR上的运行效果是这个样纸的，看下面：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/55c0f7ec552cce0279fe601e9326102f.png" alt=""></p>
+<p>基本上是一模一样的，没有改动任何代码，就达到了两个平台UI和逻辑的统一。</p>
+<p>MAC OS 上部署到 iOS设备的步骤：</p>
+<ol>
+<li>下载安装 Xcode</li>
+<li>配置 Xcode 命令行工具</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>运行以下命令，安装 libimobiledevice，这是一个横跨 Mac,Windows,Linux三大桌面平台的非官方版本USB接口协议库，可以用它来管理连接的iOS设备。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew update   </span><br><span class="line">brew install --HEAD libimobiledevice   </span><br><span class="line">brew install ideviceinstaller ios-deploy cocoapods   </span><br><span class="line">pod setup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开一个 iOS 模拟器，如果顺利， Android Studio 的设备列表已经可以看到刚才打开的 iOS 设备了。<br>已经安装了Xcode，iOS模拟器不需要另外再安装，命令行打开 iOS 设备的步骤是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//列出你安装的所有可用的设备</span><br><span class="line">xcrun instruments -s</span><br><span class="line">//开启指定模拟器</span><br><span class="line">xcrun instruments -w &quot;iPhone XR (12.1)&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择 iOS 设备，运行项目。</p>
+</li>
+</ol>
+<p>过程中如果遇到其他问题，运行命令行  <code>flutter doctor -v</code> 和网络搜索基本都能解决。</p>
+<h2 id="UI框架"><a href="#UI框架" class="headerlink" title="UI框架"></a>UI框架</h2><p>Flutter 提供了很多组件，可以很轻松实现很多漂亮的 UI 设计，这一点，相信在后面的学习中，可以慢慢体验到。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>以上就是全部内容了，Flutter 的基础开发环境已经配置完毕，接下来会通过一些简单的页面小 Demo 去了解更多的知识，有兴趣的可以一起学习哈，下篇文章见。</p>
+<hr>
+<center><br><font color="gray">欢迎关注「浅浅的开发笔记」，期待与你一起成长！</font><br><br><br><br><img src="https://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_130.png" width="130" height="130"><br></center>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/10/Git-骚操作-批量删除分支/" rel="next" title="Git-骚操作-批量删除分支">
+                <i class="fa fa-chevron-left"></i> Git-骚操作-批量删除分支
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-是什么？"><span class="nav-number">2.</span> <span class="nav-text">Flutter 是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备-Flutter-开发环境"><span class="nav-number">3.</span> <span class="nav-text">准备 Flutter 开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载-Flutter-SDK"><span class="nav-number">3.1.</span> <span class="nav-text">下载 Flutter SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Flutter-环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">配置 Flutter 环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Studio-安装插件。"><span class="nav-number">3.3.</span> <span class="nav-text">Android Studio 安装插件。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从-Hello-World-开始"><span class="nav-number">4.</span> <span class="nav-text">从 Hello World 开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始体验-Flutter"><span class="nav-number">5.</span> <span class="nav-text">开始体验 Flutter</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#热重载"><span class="nav-number">5.1.</span> <span class="nav-text">热重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨平台"><span class="nav-number">5.2.</span> <span class="nav-text">跨平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI框架"><span class="nav-number">5.3.</span> <span class="nav-text">UI框架</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

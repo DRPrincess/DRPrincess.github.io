@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="分享优雅写代码的一个小技巧～">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-如何让优雅地让一个TextView显示两种样式的字体">
+<meta property="og:url" content="http://yoursite.com/2018/04/20/Android-怎么让一个TextView显示两种样式的字体/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="分享优雅写代码的一个小技巧～">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3f26803d70493844071c3c3c29ec0bdb.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/35ed97810a0d59a5a0decfd8d06924a0.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f98cf72aed2017b2529ac219a40c7756.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/44a6b98fba6ea90260c1095c05462e65.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/193e91761cf0d3a37d52402dfef6e51b.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:47:09.440Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-如何让优雅地让一个TextView显示两种样式的字体">
+<meta name="twitter:description" content="分享优雅写代码的一个小技巧～">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3f26803d70493844071c3c3c29ec0bdb.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/20/Android-怎么让一个TextView显示两种样式的字体/">
+
+
+
+
+
+  <title>Android-如何让优雅地让一个TextView显示两种样式的字体 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Android-怎么让一个TextView显示两种样式的字体/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-如何让优雅地让一个TextView显示两种样式的字体</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-20T19:55:04+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>分享优雅写代码的一个小技巧～<br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是一个很常见的需求，一般出现在有单位的数据展示上面。例如下面的两个例子，来源于我司项目的某一个页面。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3f26803d70493844071c3c3c29ec0bdb.png" alt=""></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/35ed97810a0d59a5a0decfd8d06924a0.png" alt=""></p>
+<p><strong>如果让你实现图一的<code>3.07万元</code> 和图二的 <code>您的估价低于 80% 车主的估价</code>，你会怎么布局?</strong></p>
+<p>如果是以前的我:</p>
+<p>图一的<code>3.07万元</code> 会换成 <code>3.07</code> 和 <code>万元</code> 两个 TextView 显示，因为俩大小不一样，这个理由尚能接受。</p>
+<p>图二，会换成 3 个 TextView 显示，因为颜色不一样，而且颜色不一样的还在中间。嗯，这个说出来就感觉有点丢脸了。</p>
+<p>然而现在我想说，事实上，这两者都可以只用一个 TextView 展示。</p>
+<p>而且方式还不只一种：</p>
+<ul>
+<li>TextView 显示 Html 样式</li>
+<li>SpannableString</li>
+</ul>
+<p>下面分别用这两种方式实现一下。</p>
+<h1 id="Html-方式"><a href="#Html-方式" class="headerlink" title="Html 方式"></a>Html 方式</h1><p>有这么一个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Html.fromHtml()</span><br></pre></td></tr></table></figure>
+<p>该方法可以将一段 html 字符串显示为TextView 可以显示的样式文本。</p>
+<p>于是，首先根据需求编写好 html ，通过该方法转换文本，拿给 TextView 显示即可。</p>
+<p>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tv1.setText(Html.fromHtml(&quot;&lt;font color=\&apos;#217aff\&apos; &gt;&lt;big&gt;3.07&lt;/big&gt;&lt;/font&gt;&lt;font color=\&apos;#217aff\&apos; &gt;&lt;small&gt;万元&lt;/small&gt;&lt;/font&gt;&quot;));</span><br><span class="line"></span><br><span class="line">tv2.setText(Html.fromHtml(&quot;&lt;font color=\&apos;#656565\&apos;&gt;您的估价&lt;/font&gt;&lt;font color=\&apos;#f48421\&apos;&gt;低于&lt;/font&gt;&lt;font color=\&apos;#656565\&apos;&gt;80%车主的售价。&lt;/font&gt;&quot;));</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f98cf72aed2017b2529ac219a40c7756.png" alt=""></p>
+<p>另外，大家注意到上面 <code>3.07万元</code>中两个字体大小不同，我是通过 <code>&lt;big&gt;3.07&lt;/big&gt;</code> <code>&lt;small&gt;万元&lt;/small&gt;</code> 去控制的。这个是因为 Android 中只支持 <font> 标签的 color 和 face 标签，不支持 size 标签。所以像下面的样式，无法显示 size 大小的。</font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&lt;font color=\&apos;#217aff\&apos; size=\&apos;18px\&apos; &gt;3.07&lt;/font&gt;&lt;font color=\&apos;#217aff\&apos; size=\&apos;10px\&apos;&gt;万元&lt;/font&gt;&quot;</span><br></pre></td></tr></table></figure>
+<p>想控制大小只能通过 <code>&lt;big&gt;</code> 和 <code>&lt;small&gt;</code> 标签，但是两者的大小比较固定，没办法精确控制。如果遇到需要控制字体大小的需求，可以考虑用下面的 SpannableString 来实现。</p>
+<h1 id="SpannableString-方式"><a href="#SpannableString-方式" class="headerlink" title="SpannableString 方式"></a>SpannableString 方式</h1><p>SpannableString 实现了 CharSequence 接口，所以无须转换， TextView 可以直接通过 setText() 方法显示。</p>
+<p>先使用 SpannableString 实现上面的例子感受一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// “3.07 万元”的实现方式</span><br><span class="line">SpannableString s1 = new SpannableString(&quot;3.07万元&quot;);</span><br><span class="line"></span><br><span class="line">s1.setSpan(new AbsoluteSizeSpan(18, true), 0, s1.length()-2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">s1.setSpan(new AbsoluteSizeSpan(10, true), s1.length()-2, s1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">tv3.setTextColor(Color.parseColor(&quot;#217aff&quot;));</span><br><span class="line">tv3.setText(s1);</span><br><span class="line"></span><br><span class="line">// “80%车主的估价”的实现方式</span><br><span class="line">SpannableString s2 = new SpannableString(&quot;您的估价低于80%车主的估价&quot;);</span><br><span class="line"></span><br><span class="line">s2.setSpan(new ForegroundColorSpan(Color.parseColor(&quot;#656565&quot;)), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">s2.setSpan(new ForegroundColorSpan(Color.parseColor(&quot;#f48421&quot;)), 4, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">s2.setSpan(new ForegroundColorSpan(Color.parseColor(&quot;#656565&quot;)), 6, s2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line"></span><br><span class="line">tv4.setText(s2);</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/44a6b98fba6ea90260c1095c05462e65.png" alt=""></p>
+<p>是不是很赞，来看一下实现过程：</p>
+<p>第一步:创建一个SpannableString。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SpannableString spannableString = new SpannableString(&quot;3.07万元&quot;);</span><br></pre></td></tr></table></figure>
+<p>第二步：使用 setSpan() 给 SpannableString 设置样式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spannableString.setSpan(Object what, int start, int end, int flags);</span><br></pre></td></tr></table></figure>
+<p>参数的意义是：</p>
+<ul>
+<li>what：对SpannableString进行润色的各种Span；</li>
+<li>start：需要润色文字段开始的下标；</li>
+<li>end：需要润色文字段结束的下标；</li>
+<li>flags：标志位，决定操作的范围是否包含开始和结束下标，有四个参数可选,为什么有四个？因为分别代表着 start 至 end 的四种集合开闭模式。<ul>
+<li>SPAN_INCLUSIVE_EXCLUSIVE：[start,end) 包括开始下标，但不包括结束下标</li>
+<li>SPAN_EXCLUSIVE_INCLUSIVE：(start,end] 不包括开始下标，但包括结束下标</li>
+<li>SPAN_INCLUSIVE_INCLUSIVE：[start,end] 既包括开始下标，又包括结束下标</li>
+<li>SPAN_EXCLUSIVE_EXCLUSIVE：(start,end) 不包括开始下标，也不包括结束下标</li>
+</ul>
+</li>
+</ul>
+<p>总体是第一个参数决定效果，后三个参数决定范围，显而易见，第一个参数是非常的需要去好好认识，把酒言欢一下的。</p>
+<p>SpannableString 提供了很多 Span 样式供开发者们选择，有用来设置大小，颜色，下划线，甚至还有点击事件的。我找了它们的继承结构图，截来给大家看一下 Span 们的家谱。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/193e91761cf0d3a37d52402dfef6e51b.png" alt=""></p>
+<p>上面例子中只用到了两个样式， ForegroundColorSpan 设置字体前景颜色，AbsoluteSizeSpan 设置字体大小，非常的简单。其实 Span 们功能远不止这些，但是这里不赘述了，大家可以自己多去尝试，下面是我觉得比较好的文章链接分享。</p>
+<p><a href="https://juejin.im/post/5a37d0645188252582277e29" target="_blank" rel="noopener">Android UI——SpannableString详细解析</a><br><a href="https://blog.csdn.net/u011102153/article/details/52487049" target="_blank" rel="noopener">一个实现微博那种#话题，@好友 符号表情的例子</a></p>
+<h1 id="另外一个新-Get-的小知识点"><a href="#另外一个新-Get-的小知识点" class="headerlink" title="另外一个新 Get 的小知识点"></a>另外一个新 Get 的小知识点</h1><p>真实的项目开发中，想 <code>3.07万元</code> 这种字符串不可能是固定好的，肯定是有服务端返回的，但是有的只是纯数字。那么除了用 <code>+</code> 号拼接，还可以这样使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = String.format(&quot;%s万元&quot;,3.07);</span><br></pre></td></tr></table></figure>
+<p>关于这个 <code>String.format()</code> 方法也是最近才发现的一个小技巧，使用上感觉比<code>+</code>要更方便，也更直观，关于它的更多信息可以直接看<a href="https://developer.android.com/reference/java/util/Formatter.html" target="_blank" rel="noopener">官方文档</a>,大概了解掌握其功能，记住几个最常用的，其他的可以随用随查。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>哈哈哈，觉得自己之前好笨拙，可能现在也是，不过有这个感觉也证明现在变的好一点了吧，虽然是一个很小的知识点。荀子老人家说了：“不积跬步，无以至千里；不积小流，无以成江海。”，希望我们都越来越好。</p>
+<p>下篇博客见。</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/17/Android-EditText样式&软键盘&输入限制开发细节汇总/" rel="next" title="Android-EditText 样式&软键盘&输入限制开发细节汇总">
+                <i class="fa fa-chevron-left"></i> Android-EditText 样式&软键盘&输入限制开发细节汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/27/Android-为什么RadioGroup.onCheckedChanged()会调用多次？/" rel="prev" title="Android-为什么 RadioGroup.onCheckedChanged() 会调用多次？">
+                Android-为什么 RadioGroup.onCheckedChanged() 会调用多次？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Html-方式"><span class="nav-number">2.</span> <span class="nav-text">Html 方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpannableString-方式"><span class="nav-number">3.</span> <span class="nav-text">SpannableString 方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#另外一个新-Get-的小知识点"><span class="nav-number">4.</span> <span class="nav-text">另外一个新 Get 的小知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

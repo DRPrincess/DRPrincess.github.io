@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="如果你欺负了 log 命令，如果它叫上它的参数过来，然后别硬撑了，直接投降吧，会出人命的给你讲。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git-叹为观止的 log 命令 &amp; 其参数">
+<meta property="og:url" content="http://yoursite.com/2018/03/18/Git-叹为观止的log命令&其参数/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="如果你欺负了 log 命令，如果它叫上它的参数过来，然后别硬撑了，直接投降吧，会出人命的给你讲。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ed89fe9d7adbbea2a2a8e46bec0e79db.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2822a11f836646aca90c5646d48668d9.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4eb050fbb8ced1cac878dd4e6c9b68c8.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/16f1a4be8828c0ad6bc232bccd45fa9a.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a543b009f298e88d21aaf0e782010479.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/65a51c1532526d535bb6f70ae638d374.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3d17a2b90e034dfec01a8819a146b06c.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daf52822990898b8cb8e760b49fd4742.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0cb1a5277b74589afb427539d09023f8.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a3b52f009b3a2fa567d0b78fde970f35.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0da129d012262c3fee320b1aeccb0593.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/cecbe1dbe030d2420a4ab34c13fb5af6.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:52:31.342Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git-叹为观止的 log 命令 &amp; 其参数">
+<meta name="twitter:description" content="如果你欺负了 log 命令，如果它叫上它的参数过来，然后别硬撑了，直接投降吧，会出人命的给你讲。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ed89fe9d7adbbea2a2a8e46bec0e79db.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/18/Git-叹为观止的log命令&其参数/">
+
+
+
+
+
+  <title>Git-叹为观止的 log 命令 & 其参数 | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/18/Git-叹为观止的log命令&其参数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git-叹为观止的 log 命令 & 其参数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T12:12:01+08:00">
+                2018-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如果你欺负了 log 命令，如果它叫上它的参数过来，然后别硬撑了，直接投降吧，会出人命的给你讲。<br><a id="more"></a></p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>之前 Git 系列博客中，多次用到 <code>git log</code> 去查看分支历史，很多人以为它只有这个用法，事实并非如此，<code>git log</code> 只是最基础的用法。</p>
+<p>官方文档上对它的描述是：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ed89fe9d7adbbea2a2a8e46bec0e79db.png" alt=""></p>
+<p><code>git log</code>的本质是展示提交信息。</p>
+<p>但是该命令配合一些参数，可以如同 <code>git rev-list</code> 一样控制输出哪些提交和提交的显示方式，也可以如同 <code>git diff-*</code> 一样决定怎样显示每个提交的修改内容。</p>
+<p>是不是非常惊讶了？另外 <code>git rev-list</code>这个命令是什么鬼？我至今未用过，先当作黑盒不管它了。由此可见，关于 <code>git log</code> 这个命令我们真的应该重新认识一下它。</p>
+<h1 id="log-这参数啊，真是的是太丰富了。"><a href="#log-这参数啊，真是的是太丰富了。" class="headerlink" title="log 这参数啊，真是的是太丰富了。"></a>log 这参数啊，真是的是太丰富了。</h1><p>毫不夸张的说，log 的功能这么牛气，不是没道理的，就这庞大的参数量，不是一般命令能有的。</p>
+<p>至于有多少，娃子们可以去 <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener">git-log 官方文档</a> 去看下，太多了，我真的截不出来它们的风采。</p>
+<p>官方君也知道太多了，也是非常贴心地按功能给分好了类：</p>
+<ul>
+<li><p>Commit Limiting（过滤提交的）</p>
+<p>提交太多了，不好找，就需要用一些特别的参数帮忙限制一下输出。例如只想找昨天的，只想找小明的，只想修改过A.txt 文件的等等各种只想，只要你敢想，基本都能实现。</p>
+</li>
+<li><p>History Simplification （简化提交历史的）</p>
+<p>提交历史是默认显示全部的，如果你感觉没看到全部，不是人没给你，是你的命令行窗口太小了，需要往下翻翻页。如果你只想看某一部分的历史，可以用这一部分的命令。</p>
+</li>
+<li><p>Commit Ordering （修改默认提交排序）</p>
+<p>提交历史默认是按时间先后顺序排列的，最新的放在最上面。如果有其他排列需求，或者单纯看不惯，可以用这一部分的参数，去改。</p>
+</li>
+<li><p>Commit Formatting （修改默认提交显示格式的）</p>
+<p>每个提交默认的显示信息，就是我们经常看到，有 SHA1 值，提交信息，作者和时间。但是呢，有些人想减去一点，有些人想多一点，有些人想换个显示方式，也是这些参数就诞生了。</p>
+</li>
+<li><p>Diff Formatting（控制提交显示文件的差异格式的）</p>
+<p>diff 命令我们之前用过，会显示出修改的具体内容，也就是文件的差异，例如 <code>--- com/A.txt</code> <code>+++ com/A.txt</code> 。这个类别的命令，就是用来控制提交中显示此类差异的格式的。</p>
+</li>
+</ul>
+<p>看完这些分类的介绍，开心吗？</p>
+<p>我是心情很复杂，参数太多，我都有点不太想去学了，看到后面前面的都忘了。于是，这里给大家推荐几个日常工作中比较常用的，提交过滤和提交历史格式化。</p>
+<h1 id="Commit-Limiting-用来搜索提交再不过了"><a href="#Commit-Limiting-用来搜索提交再不过了" class="headerlink" title="Commit Limiting 用来搜索提交再不过了"></a>Commit Limiting 用来搜索提交再不过了</h1><h2 id="Search-作者"><a href="#Search-作者" class="headerlink" title="Search-作者"></a>Search-作者</h2><p>这个命令支持的搜索参数为提交的创建者和提交者，而且是支持正则表达式的，可以发挥的余地很多。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//命令格式</span><br><span class="line">git log  --author=&lt;pattern&gt;</span><br><span class="line">git log --committer=&lt;pattern&gt;</span><br><span class="line"></span><br><span class="line">//示例</span><br><span class="line">git log --author=“小明”</span><br><span class="line">git log --author=“小明\|小红”</span><br></pre></td></tr></table></figure>
+<p>这个我的示例项目就我一个，没法试，但是我用公司项目试过，的确可以。</p>
+<h2 id="Search-时间"><a href="#Search-时间" class="headerlink" title="Search-时间"></a>Search-时间</h2><p>关于按时间搜索，支持的有很多类型，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//某个日期之后</span><br><span class="line">git log --since=&lt;date&gt;</span><br><span class="line">git log --after=&lt;date&gt;</span><br><span class="line"></span><br><span class="line">//某个日期之前</span><br><span class="line">git log --until=&lt;date&gt;</span><br><span class="line">git log --before=&lt;date&gt;</span><br></pre></td></tr></table></figure>
+<p>如果你想要一个具体的时间区间的，可以把这个参数组合起来的,例如下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//查出 03.12-03.18 期间的提交</span><br><span class="line">git log --since=&quot;2018.03.12&quot; --until=&quot;2018.03.18&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/2822a11f836646aca90c5646d48668d9.png" alt=""></p>
+<h2 id="Search-提交信息"><a href="#Search-提交信息" class="headerlink" title="Search-提交信息"></a>Search-提交信息</h2><p>这个就厉害了，你可以搜索提交信息,也支持正常表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git log --grep=&lt;pattern&gt;</span><br><span class="line"></span><br><span class="line">//示例</span><br><span class="line">git log --grep=&apos;喜欢&apos; --oneline</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/4eb050fbb8ced1cac878dd4e6c9b68c8.png" alt=""></p>
+<h2 id="Search-修改内容"><a href="#Search-修改内容" class="headerlink" title="Search-修改内容"></a>Search-修改内容</h2><p>一般情况下，我们想找一个提交，大多是为了某个修改去找，这个修改对应要么是具体的文件，要么是具体的修改的内容。放心，这个条件也支持。</p>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//文件</span><br><span class="line">git log [\--] &lt;path&gt;…​</span><br><span class="line"></span><br><span class="line">//示例</span><br><span class="line">git log --oneline -- 11.txt</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/16f1a4be8828c0ad6bc232bccd45fa9a.png" alt=""></p>
+<h3 id="修改内容"><a href="#修改内容" class="headerlink" title="修改内容"></a>修改内容</h3><p>这一部分其实是 Diff 的参数部分，有很多参数，这里列出两个。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//查看某个字符串的变动历史提交</span><br><span class="line">git log -S&lt;string&gt;</span><br><span class="line">//查看某符合某一个正则表达式内容的变动历史提交  </span><br><span class="line">git log -G&lt;regex&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//例子</span><br><span class="line">git log -S&quot;喜欢你&quot; --oneine</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a543b009f298e88d21aaf0e782010479.png" alt=""></p>
+<h2 id="Search-合并相关的提交-amp-文件"><a href="#Search-合并相关的提交-amp-文件" class="headerlink" title="Search-合并相关的提交 &amp; 文件"></a>Search-合并相关的提交 &amp; 文件</h2><p>工作中，分支之间的合并，往往不是 fast-forword,而是 recursive strategy merge 策略式合并，所以会在历史中出现很多合并提交。运用下面的命令，你可以选择只看合并提交，或者非合并提交。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看合并提交</span><br><span class="line">git log --merges</span><br><span class="line"></span><br><span class="line">//查看非合并提交</span><br><span class="line">git log --no-merges</span><br></pre></td></tr></table></figure>
+<p>不幸发生了合并冲突，还可以用这个命令，可以快速找到冲突的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//查看发生合并冲突的文件</span><br><span class="line">git log --merge</span><br></pre></td></tr></table></figure>
+<h1 id="Commit-History-Formatting-你想要什么格式的你说"><a href="#Commit-History-Formatting-你想要什么格式的你说" class="headerlink" title="Commit History Formatting  你想要什么格式的你说"></a>Commit History Formatting  你想要什么格式的你说</h1><h2 id="默认版"><a href="#默认版" class="headerlink" title="默认版"></a>默认版</h2><p>这个我们最常用的，显示 commit 的 SHA1 值，创建作者和时间，提交信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/65a51c1532526d535bb6f70ae638d374.png" alt="git log"></p>
+<h2 id="一行情书版"><a href="#一行情书版" class="headerlink" title="一行情书版"></a>一行情书版</h2><p>使用 –oneline 参数，only one line !只显示提交的 SHA1 值和提交信息，SHA1 还是缩短显示前几位。</p>
+<p>这个命令，在你要根据信息去找提交的时候，比 <code>git log</code> 的效率要高点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/3d17a2b90e034dfec01a8819a146b06c.png" alt="git log --oneline"></p>
+<h2 id="毫发毕现版"><a href="#毫发毕现版" class="headerlink" title="毫发毕现版"></a>毫发毕现版</h2><p>这个版本,就是上面说的，做到加持 <code>git diff-*</code>的效果版本，最常使用的参数是 –stat 和 -p。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --stat</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/daf52822990898b8cb8e760b49fd4742.png" alt="git log  -- stat"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log -p</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0cb1a5277b74589afb427539d09023f8.png" alt="git log -p"></p>
+<h2 id="角色版"><a href="#角色版" class="headerlink" title="角色版"></a>角色版</h2><p>这个按提交的创建者分类，因为目前只有我一个操作，就显示了我一个人的。</p>
+<p>使用这个命令可以容易地看到谁做了什么，毫无保留的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git shortlog</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/a3b52f009b3a2fa567d0b78fde970f35.png" alt="git shortlog"></p>
+<h2 id="图文并茂版"><a href="#图文并茂版" class="headerlink" title="图文并茂版"></a>图文并茂版</h2><p>这次命令使用三个参数 –oneline， –decorate 和 –graph 。<br>–oneline 刚才就是哪个一句话情书的。<br>–graph 选项会绘制一个 ASCII 图像来展示提交历史的分支结构。<br>–decorate 是用来可以显示出指向提交的指针的名字，也就是 HEAD 指针, feature/test等分支名称，还有远程分支，标签等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph --oneline --decorate</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/0da129d012262c3fee320b1aeccb0593.png" alt="git log --graph --oneline --decorate"></p>
+<h2 id="最强推荐版"><a href="#最强推荐版" class="headerlink" title="最强推荐版"></a>最强推荐版</h2><p>这个是在 stormZhang 张哥那里学来的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit --date=relative</span><br></pre></td></tr></table></figure>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/cecbe1dbe030d2420a4ab34c13fb5af6.png" alt=""></p>
+<p>效果比较炫酷，这个已经属于自定义格式了，git log 支持自定义样式的，有兴趣的娃子可以自己研究下。而且这个命令比较长，娃子们可以通过给这个命令设置别名解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.lg &quot;log --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit --date=relative&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这样以后直接输入 git lg 就行了。</p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>这篇博客满足不了您的需求的同学们，自行去官方文档上看，这里再贴一下伟大的官方文档连接：<a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener">git-log 官方文档连接在此，您请去吧！</a></p>
+<p>最后，see you next blog 。</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/14/Git-丢失的Commit是真的消失了吗？/" rel="next" title="Git-丢失的 commit 是真的消失了吗？">
+                <i class="fa fa-chevron-left"></i> Git-丢失的 commit 是真的消失了吗？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/19/Git-送娃子们一本关于如何自学Git的秘籍/" rel="prev" title="Git-送娃子们一本关于如何自学 Git 的秘籍">
+                Git-送娃子们一本关于如何自学 Git 的秘籍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#log-这参数啊，真是的是太丰富了。"><span class="nav-number">2.</span> <span class="nav-text">log 这参数啊，真是的是太丰富了。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Commit-Limiting-用来搜索提交再不过了"><span class="nav-number">3.</span> <span class="nav-text">Commit Limiting 用来搜索提交再不过了</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Search-作者"><span class="nav-number">3.1.</span> <span class="nav-text">Search-作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Search-时间"><span class="nav-number">3.2.</span> <span class="nav-text">Search-时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Search-提交信息"><span class="nav-number">3.3.</span> <span class="nav-text">Search-提交信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Search-修改内容"><span class="nav-number">3.4.</span> <span class="nav-text">Search-修改内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">3.4.1.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改内容"><span class="nav-number">3.4.2.</span> <span class="nav-text">修改内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Search-合并相关的提交-amp-文件"><span class="nav-number">3.5.</span> <span class="nav-text">Search-合并相关的提交 &amp; 文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Commit-History-Formatting-你想要什么格式的你说"><span class="nav-number">4.</span> <span class="nav-text">Commit History Formatting  你想要什么格式的你说</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#默认版"><span class="nav-number">4.1.</span> <span class="nav-text">默认版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一行情书版"><span class="nav-number">4.2.</span> <span class="nav-text">一行情书版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#毫发毕现版"><span class="nav-number">4.3.</span> <span class="nav-text">毫发毕现版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角色版"><span class="nav-number">4.4.</span> <span class="nav-text">角色版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图文并茂版"><span class="nav-number">4.5.</span> <span class="nav-text">图文并茂版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最强推荐版"><span class="nav-number">4.6.</span> <span class="nav-text">最强推荐版</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">5.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

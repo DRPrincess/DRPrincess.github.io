@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="多 Application 无法共存，使用反射可以达到最终目的。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-组件化如何处理多个ModuleApplication共存问题？">
+<meta property="og:url" content="http://yoursite.com/2018/08/27/Android-组件化如何处理多个ModuleApplication共存问题？/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="多 Application 无法共存，使用反射可以达到最终目的。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/component_2.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/component_3.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_130.png">
+<meta property="og:updated_time" content="2019-01-28T16:47:09.434Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-组件化如何处理多个ModuleApplication共存问题？">
+<meta name="twitter:description" content="多 Application 无法共存，使用反射可以达到最终目的。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/component_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/27/Android-组件化如何处理多个ModuleApplication共存问题？/">
+
+
+
+
+
+  <title>Android-组件化如何处理多个ModuleApplication共存问题？ | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/Android-组件化如何处理多个ModuleApplication共存问题？/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android-组件化如何处理多个ModuleApplication共存问题？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T01:46:18+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>多 Application 无法共存，使用反射可以达到最终目的。<br><a id="more"></a></p>
+<h1 id="一个美好的设想"><a href="#一个美好的设想" class="headerlink" title="一个美好的设想"></a>一个美好的设想</h1><p>组件化的目的是为了业务解耦，每个业务模块需要不同的功能，例如车辆详情模块需要第三方分享，城市定位模块需要百度地位等。有些特殊功能的初始化需要在 Application 中去做，但是这些功能并非全部业务组件都用到的东西，放到 BaseApplication 不合适。</p>
+<p>因此，我想这样操作：</p>
+<ul>
+<li>模块共有的初始化，放入BaseApplication 中。</li>
+<li>模块自身的特殊功能初始化，放在自己的 Application。</li>
+</ul>
+<p>设想是美好的，但实现前需要先思考一个问题：</p>
+<p>多 Module 项目开发的时候，app module 和 library module 的 都有不同的自定义 Application ,可以共存并且自动合并吗？</p>
+<p>答案是 No。</p>
+<h1 id="为什么不可以？"><a href="#为什么不可以？" class="headerlink" title="为什么不可以？"></a>为什么不可以？</h1><p>首先，自定义 Application 需要声明在 AndroidManifest.xml 中。其次，每个 Module 都有该清单文件，但是最终的 APK 文件只能包含一个。因此，在构建应用时，Gradle 构建会将所有清单文件合并到一个封装到 APK 的清单文件中。</p>
+<p>合并的优先级是:</p>
+<p>App Module &gt; Library Module</p>
+<p>合并的规则:</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/component_2.png" alt=""></p>
+<p>结合我们的情况，是值 A 合并值 B，会产生冲突错误，如下是我的亲身试法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Execution failed for task &apos;:app:processDebugManifest&apos;.</span><br><span class="line">&gt; Manifest merger failed : Attribute application@name value=(com.baseres.BaseApplication) from AndroidManifest.xml:8:9-51</span><br><span class="line">  	is also present at [:carcomponent] AndroidManifest.xml:14:9-55 value=(com.carcomponent.CarApplication).</span><br><span class="line">  	Suggestion: add &apos;tools:replace=&quot;android:name&quot;&apos; to &lt;application&gt; element at AndroidManifest.xml:7:5-24:19 to override.</span><br></pre></td></tr></table></figure>
+<p>错误信息中给出了解决建议，在高优先级的 App Module 中使用 tools:replace=”android:name”，但这样做是直接用值 A 替换了值 B，并非我们想要的结果。</p>
+<p>除了上面报错的方法，另外再推荐给大家一个方法，打开 App Module 的 AndroidManifest.xml 文件，选择下方 Merged Manifest 选项卡，可以看到预合并结果。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/component_3.png" alt=""></p>
+<p>以上我们就明白为什么不同的 Application 不能共存的原因。那还有其他方法去实现美好设想吗？</p>
+<p>这次的答案是 Yes !</p>
+<h1 id="强烈感谢反射的存在"><a href="#强烈感谢反射的存在" class="headerlink" title="强烈感谢反射的存在"></a>强烈感谢反射的存在</h1><p>回想需求来源，是需要在 Application 创建时期，实现模块的特殊功能初始化，初始化时间和初始化内容<br>是确定无误，问题核心是如何连接两者。直接连接方式实践失败，只能采用间接方式。一提到间接，于是想起来了反射。</p>
+<ul>
+<li>初始化内容，假设现在写在  ModuleA 的 A 类，ModuleB 的 B 类中的 init() 方法中。</li>
+<li>最终 Application 的 onCreate 中通过反射拿到 A 类 和 B 类,调用各自的 init() 方法。</li>
+</ul>
+<p>以上就已经解决我们的问题，但是为了 A 类 和 B 类 中的初始化方法名称保持一致，最好使用接口强制规范。创建接口 IComponentApplication，其中定义好方法签名，让 A 类和 B 类都实现它。如此，接口应放在 基础库 BaseRes 中，反射调用内容放在 BaseApplication 最为合适。</p>
+<p>所有的思维逻辑演变成代码是这样纸的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Module A:</span><br><span class="line"></span><br><span class="line">private class A implements IComponentApplication&#123;</span><br><span class="line"></span><br><span class="line">	public void init(Application application)&#123;</span><br><span class="line">	   // ModuleA的初始化</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Module B:</span><br><span class="line"></span><br><span class="line">private class B implements IComponentApplication&#123;</span><br><span class="line"></span><br><span class="line">	public void init(Application application)&#123;</span><br><span class="line">	   // ModuleB的初始化</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BaseRes 中：</span><br><span class="line"></span><br><span class="line">public interface IComponentApplication &#123;</span><br><span class="line"></span><br><span class="line">	void init(Application application);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class MyApplication extends Application &#123;</span><br><span class="line">	private static final String[] MODULESLIST =</span><br><span class="line">	              &#123;&quot;com.moduleA.A&quot;,</span><br><span class="line">	              &quot;com.moduleA.B&quot;&#125;;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void onCreate() &#123;</span><br><span class="line">		super.onCreate();</span><br><span class="line"></span><br><span class="line">		//Module类的APP初始化</span><br><span class="line">		modulesApplicationInit();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void modulesApplicationInit()&#123;</span><br><span class="line">		 for (String moduleImpl : MODULESLIST)&#123;</span><br><span class="line">		     try &#123;</span><br><span class="line">		         Class&lt;?&gt; clazz = Class.forName(moduleImpl);</span><br><span class="line">		         Object obj = clazz.newInstance();</span><br><span class="line">		         if (obj instanceof IComponentApplication)&#123;</span><br><span class="line">		             ((IComponentApplication) obj).init(BaseApplication.getInstance());</span><br><span class="line">		         &#125;</span><br><span class="line">		     &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">		         e.printStackTrace();</span><br><span class="line">		     &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">		         e.printStackTrace();</span><br><span class="line">		     &#125; catch (InstantiationException e) &#123;</span><br><span class="line">		         e.printStackTrace();</span><br><span class="line">		     &#125;</span><br><span class="line">		  &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="最后有福利"><a href="#最后有福利" class="headerlink" title="最后有福利"></a>最后有福利</h1><p>福利是组件化系列博客所说的方案，写出来了一个Demo,传送门在这里 <a href="https://github.com/DRPrincess/DRComponentDemo" target="_blank" rel="noopener">你们可能需要的组件化 Demo</a>。说是福利，大概是我的脸太大，技术浅薄，欢迎指正和交流。</p>
+<p>另外，关于 AndroidManifest.xml 的合并，详细了解可以看这里<a href="https://developer.android.com/studio/build/manifest-merge#merge_priorities" target="_blank" rel="noopener">合并多个清单文件 Google 官方文档</a>,需要自备交通工具。</p>
+<p>下篇文章见。</p>
+<hr>
+<center><br><font color="gray">欢迎关注博主的微信公众号，快快加入哦，期待与你一起成长！</font><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_130.png" width="130" height="130"><br></center>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/23/Android-组件化改造项目之概述/" rel="next" title="Android-组件化改造项目之概述">
+                <i class="fa fa-chevron-left"></i> Android-组件化改造项目之概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/24/Gradle-Could-not-determine-java-version-from-'11'/" rel="prev" title="Gradle-Could not determine java version from '11'">
+                Gradle-Could not determine java version from '11' <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一个美好的设想"><span class="nav-number">1.</span> <span class="nav-text">一个美好的设想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么不可以？"><span class="nav-number">2.</span> <span class="nav-text">为什么不可以？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#强烈感谢反射的存在"><span class="nav-number">3.</span> <span class="nav-text">强烈感谢反射的存在</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后有福利"><span class="nav-number">4.</span> <span class="nav-text">最后有福利</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

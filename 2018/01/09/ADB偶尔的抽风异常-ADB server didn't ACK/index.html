@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="强迫症必须解决 adb 偶尔的小bug,否则浑身难受。">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ADB偶尔的抽风异常-ADB server didn&#39;t ACK">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/ADB偶尔的抽风异常-ADB server didn't ACK/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="强迫症必须解决 adb 偶尔的小bug,否则浑身难受。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f07026cf95ef82c9a36caded91c3930b.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/b1ed860e7fda74b21d35d8a42d841a2d.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7a3b38112e57b8e8411a2782758e9435.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:56:53.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ADB偶尔的抽风异常-ADB server didn&#39;t ACK">
+<meta name="twitter:description" content="强迫症必须解决 adb 偶尔的小bug,否则浑身难受。">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f07026cf95ef82c9a36caded91c3930b.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/09/ADB偶尔的抽风异常-ADB server didn't ACK/">
+
+
+
+
+
+  <title>ADB偶尔的抽风异常-ADB server didn't ACK | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/09/ADB偶尔的抽风异常-ADB server didn't ACK/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ADB偶尔的抽风异常-ADB server didn't ACK</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-09T15:50:00+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>强迫症必须解决 adb 偶尔的小bug,否则浑身难受。<br><a id="more"></a></p>
+<h1 id="关于错误"><a href="#关于错误" class="headerlink" title="关于错误"></a>关于错误</h1><p>使用 adb 命令的过程中，有的时候正常，有的时候会出现以下错误，而且很奇怪的是，有的时候命令行不能用，但是用 Android Studio 还能安装应用也是神奇了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">daemon not running.    </span><br><span class="line">starting it now on port 5037    </span><br><span class="line">ADB server didn&apos;t ACK   </span><br><span class="line">failed to start daemon  </span><br><span class="line">error: cannot connect to daemon</span><br></pre></td></tr></table></figure>
+<p>尝试的方法，但是失败了，例如：</p>
+<p>使用 <code>adb kill-server</code> <code>adb start-server</code>均无效。</p>
+<p>使用 <code>netstat -an | grep &quot;5037&quot;</code> 查看占用，也只有 Android Studio 一个进程。强制关闭重启也无用。</p>
+<h1 id="原因-amp-解决方法"><a href="#原因-amp-解决方法" class="headerlink" title="原因 &amp; 解决方法"></a>原因 &amp; 解决方法</h1><p>后来查到有人说，是因为  platform-tools 25.0.4 版本有 bug，升级或者降级一下即可。</p>
+<p>尝试从 25.0.4 升级到 27.0.1 后，问题解决。虽然无法确认是否是根本原因，但至少到目前为止，adb 错误没有再次出现过。</p>
+<p>如果你想要升级 platform-tools ，有以下几种方法：</p>
+<ol>
+<li>使用 Android Studio 中提供 SdkManager 图形化工具升级（推荐使用）。   </li>
+<li>使用 sdk 提供的 sdkmanager 命令行更新。</li>
+<li>手动下载 platform-tools 包，然后去 sdk 目录中自行替换。</li>
+</ol>
+<h3 id="Android-Studio-升级-platform-tools"><a href="#Android-Studio-升级-platform-tools" class="headerlink" title="Android Studio 升级 platform-tools"></a>Android Studio 升级 platform-tools</h3><p>1.Tools &gt; Android &gt; SDK Manager 或点击工具栏中的 SDK Manager 。</p>
+<p>2.SDK Tools 中可以看到现在使用 platform-tools 版本。</p>
+<ul>
+<li>如果有更新版本，左侧复选框中会显示短划线。选中将复选框变成对勾，就会出现绿色的下载图标。</li>
+<li><p>如果没有新版本，复选框中会显示对勾。 选中取消对勾的话，会出现出现红色的卸载图标。</p>
+<p>因为我目前使用的已经是是最新版本，所以是对勾，但是我在下面的 SDK Tools 中有新版本可以更新，我特意点出来绿色的下载图标，大家可以看一下。</p>
+</li>
+</ul>
+<p>3.如果点击绿色小图标，就可以点击下载更新了。</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f07026cf95ef82c9a36caded91c3930b.png" alt=""></p>
+<h3 id="sdkmanager-命令行更新-platform-tools"><a href="#sdkmanager-命令行更新-platform-tools" class="headerlink" title="sdkmanager 命令行更新 platform-tools"></a>sdkmanager 命令行更新 platform-tools</h3><p>sdkmanager 是 Android SDK 提供的一个命令行工具，可以查看，安装，更新和卸载SDK中的安装包。位置在 your-sdk-path/tools/bin 中，<a href="https://developer.android.com/studio/command-line/sdkmanager.html" target="_blank" rel="noopener">官方命令说明看这里</a> 。</p>
+<p>首先要进入 your-sdk-path/tools/bin 路径中，才能使用 sdkmanager 命令。</p>
+<p>如果想更新 platform-tools 到最新的话，需要使用的命令行是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./sdkmanager &quot;platform-tools&quot;  //只更新 platform-tools</span><br><span class="line"></span><br><span class="line">./sdkmanager --update //更新所有 SDK 安装包到最新版本</span><br></pre></td></tr></table></figure>
+<p>下面用命令更新了 Tools 的最新版本：</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/b1ed860e7fda74b21d35d8a42d841a2d.png" alt=""></p>
+<h3 id="手动升级-platform-tools"><a href="#手动升级-platform-tools" class="headerlink" title="手动升级 platform-tools"></a>手动升级 platform-tools</h3><p>  1.去官网下载新版本  platform-tools 包。<a href="https://developer.android.com/studio/releases/platform-tools.html" target="_blank" rel="noopener">下载地址在这里呢</a></p>
+<p>  2.去 SDK 文件夹中替换 platform-tools 文件夹。</p>
+<p>  <img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/7a3b38112e57b8e8411a2782758e9435.png" alt=""></p>
+<hr>
+<p>  刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+  <div align="center"><br><br>  <img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br>  </div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/09/Charles在Android7.0上的Client-SSL-handshake-failed/" rel="next" title="Charles 在 Android 7.0 上的 Client SSL handshake failed">
+                <i class="fa fa-chevron-left"></i> Charles 在 Android 7.0 上的 Client SSL handshake failed
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/11/Build-Tools&Platform-Tools&Tools&platform&Gradle貌似复杂的依赖关系/" rel="prev" title="Build Tools & Platform Tools & Tools & platform & Gradle 貌似复杂的依赖关系。">
+                Build Tools & Platform Tools & Tools & platform & Gradle 貌似复杂的依赖关系。 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于错误"><span class="nav-number">1.</span> <span class="nav-text">关于错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因-amp-解决方法"><span class="nav-number">2.</span> <span class="nav-text">原因 &amp; 解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio-升级-platform-tools"><span class="nav-number">2.0.1.</span> <span class="nav-text">Android Studio 升级 platform-tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sdkmanager-命令行更新-platform-tools"><span class="nav-number">2.0.2.</span> <span class="nav-text">sdkmanager 命令行更新 platform-tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动升级-platform-tools"><span class="nav-number">2.0.3.</span> <span class="nav-text">手动升级 platform-tools</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

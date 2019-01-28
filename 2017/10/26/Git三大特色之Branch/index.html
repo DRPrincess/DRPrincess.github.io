@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DRPrincess的博客" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="这是一篇写了好几天的诚意之作">
+<meta name="keywords" content="Android,开发者,Java,Developer,Programmer,Coder,Geek">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git三大特色之Branch">
+<meta property="og:url" content="http://yoursite.com/2017/10/26/Git三大特色之Branch/index.html">
+<meta property="og:site_name" content="DRPrincess的博客">
+<meta property="og:description" content="这是一篇写了好几天的诚意之作">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5ed60a497b23ce3d7c07f58be2101119.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f299bd7aeadd9d4b6a57dd5134b8b69a.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/394ad5a842d71bf61fef4f5d856106d0.png">
+<meta property="og:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg">
+<meta property="og:updated_time" content="2019-01-28T16:50:38.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git三大特色之Branch">
+<meta name="twitter:description" content="这是一篇写了好几天的诚意之作">
+<meta name="twitter:image" content="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5ed60a497b23ce3d7c07f58be2101119.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/26/Git三大特色之Branch/">
+
+
+
+
+
+  <title>Git三大特色之Branch | DRPrincess的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DRPrincess的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这个昵称，足以暴露了老夫的少女心了(⌒▽⌒)。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/26/Git三大特色之Branch/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DRPrincess">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DRPrincess的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git三大特色之Branch</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-26T14:14:09+08:00">
+                2017-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是一篇写了好几天的诚意之作<br><a id="more"></a></p>
+<h1 id="我习惯每篇博客都有个开篇"><a href="#我习惯每篇博客都有个开篇" class="headerlink" title="我习惯每篇博客都有个开篇"></a>我习惯每篇博客都有个开篇</h1><p>还记得 Git 系列第一篇 Git 自我介绍的话吗？其中有 Git 自己都赞同的三大特色</p>
+<blockquote>
+<p>cheap local branching, convenient staging areas, and multiple workflows</p>
+</blockquote>
+<p>轻量的本地分支, 方便的暂存，以及多工作流。其中因为有分支的存在，才构成了多工作流的特色，所以 Branch 不愧为 Git 的王牌特色。这篇博客，主要和大家一起学习一下轻若鸿毛，帅到炸裂的分支儿。</p>
+<h1 id="Branch-的概念"><a href="#Branch-的概念" class="headerlink" title="Branch 的概念"></a>Branch 的概念</h1><p>分支的概念，在我看来，分两个版本：</p>
+<p><strong>从使用场景上解释，是这么个概念</strong></p>
+<p>Git 的分支，就是开发过程中，要选择的一条路，你可以选择和其他小伙伴一起走同一条路，也可以自己走一条路，路与路之间相互没有影响，作为路的主人，你也随时可以让两条路合并。  </p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5ed60a497b23ce3d7c07f58be2101119.png" alt="简笔画 Git 分支"></p>
+<p><strong>深入一点的话，是这么个概念</strong>：  </p>
+<p>Git 的分支，其实本质上仅仅是指向提交对象的可变指针，这个可变指针，指向路的终点。同时，还有一个比较特别的 HEAD 指针，用于记录当前工作的位置，借用上面的例子，这个 HEAD  指针等于在路上走的你自己，你在哪，指针就在哪，你在哪个分支，HEAD 指针就指向哪个分支的指针。<br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/f299bd7aeadd9d4b6a57dd5134b8b69a.png" alt="深层次的分支概念图"></p>
+<p>实际上，当我们使用 Git 的时候，我们就使用了分支，因为 Git 的默认分支名字是 master，如果你有心的话，会发现执行 <code>git init</code>后，命令行的输出头部已经默认在 master 分支了。 但是这个时候，还并未创建 master 分支，只有当有一个提交的时候，才会创建 master 分支。原因在于，分支的指针要指向提交的呀，突然明白了，当初看 Android Studio 的教程，为什么每个都让有一个初步提交了呢。</p>
+<p>无图无真相，不信的看下面:</p>
+<p><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/394ad5a842d71bf61fef4f5d856106d0.png" alt="git 默认分支 master"></p>
+<h1 id="玩转-Branch-必备技能"><a href="#玩转-Branch-必备技能" class="headerlink" title="玩转 Branch 必备技能"></a>玩转 Branch 必备技能</h1><p>有关分支的命令不多，无非是换着花样的增删改查，掌握好以下基本的命令，以后就可以在 Branch 的草原上策马奔腾潇潇洒洒啦</p>
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch &lt;name&gt;</span><br></pre></td></tr></table></figure>
+<p>这个命令看起来，似乎简单到你只需要想个分支的名字就好了。<br>但是在创建分支的时候，要想下，是否要从当前分支的内容基础上去开辟一条新分支。</p>
+<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>三个命令，让你想看什么分支就看什么分支，就是这么方便<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch //查看本地分支</span><br><span class="line">git branch -r //查看远程分支</span><br><span class="line">git branch -a //查看本地和远程的所有分支</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>当本地分支删除后，推动到远程仓库后，远程仓库并不能自动删除远程分支（原因，下回分解）。所以，分支的完全删除是分两个部分的，一个是本地，一个是远程。</p>
+<p>本地删除操作需要加上 <code>-d</code>或者 <code>-D</code> 参数，参数的名称来自英语 <code>delete</code>的缩写，Remember it so easy!</p>
+<p>两者的区别在于<code>-D</code>比<code>-d</code>要粗暴一点。当被删除分支有新内容没有被合并的时候，使用<code>-D</code>，会直接删除， 使用<code>-d</code>，会提示该分支有新内容没有被合并，不执行删除。删除需谨慎，建议非特殊情况下，使用温柔的<code>-d</code>要好一点，以免小手一抖，眼泪长流。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;name&gt;</span><br><span class="line">git branch -D &lt;name&gt; //强制删除</span><br></pre></td></tr></table></figure>
+<p>删除远程分支需要 push 操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin :&lt;name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h3><p>其实，这是个伪命题。  </p>
+<p>但是有很多人，包括我，都有过对分支名称不满意想该修改一下的想法，所以，就有了这个伪命题的存在。</p>
+<p>事实上，分支不存在重命名，没有 rename 的这个命令。如果你起的名字不满意，想重新起的话，那只要创建一个和要修改分支内容一样的分支，起上你喜欢的名字，然后再把之前的给删掉。</p>
+<h3 id="检出分支"><a href="#检出分支" class="headerlink" title="检出分支"></a>检出分支</h3><p>这个检出分支的“检出”二字，算是个关于 Git 分支的专业术语了,你可以理解为切换当前分支。<br>本质上， checkout 操作是移动 HEAD 指针，将 HEAD 指针指向要切换的分支的指针处。   </p>
+<p>使用场景有两个：   </p>
+<ol>
+<li><p>已经存在的分支，现在要切换过去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> git checkout &lt;name&gt;</span><br><span class="line">```   </span><br><span class="line">2. 创建一个新分支，并切换到新分支，这个一步到位的话需要 `-b ` 参数。</span><br><span class="line"></span><br><span class="line">     以当前分支为基础，创建一个新分支</span><br></pre></td></tr></table></figure>
+<p> git checkout -b <branch name=""></branch></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以指定的某一个提交，创建一个新分支</span><br></pre></td></tr></table></figure>
+<p> git checkout -b <branch name=""> <sha1></sha1></branch></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">### 合并分支</span><br><span class="line"></span><br><span class="line">以上，是分支的增删改查独立操作，但是 Git 创造这个分支，并不只是为了让它们自个儿和自个儿玩的，还需要它们之间的相互协作和配合。  就像写项目的时候，分好开发任务，你和你的小伙伴新建了两个分支，你写你的 Anglela，他写他的 baby,到开发完成之后，肯定要合在一起，才能成就 Anglelababy。合的这个动作，就涉及到了分支合并的概念。</span><br><span class="line"></span><br><span class="line">分支合并使用到的命令是</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>git merge <branch name=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">分支合并相对分支的其他操作，是相对要复杂一点的，怎么说也是多分支操作，至少要对得起它一听就比较高端的名字吧，于是我决定把分支的合并作为一个大标题。</span><br><span class="line"></span><br><span class="line"># Branch 合并是大事</span><br><span class="line">#### git  的两种合并模式</span><br><span class="line">分支的合并是非常智能的，目前有两种模式，两种模式的选择，不需要我们参与，而是 Git 根据分支情况不同，自行判断选择的。在我使用 Git 的过程中，执行分支合并，有时需要输入提交信息，有时不需要，作为小白的我懵的不知所以然，后来才知道是因为合并模式的问题。</span><br><span class="line"></span><br><span class="line">两种模式是：</span><br><span class="line"></span><br><span class="line">1. Fast-Forward（快进式）（PS:这个名字是官方的）</span><br><span class="line">2. Recursive Strategy Merge（策略合并式）（PS:这个名字非官方，我自己起的，有时也叫三方合并式）</span><br><span class="line"></span><br><span class="line">- **Fast-Forward（快进式）**  </span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/324432d185358af6518b4a650bc981bd.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如图，有两个分支，master 分支和 feature 分支。当这两个分支处于上面的关系时，当进行合并操作时，就会出现 fast-forward。</span><br><span class="line"></span><br><span class="line">原因是；由于当前 master 分支所指向的提交是 feature 分支的直接上游，所以 Git 只是简单的将指针向前移动。 换句话说，当你试图合并两个分支时，如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候，只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧——这就叫做 “快进（fast-forward）”。</span><br><span class="line"></span><br><span class="line">合并后的分支指针位置如下：</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/d0ab779b06b91838f5d9c508fc0b5de0.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- **Recursive Strategy Merge（策略合并式）**   </span><br><span class="line"></span><br><span class="line">这个合并方式，是为补充 fast-forward 而出现的，因为你知道，在项目开发过程中，很多人开发的情况下，出现 fast-forward 的情况并不是很多，很多是类似下面这种。提交历史是分叉的，无法满足执行 fast-forward 的条件：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/27598a97785cab054c679bc3e8d19a48.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> 因为，master 分支所在提交并不是 feature 分支所在提交的直接祖先，Git 不得不做一些额外的工作。 出现这种情况的时候，Git 会使用两个分支的末端所指的快照（C4 和 C5）以及这两个分支的工作祖先（C3），做一个简单的三方合并,生成一个新的提交（C6）。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/dc48051b9659fb4f5ec7d097f75ef033.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 实战演练一下</span><br><span class="line"></span><br><span class="line">说起来就是一堆理论，我自己都记不住，找个例子演示一下:</span><br></pre></td></tr></table></figure></branch></p>
+<p>//创建一个文件夹，并初始化 Git<br>mkdir GitDemo<br>git init</p>
+<p>//初次提交，创建 master 分支<br>touch master.txt<br>git add.<br>git commit -m ‘添加master文件’</p>
+<p>//从master分支末尾，创建并切换 featureA 分支，并创建一个提交<br>git checkout -b featureA<br>touch A.txt<br>git add.<br>git commit -m ‘添加A文件’</p>
+<p>//从master分支末尾，创建并切换 featureB 分支，并创建一个提交<br>git checkout master<br>git checkout -b featureB<br>touch B.txt<br>git add.<br>git commit -m ‘添加B文件’</p>
+<p>//切换 master 分支<br>git checkout master</p>
+<p>//master 合并 featureA 分支<br>git merge featureA</p>
+<p>//master 合并featureA 后再合并 featureB 分支<br>git merge featureB</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">博主不想给你说话，并向你投掷了一大串命令，快去敲敲看啊，会看到两种合并模式的！</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">master 分支合并 featureA 时，是快进式合并：</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/43bf2b61c937e26dc9eb3c824ae35bc4.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">master 分支合并 featureA 后， 再合并 featureB  时，已经不满足快进式条件了，此时合并会触发一个三方合并，产生一个新的提交。所以，执行合并命令，会跳到下面的页面，让我们编辑这个新提交的提交信息，默认提交信息是“Merge branch &apos;branch name&apos;”. 按 `i `编辑提交信息, `:wq!`保存并退出页面。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/37aceb9e7535ffd8fb58f9a9c30eccb0.png)</span><br><span class="line"></span><br><span class="line">合并成功后的提示信息：</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/79a77b7ee3730d15c2f081aa2cb559a6.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">画出上面小例子的分支合并，示意图，如下：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![master 合并 featureA](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/ca195af0af9d30e162c4d9a3a96a68eb.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![master 合并 featureB](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/8197401e03adab46deb4c3b33566ced6.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 和平解决 Branch 合并冲突</span><br><span class="line"></span><br><span class="line">有人在的地方就有江湖，有分支在的地方，就有冲突。有时候合并操作不会如此顺利。 如果你在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git 就没法干净的合并它们，于是就会发生冲突。</span><br><span class="line"></span><br><span class="line">如下，分别在 master 和 featureA ，在 master.txt 文件第一行添加一句话，然后两个分支合并，就会发生冲突。</span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/75b4d6e9d33af945fd96e4e7a8ef1fe7.png)</span><br><span class="line"></span><br><span class="line">冲突提示信息中，指明冲突文件为 master.txt。同时，也可以通过 `git status` 命令，查看冲突的详细信息</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/cfb0429b5ff5b85998abc8dc509412fa.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">需要说明的是，如果遇到冲突的话，git 就无法自动合并了，接下来要靠我们自己手动解决冲突，方法是：</span><br><span class="line">1. 查看造成冲突的文件，修改冲突部分</span><br><span class="line">2. 对修改后冲突文件，执行 `git add `操作</span><br><span class="line">3. 创建一个修改冲突的提交。</span><br><span class="line"></span><br><span class="line">先知道一下思路，有个简单的概念在脑子里，接下来，一步一步仔细看～</span><br><span class="line"></span><br><span class="line">#### 第一步：查看造成冲突的文件，修改冲突部分</span><br><span class="line"></span><br><span class="line">冲突文件 master.txt 如下，git 虽然无法解决冲突， 但是已经帮我们帮到最后了，使用简单的三个符号，标明了冲突的地方，以及冲突的两个分支在该地方发生冲突内容。</span><br><span class="line"></span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/9a217024b190f163bf51dc70475c7a6e.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">|符号|意义|</span><br><span class="line">|--|--|</span><br><span class="line">|=======|分隔符|</span><br><span class="line">|&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD 至 =======  |master 分支中该地方的内容|</span><br><span class="line">|======= 至 &gt;&gt;&gt;&gt;&gt;&gt;&gt; featureA| featureA 分支中该地方为内容|</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">接下来编辑 master.txt  文件,完成合并，确认之后，把 git 冲突标识符号给删除掉即可。</span><br><span class="line"></span><br><span class="line">#### 第二步 &amp; 第三步：修改后冲突文件，add &amp;&amp;  commit</span><br><span class="line">![](http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/5b9ee07c5dbcc1fb3d637bbdee9b047a.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 分支回滚， 有后悔路可以走</span><br><span class="line"></span><br><span class="line">现实中，难免有些时候，你会有后悔的念头。例如每天我迟到的时候，都会后悔为什么第一遍闹钟响的时候没有起床，但是这个世界，没有后悔路可以走，我只能努力做到明天早起。</span><br><span class="line"></span><br><span class="line">但是，Git 中有！因为神奇的 reset 和 revert 命令～，两个命令都可以达到回滚的效果，两者之间的区别以后会专门说，这里我们使用 reset 。</span><br><span class="line"></span><br><span class="line">**提前声明：回滚之前，不要忘记做好备份，有备无患呐。**</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 本地分支回滚：</span><br><span class="line"></span><br><span class="line">确定回滚到哪个提交，找到该提交的 commit id,执行以下命令，就好了</span><br></pre></td></tr></table></figure>
+<p>git reset –hard commit id<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 远程分支回滚</span><br><span class="line"></span><br><span class="line">依旧是个伪命题。远程分支不存在什么回滚，要想达到回滚的效果，就是删除之前的远程分支，然后把本地回滚好的本地分支，push 到远程。</span><br></pre></td></tr></table></figure></p>
+<p>git reset –hard commit id //本地分支回滚<br>git push origin :<name> //删除远程分支<br>git push origin <name> //用回滚后的本地分支重新建立远程分支<br>```</name></name></p>
+<h1 id="我习惯每篇博客都有个结束语"><a href="#我习惯每篇博客都有个结束语" class="headerlink" title="我习惯每篇博客都有个结束语"></a>我习惯每篇博客都有个结束语</h1><p>这篇博客用了我不少洪荒之力，希望对大家理解 Git 分支有所帮助，不对之处还请指出。<br>最近 Git 系列走起，下篇博客见！</p>
+<hr>
+<p>刚刚开通了个人微信公众号，最新的博客，好玩的事情，都会在上面分享，欢迎关注，让我们一起学习和成长。</p>
+<div align="center"><br><br><img src="http://raw.githubusercontent.com/DRPrincess/BlogImages/master/qiniu/qrcode_for_gh_e8f891ce77fb_258.jpg" alt="微信公众号"><br><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/16/一套流程认知Git常用命令/" rel="next" title="一套流程认知Git常用命令">
+                <i class="fa fa-chevron-left"></i> 一套流程认知Git常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/30/Git-解释“Swap-file.MERGE_MSG.swp-already-exists”的问题/" rel="prev" title="Git-解释“Swap file .MERGE_MSG.swp already exists”的问题">
+                Git-解释“Swap file .MERGE_MSG.swp already exists”的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DRPrincess</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我习惯每篇博客都有个开篇"><span class="nav-number">1.</span> <span class="nav-text">我习惯每篇博客都有个开篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Branch-的概念"><span class="nav-number">2.</span> <span class="nav-text">Branch 的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#玩转-Branch-必备技能"><span class="nav-number">3.</span> <span class="nav-text">玩转 Branch 必备技能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">3.0.1.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">3.0.2.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">3.0.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重命名分支"><span class="nav-number">3.0.4.</span> <span class="nav-text">重命名分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检出分支"><span class="nav-number">3.0.5.</span> <span class="nav-text">检出分支</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#我习惯每篇博客都有个结束语"><span class="nav-number">4.</span> <span class="nav-text">我习惯每篇博客都有个结束语</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DRPrincess</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
